@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Header
 import Header from './components/header';
+import Footer from './components/footer';
 
 // Public Pages
 import HomePage from './pages/public/HomePage';
@@ -43,6 +44,7 @@ function App() {
                         <Route path="/retailer/inventory" element={<RetailerInventory />} />
                     </Routes>
                 </main>
+                <Footer />
             </div>
         </Router>
     );
