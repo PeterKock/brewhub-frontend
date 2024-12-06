@@ -13,7 +13,7 @@
         4.3 Brandname
         4.4 Menu
     5. Main
-        5.1 content
+        5.1 Content
         5.2 Features
         5.3 Recipes
     6. Footer
@@ -31,6 +31,7 @@
   --secondary-bg-color: #2c3e50;
   --accent-color: #3498db;
   --accent-hover-color: #2980b9;
+  --card-color: #ffffff;
 
   /* Layout */
   --max-width-value: 1920px;
@@ -47,6 +48,32 @@
   --card-shadow-value: 0 2px 4px rgba(0, 0, 0, 0.1);
   --transition-default-value: 0.3s ease;
 }
+
+/* ------------------------------- 2. Typography ----------------------------------- */
+
+h1 {
+  color: var(--primary-text-color);
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+h2 {
+  color: var(--primary-text-color);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+p {
+  color: var(--secondary-bg-color);
+  font-size: 0.8rem;
+}
+
+/* ------------------------------- 3. Layout --------------------------------------- */
+
+/* --------------- 3.1 Reusable ----------------------- */
+
+/* --------------- 3.2 Other --------------------------- */
 
 /* ------------------------------- 4. Header -------------------------------- */
 
@@ -146,4 +173,120 @@
 
 .login-link:hover {
   color: var(--accent-color);
+}
+
+/* ------------------------------- 5. main -------------------------------- */
+
+/* --------------- 5.1 Content ------------------- */
+
+.main-content {
+  flex: 1;
+  max-width: var(--max-width-value);
+  margin: 0 auto;
+  width: 100%;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+  text-align: center;
+}
+
+/* ----------------5.2 Features -------------------------- */
+
+.features {
+  padding: var(--spacing-xl) 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  max-width: var(--max-width-value);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.feature-card {
+  background: var(--card-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+  text-align: center;
+  transition: transform var(--transition-default-value);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  color: var(--secondary-bg-color);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.5rem;
+}
+
+.feature-button {
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: var(--spacing-md);
+  transition: background-color var(--transition-default-value);
+}
+
+.feature-button:hover {
+  background-color: var(--accent-color);
+}
+
+/* ----------------5.3 Recipes -------------------------- */
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  max-width: var(--max-width-value);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.recipe-card {
+  background: var(--card-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+  text-align: center;
+  transition: transform var(--transition-default-value);
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+}
+
+.recipe-card h3 {
+  color: var(--secondary-bg-color);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.5rem;
+}
+
+.difficulty {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-top: var(--spacing-md);
+}
+
+.difficulty-beginner {
+  background-color: #a8e6cf;
+  color: #2d6a4f;
+}
+
+.difficulty-intermediate {
+  background-color: #ffd3b6;
+  color: #a04000;
+}
+
+.difficulty-advanced {
+  background-color: #ffaaa5;
+  color: #8b0000;
 }
