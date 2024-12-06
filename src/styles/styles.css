@@ -1,42 +1,120 @@
-#root {
-  max-width: 1280px;
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
+
+/*////////////////////////
+    Table of Contents
+    1. Global Styles
+    2. Typography
+    3. Layout
+        3.1 Reusable
+        3.2 Other
+    4. Header
+        4.1 Header Styles
+        4.2 Logo
+        4.3 Brandname
+        4.4 Menu
+    5. Main
+        5.1 content
+        5.2 Features
+        5.3 Recipes
+    6. Footer
+    7. Login Page
+    8. Media Queries
+////////////////////////*/
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
+
+:root {
+  /* Colors */
+  --primary-text-color: #ffffff;
+  --secondary-text-color: #7f8c8d;
+  --primary-bg-color: #242424;
+  --secondary-bg-color: #2c3e50;
+  --accent-color: #3498db;
+  --accent-hover-color: #2980b9;
+
+  /* Layout */
+  --max-width-value: 1920px;
+
+  /* Spacing */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+  --spacing-xxl: 8rem;
+
+  /* Other */
+  --border-radius-value: 8px;
+  --card-shadow-value: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --transition-default-value: 0.3s ease;
+}
+
+/* ------------------------------- 4. Header -------------------------------- */
+
+/* --------------- 4.1 Header Styles ------------------- */
+
+.header {
+  width: 100%;
+  background-color: var(--primary-bg-color);
+  padding: var(--spacing-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  max-width: var(--max-width-value);
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* --------------- 4.2 Logo ------------------- */
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  transition: opacity var(--transition-default-value);
+}
+
+.logo-container:hover {
+  opacity: 0.8;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  height: 60px;
+  width: auto;
+  cursor: pointer;
+  transition: transform var(--transition-default-value);
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  transform: scale(1.15);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* --------------- 4.3 Brandname ------------------------- */
+
+.brand-name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 4rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* --------------- 4.4 Menu ------------------------- */
+
+.brand-name {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 2rem;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+/* Menu Container */
+.menu-container {
+  position: relative;
 }
