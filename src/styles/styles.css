@@ -246,7 +246,7 @@ p {
   gap: var(--spacing-lg);
   max-width: var(--max-width-value);
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-lg);
 }
 
 .recipe-card {
@@ -296,9 +296,9 @@ p {
 .footer {
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
-  padding: var(--spacing-lg) var(--spacing-md);
   margin-top: auto;
   width: 100%;
+  border-top: 1px solid var(--secondary-bg-color);
 }
 
 .footer-content {
@@ -309,7 +309,6 @@ p {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0;
   padding-bottom: var(--spacing-lg);
-  border-top: 1px solid var(--secondary-bg-color);
 }
 
 .footer-section {
