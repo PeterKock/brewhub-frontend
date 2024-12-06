@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 
 // Public Pages
+import HomePage from './pages/public/HomePage';
 import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 
@@ -23,9 +24,11 @@ function App() {
         <Router>
             <div className="app">
                 <Header />
+                <HomePage />
                 <main className="main-content">
                     <Routes>
                         {/* Public Routes */}
+                        <Route path="/home" element={<HomePage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
 

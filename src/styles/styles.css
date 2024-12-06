@@ -106,15 +106,44 @@
 
 /* --------------- 4.4 Menu ------------------------- */
 
-.brand-name {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  font-size: 2rem;
+.hamburger-button {
+  background: none;
+  border: none;
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-/* Menu Container */
-.menu-container {
-  position: relative;
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background-color: var(--primary-text-color);
+  transition: var(--transition-default-value);
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--secondary-bg-color);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  display: none;
+  box-shadow: var(--card-shadow-value);
+}
+
+.menu-dropdown.open {
+  display: block;
+}
+
+.login-link {
+  color: var(--primary-text-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  color: var(--accent-color);
 }

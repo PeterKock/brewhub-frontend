@@ -25,7 +25,7 @@ const Header = () => {
                     </button>
 
                     <div className={`menu-dropdown ${isMenuOpen ? 'open' : ''}`}>
-                        <Link to="/loginpage" className="login-link">Login</Link>
+                        <Link to="/login" className="login-link">Login</Link>
                     </div>
                 </div>
             </div>
