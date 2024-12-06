@@ -8,6 +8,7 @@ import Footer from './components/footer';
 import HomePage from './pages/public/HomePage';
 import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
+import AboutUsPage from './pages/public/aboutuspage';
 
 // Customer Pages
 import CustomerDashboard from './pages/customer/dashboard';
@@ -31,6 +32,7 @@ function App() {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/aboutus" element={<AboutUsPage />} />
 
                         {/* Customer Routes */}
                         <Route path="/customer/dashboard" element={<CustomerDashboard />} />
