@@ -182,11 +182,15 @@ p {
 .main-content {
   flex: 1;
   max-width: var(--max-width-value);
-  margin: 0 auto;
   width: 100%;
-  padding-left: var(--spacing-md);
-  padding-right: var(--spacing-md);
+  padding: 0 var(--spacing-md);
   text-align: center;
+  margin: 0 auto var(--spacing-xl);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
 }
 
 /* ----------------5.2 Features -------------------------- */
@@ -196,8 +200,9 @@ p {
 }
 
 .features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-lg);
   max-width: var(--max-width-value);
   margin: 0 auto;
@@ -205,6 +210,9 @@ p {
 }
 
 .feature-card {
+  flex: 1;
+  min-width: 300px; /* Ensures cards don't get too narrow */
+  max-width: calc(33.333% - var(--spacing-lg)); /* Maintains 3 columns with gap */
   background: var(--card-color);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-value);
@@ -241,15 +249,19 @@ p {
 /* ----------------5.3 Recipes -------------------------- */
 
 .recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-lg);
   max-width: var(--max-width-value);
   margin: 0 auto;
-  padding: var(--spacing-lg) var(--spacing-lg);
+  padding: 0 var(--spacing-lg);
 }
 
 .recipe-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: calc(33.333% - var(--spacing-lg));
   background: var(--card-color);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-value);
@@ -296,24 +308,31 @@ p {
 .footer {
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
-  margin-top: auto;
-  width: 100%;
   border-top: 1px solid var(--secondary-bg-color);
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  text-align: left;
+  padding-top: 0;
 }
 
 .footer-content {
   max-width: var(--max-width-value);
   margin: 0 auto;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0;
-  padding-bottom: var(--spacing-lg);
+  display: flex;
+  justify-content: flex-start;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-lg);
+  align-items: flex-start;
 }
 
 .footer-section {
-  padding: var(--spacing-lg) 0 0 0;
-  margin-left: var(--spacing-xl);
+  flex: 1;
+}
+
+.footer-section + .footer-section {
+  margin-left: var(--spacing-lg);
 }
 
 .footer-section h4 {
@@ -343,6 +362,11 @@ p {
   color: var(--secondary-text-color);
 }
 
+.footer-bottom p {
+  margin-top: var(--spacing-md);
+  color: var(--secondary-text-color);
+}
+
 .social-links a {
   color: var(--secondary-text-color);
   text-decoration: none;
@@ -358,14 +382,5 @@ p {
   color: var(--accent-color);
 }
 
-.footer-bottom {
-  text-align: center;
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--secondary-bg-color);
-}
 
-.footer-bottom p {
-  color: var(--secondary-text-color);
-  font-size: 0.9rem;
-  margin: 0;
-}
+

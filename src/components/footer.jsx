@@ -27,10 +27,10 @@ const Footer = () => {
                         <a href="#" aria-label="Twitter">TW</a>
                         <a href="#" aria-label="Instagram">IG</a>
                     </div>
+                    <div className="footer-bottom">
+                        <p>&copy; {currentYear} Brew Hub. All rights reserved.</p>
+                    </div>
                 </div>
-            </div>
-            <div className="footer-bottom">
-                <p>&copy; {currentYear} Brew Hub. All rights reserved.</p>
             </div>
         </footer>
     );

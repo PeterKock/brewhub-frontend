@@ -18,7 +18,7 @@ export default function HomePage() {
     return (
         <Layout>
             <section className="features">
-                <h2>Start Brewing</h2>
+                <h2 className="section-title">Start Brewing</h2>
                 <div className="features-grid">
                     <div className="feature-card">
                         <h3>Brewing Guide</h3>
@@ -47,7 +47,7 @@ export default function HomePage() {
             </section>
 
             <section className="latest-recipes">
-                <h2>Latest Recipes</h2>
+                <h2 className="section-title">Latest Recipes</h2>
                 <div className="recipe-grid">
                     <div className="recipe-card">
                         <h3>IPA Classic</h3>
