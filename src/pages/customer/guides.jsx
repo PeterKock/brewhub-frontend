@@ -1,7 +1,7 @@
 export default function CustomerGuides() {
     return (
         <div className="page guides">
-            <h1>Guides</h1>
+            <h2>Guides</h2>
         </div>
     );
 }

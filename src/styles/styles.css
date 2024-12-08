@@ -11,6 +11,7 @@
         4.1 Header Styles
         4.2 Logo
         4.3 Brandname
+        4.4 Login
         4.4 Menu
     5. Main
         5.1 Content
@@ -33,10 +34,18 @@
   --accent-hover-color: #2980b9;
   --card-color: #ffffff;
 
+  /* Font Size */
+  --p-font-size: 0.8rem;
+  --h1-font-size: 3rem;
+  --h2-font-size: 2.5rem;
+  --h3-font-size: 1.5rem;
+  --h4-font-size: 1.2rem;
+
   /* Layout */
   --max-width-value: 1920px;
 
   /* Spacing */
+  --spacing-xsm: 0.3rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 2rem;
@@ -53,20 +62,20 @@
 
 h1 {
   color: var(--primary-text-color);
-  font-size: 3rem;
+  font-size: var(--h1-font-size);
   margin-bottom: var(--spacing-md);
 }
 
 h2 {
   color: var(--primary-text-color);
-  font-size: 2.5rem;
+  font-size: var(--h2-font-size);
   text-align: center;
   margin-bottom: var(--spacing-xl);
 }
 
 p {
   color: var(--secondary-bg-color);
-  font-size: 0.8rem;
+  font-size: var(--p-font-size);
 }
 
 /* ------------------------------- 3. Layout --------------------------------------- */
@@ -126,12 +135,34 @@ p {
 .brand-name {
   position: absolute;
   left: 50%;
+  top: 0;
   transform: translateX(-50%);
   margin: 0;
-  font-size: 4rem;
+  font-size: var(--h1-font-size);
 }
 
-/* --------------- 4.4 Menu ------------------------- */
+/* --------------- 4.4 Login ------------------------- */
+
+.login-link {
+  color: var(--primary-text-color);
+  font-size: var(--h4-font-size);
+  text-decoration: none;
+  font-weight: 500;
+  order: 1;
+}
+
+.login-link:hover {
+  color: var(--accent-color);
+}
+
+/* --------------- 4.5 Menu ------------------------- */
+
+.menu-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-direction: row;
+}
 
 .hamburger-button {
   background: none;
@@ -141,11 +172,12 @@ p {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  order: 2;
 }
 
 .hamburger-line {
   width: 24px;
-  height: 2px;
+  height: 3px;
   background-color: var(--primary-text-color);
   transition: var(--transition-default-value);
 }
@@ -159,20 +191,29 @@ p {
   border-radius: var(--border-radius-value);
   display: none;
   box-shadow: var(--card-shadow-value);
+  flex-direction: column;
+  gap: var(--spacing-xsm);
+  z-index: 1000;
+}
+
+.menu-dropdown a {
+  color: var(--primary-text-color);
+  text-decoration: none;
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  transition: color var(--transition-default-value);
+}
+
+.menu-dropdown a:hover {
+  color: var(--accent-color);
 }
 
 .menu-dropdown.open {
-  display: block;
+  display: flex;
 }
 
-.login-link {
-  color: var(--primary-text-color);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.login-link:hover {
-  color: var(--accent-color);
+.hamburger-button:hover .hamburger-line {
+  background-color: var(--accent-color);
 }
 
 /* ------------------------------- 5. main -------------------------------- */
@@ -228,7 +269,7 @@ p {
 .feature-card h3 {
   color: var(--secondary-bg-color);
   margin-bottom: var(--spacing-md);
-  font-size: 1.5rem;
+  font-size: var(--h3-font-size);
 }
 
 .feature-button {
@@ -277,7 +318,7 @@ p {
 .recipe-card h3 {
   color: var(--secondary-bg-color);
   margin-bottom: var(--spacing-md);
-  font-size: 1.5rem;
+  font-size: var(--h3-font-size);
 }
 
 .difficulty {
@@ -337,9 +378,9 @@ p {
 }
 
 .footer-section h4 {
-  color: var(--primary-text-color);
-  font-size: 1.2rem;
   margin-bottom: var(--spacing-md);
+  color: var(--primary-text-color);
+  font-size: var(--h4-font-size);
   text-align: center;
 }
 
