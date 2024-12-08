@@ -312,13 +312,8 @@ p {
   position: sticky;
   bottom: 0;
   width: 100%;
-<<<<<<< HEAD
   padding-top: 0;
-  text-align: center;
-=======
-  text-align: left;
-  padding-top: 0;
->>>>>>> 761e6a2c8279b55c7c3f59c55b117882342c0c98
+  text-align: center
 }
 
 .footer-content {
@@ -326,29 +321,19 @@ p {
   margin: 0 auto;
   width: 100%;
   display: flex;
-<<<<<<< HEAD
   justify-content: center;
   align-items: center;
   padding: var(--spacing-lg);
   gap: var(--spacing-lg);
-=======
-  justify-content: flex-start;
-  padding: var(--spacing-lg);
-  gap: var(--spacing-lg);
-  align-items: flex-start;
->>>>>>> 761e6a2c8279b55c7c3f59c55b117882342c0c98
 }
 
 .footer-section {
   flex: 1;
-<<<<<<< HEAD
   text-align: center;
-=======
 }
 
 .footer-section + .footer-section {
   margin-left: var(--spacing-lg);
->>>>>>> 761e6a2c8279b55c7c3f59c55b117882342c0c98
 }
 
 .footer-section h4 {
