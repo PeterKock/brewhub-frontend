@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Header
 import Header from './components/header';
@@ -21,29 +22,103 @@ import CustomerGuides from './pages/customer/guides';
 import RetailerDashboard from './pages/retailer/dashboard';
 import RetailerInventory from './pages/retailer/inventory';
 
+// Protected Route Component
+const ProtectedRoute = ({ children, isAuthenticated }) => {
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+    return children;
+};
+
 function App() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const isAuth = localStorage.getItem('isAuthenticated') === 'true';
+        setIsAuthenticated(isAuth);
+    }, []);
+
+    const handleLogin = async (formData) => {
+        try {
+            // Here you would typically make an API call to your backend
+            // For now, we'll simulate a successful login
+            setIsAuthenticated(true);
+            localStorage.setItem('isAuthenticated', 'true');
+        } catch (error) {
+            console.error('Login failed:', error);
+            throw error;
+        }
+    };
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        localStorage.removeItem('isAuthenticated');
+    };
+
     return (
         <Router>
             <div className="app">
-                <Header />
+                <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
                 <main className="main-content">
                     <Routes>
                         {/* Public Routes */}
                         <Route path="/" element={<HomePage />} />
-                        <Route path="/login" element={<LoginPage />} />
+                        <Route
+                            path="/login"
+                            element={
+                                <LoginPage
+                                    onLogin={handleLogin}
+                                />
+                            }
+                        />
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/aboutus" element={<AboutUsPage />} />
 
-                        {/* Customer Routes */}
-                        <Route path="/customer/dashboard" element={<CustomerDashboard />} />
-                        <Route path="/customer/orders" element={<CustomerOrders />} />
-                        <Route path="/customer/favorites" element={<CustomerFavorites />} />
+                        {/* Protected Customer Routes */}
+                        <Route
+                            path="/customer/dashboard"
+                            element={
+                                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                    <CustomerDashboard />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/customer/orders"
+                            element={
+                                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                    <CustomerOrders />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/customer/favorites"
+                            element={
+                                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                    <CustomerFavorites />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route path="/customer/recipes" element={<CustomerRecipes />} />
                         <Route path="/customer/guides" element={<CustomerGuides />} />
 
-                        {/* Retailer Routes */}
-                        <Route path="/retailer/dashboard" element={<RetailerDashboard />} />
-                        <Route path="/retailer/inventory" element={<RetailerInventory />} />
+                        {/* Protected Retailer Routes */}
+                        <Route
+                            path="/retailer/dashboard"
+                            element={
+                                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                    <RetailerDashboard />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/retailer/inventory"
+                            element={
+                                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                    <RetailerInventory />
+                                </ProtectedRoute>
+                            }
+                        />
                     </Routes>
                 </main>
                 <Footer />

@@ -1,13 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import CustomerGuides from "../pages/customer/guides.jsx";
-import CustomerRecipes from "../pages/customer/recipes.jsx";
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+/*import CustomerGuides from "../pages/customer/guides.jsx";
+import CustomerRecipes from "../pages/customer/recipes.jsx";*/
 
-const Header = () => {
+const Header = ({ isAuthenticated, onLogout }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleLogout = () => {
+        onLogout();
+        navigate('/');
     };
 
     return (
@@ -18,11 +25,21 @@ const Header = () => {
                         <img src="src/assets/logo.png" alt="Logo" className="logo" />
                     </Link>
                 </div>
-                    <Link to="/">
-                        <h1 className="brand-name">Brew Hub</h1>
-                    </Link>
+                <Link to="/">
+                    <h1 className="brand-name">Brew Hub</h1>
+                </Link>
                 <div className="menu-container">
-                    <Link to="/login" className="login-link">Login</Link>
+                    {isAuthenticated ? (
+                        <button
+                            onClick={handleLogout}
+                            className="login-link"
+                            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                        >
+                            Logout
+                        </button>
+                    ) : (
+                        <Link to="/login" className="login-link">Login</Link>
+                    )}
                     <button className="hamburger-button" onClick={toggleMenu}>
                         <span className="hamburger-line"></span>
                         <span className="hamburger-line"></span>
@@ -38,6 +55,11 @@ const Header = () => {
             </div>
         </header>
     );
+};
+
+Header.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    onLogout: PropTypes.func.isRequired
 };
 
 export default Header;

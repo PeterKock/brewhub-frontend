@@ -39,9 +39,7 @@ export default function LoginPage({ onLogin }) {
         setError('');
 
         try {
-            // Here you would typically make an API call to your backend
             await onLogin(formData);
-            // Redirect to home page after successful login
             navigate('/');
         } catch (error) {
             setError('Login failed. Please check your credentials.');
