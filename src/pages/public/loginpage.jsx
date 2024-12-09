@@ -115,7 +115,7 @@ export default function LoginPage({ onLogin }) {
 
                     <div className="signup-link">
                         <span>Do you not have an account? </span>
-                        <a href="/signup">Sign up</a>
+                        <a href="/register">Sign up</a>
                     </div>
                 </form>
             </div>

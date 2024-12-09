@@ -263,13 +263,7 @@ a:hover {
   margin-bottom: var(--spacing-xl);
 }
 
-/* ----------------5.2 Features -------------------------- */
-
-.features {
-  padding: var(--spacing-xl) 0;
-}
-
-.features-grid {
+.base-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -279,10 +273,10 @@ a:hover {
   padding: 0 var(--spacing-lg);
 }
 
-.feature-card {
+.base-card {
   flex: 1;
-  min-width: 300px; /* Ensures cards don't get too narrow */
-  max-width: calc(33.333% - var(--spacing-lg)); /* Maintains 3 columns with gap */
+  min-width: 300px;
+  max-width: calc(33.333% - var(--spacing-lg));
   background: var(--card-color);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-value);
@@ -293,19 +287,25 @@ a:hover {
   flex-direction: column;
 }
 
-.feature-card:hover {
+.base-card:hover {
   transform: translateY(-5px);
 }
 
-.feature-card h3 {
+.base-card h3 {
   color: var(--secondary-bg-color);
   margin-bottom: var(--spacing-md);
   font-size: var(--h3-font-size);
 }
 
-.feature-card p {
+.base-card p {
   flex-grow: 1;
   margin: 0 0 var(--spacing-md) 0;
+}
+
+/* ----------------5.2 Features -------------------------- */
+
+.features {
+  padding: var(--spacing-xl) 0;
 }
 
 .feature-button {
@@ -325,45 +325,6 @@ a:hover {
 }
 
 /* ----------------5.3 Recipes -------------------------- */
-
-.recipe-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing-lg);
-  max-width: var(--max-width-value);
-  margin: 0 auto;
-  padding: 0 var(--spacing-lg);
-}
-
-.recipe-card {
-  flex: 1;
-  min-width: 300px;
-  max-width: calc(33.333% - var(--spacing-lg));
-  background: var(--card-color);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius-value);
-  box-shadow: var(--card-shadow-value);
-  text-align: center;
-  transition: transform var(--transition-default-value);
-  display: flex;
-  flex-direction: column;
-}
-
-.recipe-card:hover {
-  transform: translateY(-5px);
-}
-
-.recipe-card h3 {
-  color: var(--secondary-bg-color);
-  margin-bottom: var(--spacing-md);
-  font-size: var(--h3-font-size);
-}
-
-.recipe-card p {
-  flex-grow: 1;
-  margin: 0 0 var(--spacing-md) 0;
-}
 
 .difficulty {
   display: inline-block;
@@ -520,6 +481,40 @@ a:hover {
   text-align: center;
 }
 
+/* ------------------------------- 6. Login Page -------------------------------- */
+
+/* Form Select Styles */
+.form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--primary-text-color);
+  border-radius: 4px;
+  background-color: #34495e;
+  color: var(--primary-text-color);
+  transition: border-color var(--transition-default-value);
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.form-group select option {
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+}
+
+/* Terms and Conditions Link */
+.remember-me a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-default-value);
+}
+
+.remember-me a:hover {
+  color: var(--accent-hover-color);
+}
 
 /* --------------------------------- 7. Footer -------------------------------------- */
 
