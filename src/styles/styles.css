@@ -353,7 +353,7 @@ a:hover {
 /* ------------------------------- 6. Login Page -------------------------------- */
 
 .login-page {
-  min-height: 65vh;
+  min-height: 55vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -481,9 +481,16 @@ a:hover {
   text-align: center;
 }
 
-/* ------------------------------- 6. Login Page -------------------------------- */
+/* ------------------------------- 7. Register -------------------------------- */
 
-/* Form Select Styles */
+.register-page {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
 .form-group select {
   width: 100%;
   padding: 0.8rem;
@@ -505,7 +512,6 @@ a:hover {
   color: var(--primary-text-color);
 }
 
-/* Terms and Conditions Link */
 .remember-me a {
   color: var(--accent-color);
   text-decoration: none;

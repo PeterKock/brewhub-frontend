@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-/*import CustomerGuides from "../pages/customer/guides.jsx";
-import CustomerRecipes from "../pages/customer/recipes.jsx";*/
 
 const Header = ({ isAuthenticated, onLogout }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +15,10 @@ const Header = ({ isAuthenticated, onLogout }) => {
         navigate('/');
     };
 
+    const handleMenuItemClick = () => {
+        setIsMenuOpen(false);
+    };
+
     return (
         <header className="header">
             <div className="header-content">
@@ -28,7 +30,7 @@ const Header = ({ isAuthenticated, onLogout }) => {
                 <Link to="/">
                     <h1 className="brand-name">Brew Hub</h1>
                 </Link>
-                <div className="menu-container">
+                <nav className="menu-container" role="navigation">
                     {isAuthenticated ? (
                         <button
                             onClick={handleLogout}
@@ -47,11 +49,11 @@ const Header = ({ isAuthenticated, onLogout }) => {
                     </button>
 
                     <div className={`menu-dropdown ${isMenuOpen ? 'open' : ''}`}>
-                        <Link to="/customer/recipes" className="CustomerRecipes">Recipes</Link>
-                        <Link to="/customer/guides" className="CustomerGuides">Guides</Link>
-                        <Link to="/community" className="community">Community</Link>
+                        <Link to="/customer/recipes" className="CustomerRecipes" onClick={handleMenuItemClick}>Recipes</Link>
+                        <Link to="/customer/guides" className="CustomerGuides" onClick={handleMenuItemClick}>Guides</Link>
+                        <Link to="/community" className="community" onClick={handleMenuItemClick}>Community</Link>
                     </div>
-                </div>
+                </nav>
             </div>
         </header>
     );

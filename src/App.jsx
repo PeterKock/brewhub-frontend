@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // Header
 import Header from './components/header';
@@ -30,6 +31,12 @@ const ProtectedRoute = ({ children, isAuthenticated }) => {
     return children;
 };
 
+// PropTypes for ProtectedRoute
+ProtectedRoute.propTypes = {
+    children: PropTypes.node.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
+};
+
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -38,10 +45,11 @@ function App() {
         setIsAuthenticated(isAuth);
     }, []);
 
-    const handleLogin = async (formData) => {
+    const handleLogin = async (credentials) => {
         try {
             // Here you would typically make an API call to your backend
-            // For now, we'll simulate a successful login
+            // For demonstration, we'll simulate a successful login
+            console.log('Processing login with credentials:', credentials);
             setIsAuthenticated(true);
             localStorage.setItem('isAuthenticated', 'true');
         } catch (error) {
@@ -53,6 +61,17 @@ function App() {
     const handleLogout = () => {
         setIsAuthenticated(false);
         localStorage.removeItem('isAuthenticated');
+    };
+
+    const handleRegister = async (registrationData) => {
+        try {
+            // Here you would typically make an API call to your backend
+            console.log('Processing registration:', registrationData);
+            // Add your registration logic here
+        } catch (error) {
+            console.error('Registration failed:', error);
+            throw error;
+        }
     };
 
     return (
@@ -71,7 +90,14 @@ function App() {
                                 />
                             }
                         />
-                        <Route path="/register" element={<RegisterPage />} />
+                        <Route
+                            path="/register"
+                            element={
+                                <RegisterPage
+                                    onRegister={handleRegister}
+                                />
+                            }
+                        />
                         <Route path="/aboutus" element={<AboutUsPage />} />
 
                         {/* Protected Customer Routes */}

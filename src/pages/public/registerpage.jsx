@@ -72,7 +72,7 @@ export default function RegisterPage({ onRegister }) {
     };
 
     return (
-        <div className="page login-page">
+        <div className="page register-page">
             <div className="login-box">
                 <div className="login-header">
                     <h2>Create Account</h2>
