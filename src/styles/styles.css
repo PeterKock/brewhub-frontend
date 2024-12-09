@@ -17,8 +17,8 @@
         5.1 Content
         5.2 Features
         5.3 Recipes
-    6. Footer
-    7. Login Page
+    6. Login Page
+    7. Footer
     8. Media Queries
 ////////////////////////*/
 
@@ -344,7 +344,133 @@ p {
   color: #8b0000;
 }
 
-/* --------------------------------- 6. Footer -------------------------------------- */
+/* ------------------------------- 6. Login Page -------------------------------- */
+
+.login-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-bg-color);
+  padding: var(--spacing-md);
+  padding-top: 7vh;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--secondary-bg-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+}
+
+.login-header h2 {
+  margin-bottom: var(--spacing-md);
+}
+
+.login-header p {
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  color: var(--primary-text-color);
+  text-align: left;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border: 1px solid var(--primary-text-color);
+  border-radius: 4px;
+  background-color: #34495e;
+  transition: border-color var(--transition-default-value);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xsm);
+}
+
+.remember-me input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.forgot-password {
+  color: var(--accent-color);
+  transition: color var(--transition-default-value);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--p-font-size);
+}
+
+.forgot-password:hover {
+  color: var(--accent-hover-color);
+}
+
+.login-button {
+  background-color: var(--accent-color);
+  color: var(--primary-text-color);
+  border: none;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  font-size: var(--p-font-size);
+  cursor: pointer;
+  transition: background-color var(--transition-default-value);
+}
+
+.login-button:hover {
+  background-color: var(--accent-hover-color);
+}
+
+.signup-link {
+  text-align: center;
+  font-size: var(--p-font-size);
+  color: var(--primary-text-color);
+}
+
+.signup-link a {
+  color: var(--accent-color);
+  text-decoration: none;
+  margin-left: var(--spacing-xsm);
+  transition: color var(--transition-default-value);
+}
+
+.signup-link a:hover {
+  color: var(--accent-hover-color);
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--p-font-size);
+  text-align: center;
+}
+
+
+/* --------------------------------- 7. Footer -------------------------------------- */
 
 .footer {
   background-color: var(--primary-bg-color);
@@ -428,6 +554,3 @@ p {
 .social-links a:hover {
   color: var(--accent-color);
 }
-
-
-

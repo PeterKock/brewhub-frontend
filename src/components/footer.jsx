@@ -16,7 +16,7 @@ const Footer = () => {
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="/recipes">Recipes</a></li>
-                        <li><a href="/guide">Brewing Guide</a></li>
+                        <li><a href="/guide">Guides</a></li>
                         <li><a href="/community">Community</a></li>
                     </ul>
                 </div>

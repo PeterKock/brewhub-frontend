@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import CustomerGuides from "../pages/customer/guides.jsx";
+import CustomerRecipes from "../pages/customer/recipes.jsx";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,8 +30,8 @@ const Header = () => {
                     </button>
 
                     <div className={`menu-dropdown ${isMenuOpen ? 'open' : ''}`}>
-                        <Link to="/recipes" className="recipes">Recipes</Link>
-                        <Link to="/guide" className="guide">Guides</Link>
+                        <Link to="/customer/recipes" className="CustomerRecipes">Recipes</Link>
+                        <Link to="/customer/guides" className="CustomerGuides">Guides</Link>
                         <Link to="/community" className="community">Community</Link>
                     </div>
                 </div>
