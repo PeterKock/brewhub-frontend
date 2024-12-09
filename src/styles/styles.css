@@ -56,6 +56,19 @@
   --border-radius-value: 8px;
   --card-shadow-value: 0 2px 4px rgba(0, 0, 0, 0.1);
   --transition-default-value: 0.3s ease;
+
+  /* Global Styling */
+  background-color: var(--primary-bg-color);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */
@@ -76,6 +89,16 @@ h2 {
 p {
   color: var(--secondary-bg-color);
   font-size: var(--p-font-size);
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
 }
 
 /* ------------------------------- 3. Layout --------------------------------------- */
@@ -394,6 +417,10 @@ p {
   gap: var(--spacing-sm);
 }
 
+.form-group label {
+  color: var(--primary-text-color);
+}
+
 .form-group input {
   padding: 0.8rem;
   border: 1px solid var(--primary-text-color);
@@ -411,6 +438,10 @@ p {
   display: flex;
   align-items: center;
   gap: var(--spacing-xsm);
+}
+
+.remember-me label {
+  color: var(--primary-text-color);
 }
 
 .remember-me input[type="checkbox"] {

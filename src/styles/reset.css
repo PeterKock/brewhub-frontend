@@ -14,12 +14,16 @@
 }
 
 /*
-  Typographic tweaks!
   3. Add accessible line-height
   4. Improve text rendering
+  5. Ensure full height layouts work properly
 */
+html {
+    scroll-behavior: smooth;
+    min-height: 100%;
+}
+
 body {
-    margin: 0;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
