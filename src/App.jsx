@@ -13,11 +13,12 @@ import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
 
 // Customer Pages
-import CustomerDashboard from './pages/customer/dashboard';
-import CustomerOrders from './pages/customer/orders';
-import CustomerFavorites from './pages/customer/favorites';
-import CustomerRecipes from './pages/customer/recipes';
-import CustomerGuides from './pages/customer/guides';
+import UserDashboard from './pages/user/dashboard';
+import UserOrders from './pages/user/orders';
+import UserFavorites from './pages/user/favorites';
+import UserRecipes from './pages/user/recipes';
+import UserGuides from './pages/user/guides';
+import UserCommunity from './pages/user/community.jsx';
 
 // Retailer Pages
 import RetailerDashboard from './pages/retailer/dashboard';
@@ -102,31 +103,39 @@ function App() {
 
                         {/* Protected Customer Routes */}
                         <Route
-                            path="/customer/dashboard"
+                            path="/user/dashboard"
                             element={
                                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <CustomerDashboard />
+                                    <UserDashboard />
                                 </ProtectedRoute>
                             }
                         />
                         <Route
-                            path="/customer/orders"
+                            path="/user/orders"
                             element={
                                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <CustomerOrders />
+                                    <UserOrders />
                                 </ProtectedRoute>
                             }
                         />
                         <Route
-                            path="/customer/favorites"
+                            path="/user/favorites"
                             element={
                                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <CustomerFavorites />
+                                    <UserFavorites />
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path="/customer/recipes" element={<CustomerRecipes />} />
-                        <Route path="/customer/guides" element={<CustomerGuides />} />
+                        <Route
+                            path="/user/community"
+                            element={
+                                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                    <UserCommunity />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route path="/user/recipes" element={<UserRecipes />} />
+                        <Route path="/user/guides" element={<UserGuides />} />
 
                         {/* Protected Retailer Routes */}
                         <Route

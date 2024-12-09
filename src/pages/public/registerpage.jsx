@@ -10,7 +10,7 @@ export default function RegisterPage({ onRegister }) {
         confirmPassword: '',
         firstName: '',
         lastName: '',
-        role: 'customer', // customer or retailer
+        role: 'user', // user or retailer
         acceptTerms: false
     });
     const [error, setError] = useState('');

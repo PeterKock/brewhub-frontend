@@ -24,7 +24,7 @@ const Header = ({ isAuthenticated, onLogout }) => {
             <div className="header-content">
                 <div className="logo-container">
                     <Link to="/">
-                        <img src="src/assets/logo.png" alt="Logo" className="logo" />
+                        <img src="/src/assets/logo.png" alt="Logo" className="logo" />
                     </Link>
                 </div>
                 <Link to="/">
@@ -49,9 +49,9 @@ const Header = ({ isAuthenticated, onLogout }) => {
                     </button>
 
                     <div className={`menu-dropdown ${isMenuOpen ? 'open' : ''}`}>
-                        <Link to="/customer/recipes" className="CustomerRecipes" onClick={handleMenuItemClick}>Recipes</Link>
-                        <Link to="/customer/guides" className="CustomerGuides" onClick={handleMenuItemClick}>Guides</Link>
-                        <Link to="/community" className="community" onClick={handleMenuItemClick}>Community</Link>
+                        <Link to="/user/recipes" className="UserRecipes" onClick={handleMenuItemClick}>Recipes</Link>
+                        <Link to="/user/guides" className="UserGuides" onClick={handleMenuItemClick}>Guides</Link>
+                        <Link to="/user/community" className="UserCommunity" onClick={handleMenuItemClick}>Community</Link>
                     </div>
                 </nav>
             </div>
