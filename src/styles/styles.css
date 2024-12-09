@@ -80,6 +80,12 @@ p {
 
 /* ------------------------------- 3. Layout --------------------------------------- */
 
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
 /* --------------- 3.1 Reusable ----------------------- */
 
 /* --------------- 3.2 Other --------------------------- */
@@ -221,7 +227,7 @@ p {
 /* --------------- 5.1 Content ------------------- */
 
 .main-content {
-  flex: 1;
+  flex: 1 0 auto;
   max-width: var(--max-width-value);
   width: 100%;
   padding: 0 var(--spacing-md);
@@ -473,14 +479,14 @@ p {
 /* --------------------------------- 7. Footer -------------------------------------- */
 
 .footer {
+  flex-shrink: 0;
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
   border-top: 1px solid var(--secondary-bg-color);
-  position: sticky;
-  bottom: 0;
   width: 100%;
-  padding-top: 0;
-  text-align: center
+  padding: var(--spacing-md) 0;
+  text-align: center;
+  margin-top: auto;
 }
 
 .footer-content {
@@ -488,15 +494,14 @@ p {
   margin: 0 auto;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: var(--spacing-lg);
   gap: var(--spacing-lg);
 }
 
 .footer-section {
   flex: 1;
-  text-align: center;
 }
 
 .footer-section + .footer-section {
@@ -504,7 +509,7 @@ p {
 }
 
 .footer-section h4 {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
   color: var(--primary-text-color);
   font-size: var(--h4-font-size);
   text-align: center;
@@ -535,13 +540,7 @@ p {
 }
 
 .footer-bottom p {
-  margin-top: var(--spacing-md);
-  color: var(--secondary-text-color);
-  text-align: center;
-}
-
-.footer-bottom p {
-  margin-top: var(--spacing-md);
+  margin-top: var(--spacing-sm);
   color: var(--secondary-text-color);
 }
 
