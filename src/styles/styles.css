@@ -121,7 +121,7 @@ a:hover {
   width: 100%;
   background-color: var(--primary-bg-color);
   padding: var(--spacing-md);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header-content {
@@ -289,6 +289,8 @@ a:hover {
   box-shadow: var(--card-shadow-value);
   text-align: center;
   transition: transform var(--transition-default-value);
+  display: flex;
+  flex-direction: column;
 }
 
 .feature-card:hover {
@@ -301,15 +303,21 @@ a:hover {
   font-size: var(--h3-font-size);
 }
 
+.feature-card p {
+  flex-grow: 1;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .feature-button {
   background-color: var(--secondary-bg-color);
   color: var(--primary-text-color);
   border: none;
-  padding: 0.8rem 1.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: var(--spacing-md);
   transition: background-color var(--transition-default-value);
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .feature-button:hover {
@@ -338,6 +346,8 @@ a:hover {
   box-shadow: var(--card-shadow-value);
   text-align: center;
   transition: transform var(--transition-default-value);
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-card:hover {
@@ -350,12 +360,18 @@ a:hover {
   font-size: var(--h3-font-size);
 }
 
+.recipe-card p {
+  flex-grow: 1;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .difficulty {
   display: inline-block;
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
-  margin-top: var(--spacing-md);
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .difficulty-beginner {
@@ -376,13 +392,11 @@ a:hover {
 /* ------------------------------- 6. Login Page -------------------------------- */
 
 .login-page {
-  min-height: 60vh;
+  min-height: 65vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary-bg-color);
   padding: var(--spacing-md);
-  padding-top: 7vh;
 }
 
 .login-box {
