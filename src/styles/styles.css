@@ -133,6 +133,7 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  height: 80px;
 }
 
 /* --------------- 4.2 Logo ------------------- */
@@ -166,13 +167,11 @@ a:hover {
 .brand-name {
   position: absolute;
   left: 50%;
-  top: 0;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   margin: 0;
   font-size: var(--h1-font-size);
   font-family: 'Berkshire Swash', cursive;
-  color: var(--primary-text-color);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* --------------- 4.4 Login ------------------------- */
@@ -198,6 +197,7 @@ a:hover {
   align-items: center;
   gap: var(--spacing-sm);
   flex-direction: row;
+  height: 100%;
 }
 
 .hamburger-button {
@@ -207,8 +207,11 @@ a:hover {
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 6px;
   order: 2;
+  height: 40px;
 }
 
 .hamburger-line {
