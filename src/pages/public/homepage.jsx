@@ -6,23 +6,43 @@ const HomePage = () => {
             title: 'Recipes',
             description: 'Explore our collection of craft beer recipes from beginners to advanced brewers',
             buttonText: 'View Recipes',
-            to: '/user/recipes'  // Updated to match footer path
+            to: '/user/recipes'
         },
         {
             title: 'Guides',
             description: 'Step-by-step instructions and tips for perfecting your brewing process',
             buttonText: 'View Guides',
-            to: '/user/guides'   // Updated to match footer path
+            to: '/user/guides'
         },
         {
             title: 'Community',
             description: 'Connect with fellow brewers, share experiences, and get advice',
             buttonText: 'Join Now',
-            to: '/user/community'  // Updated to match footer path
+            to: '/user/community'
         }
     ];
 
     const recipes = [
+        {
+            title: 'Bock Beer',
+            description: 'A strong, dark German beer',
+            difficulty: 'Intermediate'
+        },
+        {
+            title: 'Traditional Pilsener',
+            description: 'Fresh malt, fresh hops, correct population of yeast',
+            difficulty: 'Beginner'
+        },
+        {
+            title: 'Weizen',
+            description: 'A wheat beer of South German or Bavarian origin',
+            difficulty: 'Beginner'
+        },
+        {
+            title: 'Tripel',
+            description: 'A strong malty, hop bitter taste heavy top-fermented beer',
+            difficulty: 'Advanced'
+        },
         {
             title: 'IPA Classic',
             description: 'A perfectly balanced India Pale Ale with citrus notes',
@@ -55,7 +75,7 @@ const HomePage = () => {
             </section>
 
             <section className="latest-recipes">
-                <h2 className="section-title">Latest Recipes</h2>
+                <h2 className="section-title">Popular Recipes </h2>
                 <CardGrid>
                     {recipes.map((recipe, index) => (
                         <RecipeCard
