@@ -1,27 +1,24 @@
-import { useNavigate } from 'react-router-dom';
-import { FeatureCard, RecipeCard, CardGrid } from '/src/components/cards';
+import { FeatureCard, RecipeCard, CardGrid } from '../../components/cards';
 
 const HomePage = () => {
-    const navigate = useNavigate();
-
     const features = [
         {
             title: 'Recipes',
             description: 'Explore our collection of craft beer recipes from beginners to advanced brewers',
             buttonText: 'View Recipes',
-            onClick: () => navigate('/recipes')
+            to: '/user/recipes'  // Updated to match footer path
         },
         {
             title: 'Guides',
             description: 'Step-by-step instructions and tips for perfecting your brewing process',
             buttonText: 'View Guides',
-            onClick: () => navigate('/guides')
+            to: '/user/guides'   // Updated to match footer path
         },
         {
             title: 'Community',
             description: 'Connect with fellow brewers, share experiences, and get advice',
             buttonText: 'Join Now',
-            onClick: () => navigate('/community')
+            to: '/user/community'  // Updated to match footer path
         }
     ];
 

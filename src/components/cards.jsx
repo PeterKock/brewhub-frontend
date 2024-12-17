@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 
 // Feature Card Component
-export const FeatureCard = ({ title, description, buttonText, onClick }) => {
+export const FeatureCard = ({ title, description, buttonText, to }) => {
     return (
         <div className="base-card">
             <h3>{title}</h3>
             <p>{description}</p>
-            <button className="feature-button" onClick={onClick}>
+            <a href={to} className="feature-button">
                 {buttonText}
-            </button>
+            </a>
         </div>
     );
 };
@@ -17,7 +17,7 @@ FeatureCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     buttonText: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+    to: PropTypes.string.isRequired
 };
 
 // Recipe Card Component
