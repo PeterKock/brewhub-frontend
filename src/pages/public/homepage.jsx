@@ -1,73 +1,75 @@
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { FeatureCard, RecipeCard, CardGrid } from '/src/components/cards';
 
-// Separate Layout component
-const Layout = ({ children }) => (
-    <main className="main-content">
-        {children}
-    </main>
-);
-
-Layout.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
-export default function HomePage() {
+const HomePage = () => {
     const navigate = useNavigate();
 
+    const features = [
+        {
+            title: 'Recipes',
+            description: 'Explore our collection of craft beer recipes from beginners to advanced brewers',
+            buttonText: 'View Recipes',
+            onClick: () => navigate('/recipes')
+        },
+        {
+            title: 'Guides',
+            description: 'Step-by-step instructions and tips for perfecting your brewing process',
+            buttonText: 'View Guides',
+            onClick: () => navigate('/guides')
+        },
+        {
+            title: 'Community',
+            description: 'Connect with fellow brewers, share experiences, and get advice',
+            buttonText: 'Join Now',
+            onClick: () => navigate('/community')
+        }
+    ];
+
+    const recipes = [
+        {
+            title: 'IPA Classic',
+            description: 'A perfectly balanced India Pale Ale with citrus notes',
+            difficulty: 'Intermediate'
+        },
+        {
+            title: 'Summer Wheat',
+            description: 'Light and refreshing wheat beer perfect for warm days',
+            difficulty: 'Beginner'
+        },
+        {
+            title: 'Dark Stout',
+            description: 'Rich and creamy with coffee and chocolate notes',
+            difficulty: 'Advanced'
+        }
+    ];
+
     return (
-        <Layout>
+        <main className="main-content">
             <section className="features">
                 <h2 className="section-title">Start Brewing</h2>
-                <div className="base-grid">
-                    <div className="base-card">
-                        <h3>Brewing Guide</h3>
-                        <p>Explore our collection of craft beer recipes from beginners to advanced brewers</p>
-                        <button className="feature-button" onClick={() => navigate('/recipes')}>
-                            View Recipes
-                        </button>
-                    </div>
-
-                    <div className="base-card">
-                        <h3>Brewing Recipes</h3>
-                        <p>Step-by-step instructions and tips for perfecting your brewing process</p>
-                        <button className="feature-button" onClick={() => navigate('/guide')}>
-                            Learn More
-                        </button>
-                    </div>
-
-                    <div className="base-card">
-                        <h3>Community</h3>
-                        <p>Connect with fellow brewers, share experiences, and get advice</p>
-                        <button className="feature-button" onClick={() => navigate('/community')}>
-                            Join Now
-                        </button>
-                    </div>
-                </div>
+                <CardGrid>
+                    {features.map((feature, index) => (
+                        <FeatureCard
+                            key={index}
+                            {...feature}
+                        />
+                    ))}
+                </CardGrid>
             </section>
 
             <section className="latest-recipes">
                 <h2 className="section-title">Latest Recipes</h2>
-                <div className="base-grid">
-                    <div className="base-card">
-                        <h3>IPA Classic</h3>
-                        <p>A perfectly balanced India Pale Ale with citrus notes</p>
-                        <span className="difficulty difficulty-intermediate">Intermediate</span>
-                    </div>
-
-                    <div className="base-card">
-                        <h3>Summer Wheat</h3>
-                        <p>Light and refreshing wheat beer perfect for warm days</p>
-                        <span className="difficulty difficulty-beginner">Beginner</span>
-                    </div>
-
-                    <div className="base-card">
-                        <h3>Dark Stout</h3>
-                        <p>Rich and creamy with coffee and chocolate notes</p>
-                        <span className="difficulty difficulty-advanced">Advanced</span>
-                    </div>
-                </div>
+                <CardGrid>
+                    {recipes.map((recipe, index) => (
+                        <RecipeCard
+                            key={index}
+                            {...recipe}
+                        />
+                    ))}
+                </CardGrid>
             </section>
-        </Layout>
+        </main>
     );
-}
+};
+
+export default HomePage;
