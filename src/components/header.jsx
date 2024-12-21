@@ -37,10 +37,10 @@ const Header = ({ isAuthenticated, onLogout }) => {
                             className="login-link"
                             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                         >
-                            Logout
+                            Sign out
                         </button>
                     ) : (
-                        <Link to="/login" className="login-link">Login</Link>
+                        <Link to="/login" className="login-link">Sign in</Link>
                     )}
                     <button className="hamburger-button" onClick={toggleMenu}>
                         <span className="hamburger-line"></span>

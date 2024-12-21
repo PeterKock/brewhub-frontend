@@ -24,7 +24,7 @@ const HomePage = () => {
 
     const recipes = [
         {
-            title: 'Bock Beer',
+            title: 'Bock',
             description: 'A strong, dark German beer',
             difficulty: 'Intermediate'
         },
@@ -39,12 +39,12 @@ const HomePage = () => {
             difficulty: 'Beginner'
         },
         {
-            title: 'Tripel',
+            title: 'Triple',
             description: 'A strong malty, hop bitter taste heavy top-fermented beer',
             difficulty: 'Advanced'
         },
         {
-            title: 'IPA Classic',
+            title: 'IPA',
             description: 'A perfectly balanced India Pale Ale with citrus notes',
             difficulty: 'Intermediate'
         },

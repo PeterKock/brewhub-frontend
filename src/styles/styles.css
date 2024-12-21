@@ -279,18 +279,6 @@ a:hover {
   position: relative;
 }
 
-.section-title::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
-  background-color: var(--accent-color);
-  border-radius: 2px;
-}
-
 .base-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -387,6 +375,64 @@ a:hover {
 .difficulty-advanced {
   background-color: #ffaaa5;
   color: #8b0000;
+}
+
+/* Recipe Components Styles */
+.recipe-filters {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  justify-content: center;
+}
+
+.filter-select {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-value);
+  border: 1px solid var(--secondary-bg-color);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  cursor: pointer;
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.recipe-stats {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.recipe-stat {
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 20px;
+  font-size: var(--p-font-size);
+}
+
+.recipe-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.recipe-section h4 {
+  color: var(--secondary-bg-color);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--h4-font-size);
+}
+
+.recipe-list {
+  list-style-position: inside;
+  color: var(--secondary-bg-color);
+}
+
+.recipe-list li {
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.4;
 }
 
 /* ------------------------------- 6. Login Page -------------------------------- */
