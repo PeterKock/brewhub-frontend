@@ -29,7 +29,7 @@ const HomePage = () => {
             difficulty: 'Intermediate'
         },
         {
-            title: 'Traditional Pilsener',
+            title: 'Pilsener',
             description: 'Fresh malt, fresh hops, correct population of yeast',
             difficulty: 'Beginner'
         },

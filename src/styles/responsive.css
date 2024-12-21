@@ -23,3 +23,18 @@
         max-width: 100%;
     }
 }
+
+@media (max-width: 768px) {
+    .recipe-content {
+        grid-template-columns: 1fr;
+    }
+
+    .recipe-stats {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recipe-stat {
+        margin-bottom: var(--spacing-sm);
+    }
+}
