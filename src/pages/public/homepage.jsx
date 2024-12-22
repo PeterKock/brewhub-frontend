@@ -1,4 +1,5 @@
 import { FeatureCard, RecipeCard, CardGrid } from '../../components/cards';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
     const features = [
@@ -57,7 +58,7 @@ const HomePage = () => {
             title: 'Dark Stout',
             description: 'Rich and creamy with coffee and chocolate notes',
             difficulty: 'Advanced'
-        }
+        },
     ];
 
     return (
@@ -75,15 +76,21 @@ const HomePage = () => {
             </section>
 
             <section className="latest-recipes">
-                <h2 className="section-title">Popular Recipes </h2>
-                <CardGrid>
+                <h2 className="section-title">Popular Recipes</h2>
+                <div className="base-grid">
                     {recipes.map((recipe, index) => (
-                        <RecipeCard
+                        <Link
                             key={index}
-                            {...recipe}
-                        />
+                            to={`/user/recipes`}
+                            className="recipe-card-container"
+                            state={{ searchTerm: recipe.title }}
+                        >
+                            <RecipeCard
+                                {...recipe}
+                            />
+                        </Link>
                     ))}
-                </CardGrid>
+                </div>
             </section>
         </main>
     );
