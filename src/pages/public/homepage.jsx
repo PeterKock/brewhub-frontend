@@ -63,7 +63,7 @@ const HomePage = () => {
 
     return (
         <main className="main-content">
-            <section className="features">
+            <section className="main-section">
                 <h2 className="section-title">Start Brewing</h2>
                 <CardGrid>
                     {features.map((feature, index) => (
