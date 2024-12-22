@@ -97,7 +97,7 @@ const UserGuides = () => {
     return (
         <main className="main-content">
             <section className="main-section">
-                <h2 className="section-title">Brewing Guides</h2>
+                <h2 className="section-title"></h2>
 
                 <div className="recipes-container">
                     <div className="recipe-filters">
