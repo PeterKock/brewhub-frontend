@@ -1,31 +1,46 @@
+/* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Spectral+SC:wght@500&family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
 
-/*////////////////////////
+/*///////////////////////////////////
     Table of Contents
     1. Global Styles
+        1.1 Root Variables
+        1.2 Base Elements
     2. Typography
     3. Layout
-        3.1 Reusable
-        3.2 Other
-    4. Header
-        4.1 Header Styles
-        4.2 Logo
-        4.3 Brandname
-        4.4 Login
-        4.4 Menu
-    5. Main
-        5.1 Content
-        5.2 Features
-        5.3 Recipes
-    6. Login Page
-    7. Footer
-    8. Media Queries
-////////////////////////*/
+        3.1 App Structure
+        3.2 Grid System
+    4. Components
+        4.1 Cards
+        4.2 Buttons
+        4.3 Forms
+        4.4 Lists
+    5. Header
+        5.1 Header Layout
+        5.2 Logo
+        5.3 Brand Name
+        5.4 Navigation
+        5.5 Menu
+    6. Main Content
+        6.1 Sections
+        6.2 Recipe Components
+        6.3 Recipe Details
+    7. Pages
+        7.1 Login Page
+        7.2 Register Page
+    8. Footer
+        8.1 Footer Layout
+        8.2 Footer Sections
+        8.3 Social Links
+    9. Utilities
+        9.1 Difficulty Indicators
+        9.2 Search Components
+//////////////////////////////////*/
 
 /* ------------------------------- 1. Global Styles -------------------------------- */
-
+/* --------------- 1.1 Root Variables ------------------- */
 :root {
   /* Colors */
   --primary-text-color: #ffffff;
@@ -35,7 +50,7 @@
   --accent-color: #3498db;
   --accent-hover-color: #2980b9;
   --card-color: #ffffff;
-  
+
   /* Font Size */
   --p-font-size: 0.8rem;
   --h1-font-size: 3rem;
@@ -68,13 +83,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* --------------- 1.2 Base Elements ------------------- */
 body {
   display: flex;
   flex-direction: column;
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */
-
 h1 {
   color: var(--primary-text-color);
   font-size: var(--h1-font-size);
@@ -104,15 +119,14 @@ a:hover {
 }
 
 /* ------------------------------- 3. Layout --------------------------------------- */
-
+/* --------------- 3.1 App Structure ------------------- */
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Full viewport height */
+  min-height: 100vh;
 }
 
-/* --------------- 3.1 Reusable ----------------------- */
-
+/* --------------- 3.2 Grid System ------------------- */
 .base-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -122,7 +136,6 @@ a:hover {
   padding: 0 var(--spacing-lg);
 }
 
-/* Only apply centering when there are 6 or less items */
 .base-grid:not(:has(*:nth-child(7))) > *:last-child:nth-child(3n - 2) {
   grid-column: 2;
 }
@@ -137,12 +150,126 @@ a:hover {
   display: none;
 }
 
-/* --------------- 3.2 Other --------------------------- */
+/* ------------------------------- 4. Components ----------------------------------- */
+/* --------------- 4.1 Cards ------------------- */
+.base-card {
+  background: var(--card-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+  text-align: center;
+  transition: transform var(--transition-default-value);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-/* ------------------------------- 4. Header -------------------------------- */
+.base-card:hover {
+  transform: translateY(-5px);
+}
 
-/* --------------- 4.1 Header Styles ------------------- */
+.base-card h3 {
+  color: var(--secondary-bg-color);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--h3-font-size);
+}
 
+.base-card p {
+  margin: 0 0 var(--spacing-md) 0;
+  flex-grow: 1;
+}
+
+/* Guide Card Components */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+}
+
+.time-to-read {
+  color: var(--secondary-text-color);
+  font-size: var(--p-font-size);
+}
+
+/* --------------- 4.2 Buttons ------------------- */
+.feature-button {
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-default-value);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.feature-button:hover {
+  background-color: var(--accent-color);
+}
+
+/* --------------- 4.3 Forms ------------------- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-group label {
+  color: var(--primary-text-color);
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border: 1px solid var(--primary-text-color);
+  border-radius: 4px;
+  background-color: #34495e;
+  transition: border-color var(--transition-default-value);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--primary-text-color);
+  border-radius: 4px;
+  background-color: #34495e;
+  color: var(--primary-text-color);
+  transition: border-color var(--transition-default-value);
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.form-group select option {
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+}
+
+/* --------------- 4.4 Lists ------------------- */
+.recipe-list {
+  list-style-position: outside;
+  padding-left: var(--spacing-lg);
+  color: var(--secondary-bg-color);
+}
+
+.recipe-list li {
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+  padding-left: var(--spacing-sm);
+}
+
+/* ------------------------------- 5. Header -------------------------------- */
+/* --------------- 5.1 Header Layout ------------------- */
 .header {
   width: 100%;
   background-color: var(--primary-bg-color);
@@ -160,8 +287,7 @@ a:hover {
   height: 80px;
 }
 
-/* --------------- 4.2 Logo ------------------- */
-
+/* --------------- 5.2 Logo ------------------- */
 .logo-container {
   display: flex;
   flex-direction: column;
@@ -186,8 +312,7 @@ a:hover {
   transform: scale(1.15);
 }
 
-/* --------------- 4.3 Brandname ------------------------- */
-
+/* --------------- 5.3 Brand Name ------------------- */
 .brand-name {
   position: absolute;
   left: 50%;
@@ -198,8 +323,7 @@ a:hover {
   font-family: 'Berkshire Swash', cursive;
 }
 
-/* --------------- 4.4 Login ------------------------- */
-
+/* --------------- 5.4 Navigation ------------------- */
 .login-link {
   color: var(--primary-text-color);
   font-size: var(--h4-font-size);
@@ -214,8 +338,7 @@ a:hover {
   color: var(--accent-color);
 }
 
-/* --------------- 4.5 Menu ------------------------- */
-
+/* --------------- 5.5 Menu ------------------- */
 .menu-container {
   display: flex;
   align-items: center;
@@ -279,10 +402,8 @@ a:hover {
   background-color: var(--accent-color);
 }
 
-/* ------------------------------- 5. main -------------------------------- */
-
-/* --------------- 5.1 Content ------------------- */
-
+/* ------------------------------- 6. Main Content -------------------------------- */
+/* --------------- 6.1 Sections ------------------- */
 .main-content {
   flex: 1 0 auto;
   max-width: var(--max-width-value);
@@ -307,78 +428,13 @@ a:hover {
   position: relative;
 }
 
-.base-card {
-  background: var(--card-color);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius-value);
-  box-shadow: var(--card-shadow-value);
-  text-align: center;
-  transition: transform var(--transition-default-value);
+/* --------------- 6.2 Recipe Components ------------------- */
+.recipes-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  gap: var(--spacing-lg);
 }
 
-.base-card:hover {
-  transform: translateY(-5px);
-}
-
-.base-card h3 {
-  color: var(--secondary-bg-color);
-  margin-bottom: var(--spacing-md);
-  font-size: var(--h3-font-size);
-}
-
-.base-card p {
-  margin: 0 0 var(--spacing-md) 0;
-  flex-grow: 1;
-}
-
-/* ----------------5.2 Features -------------------------- */
-
-.feature-button {
-  background-color: var(--secondary-bg-color);
-  color: var(--primary-text-color);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color var(--transition-default-value);
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.feature-button:hover {
-  background-color: var(--accent-color);
-}
-
-/* ----------------5.3 Recipes -------------------------- */
-
-.difficulty {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.difficulty-beginner {
-  background-color: #a8e6cf;
-  color: #2d6a4f;
-}
-
-.difficulty-intermediate {
-  background-color: #ffd3b6;
-  color: #a04000;
-}
-
-.difficulty-advanced {
-  background-color: #ffaaa5;
-  color: #8b0000;
-}
-
-/* Recipe Components Styles */
 .recipe-filters {
   display: flex;
   gap: var(--spacing-md);
@@ -395,7 +451,25 @@ a:hover {
   cursor: pointer;
 }
 
-/* Recipe Detail Specific Styles */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  max-width: var(--max-width-value);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.recipe-card-container {
+  cursor: pointer;
+  transition: transform var(--transition-default-value);
+}
+
+.recipe-card-container:hover {
+  transform: translateY(-5px);
+}
+
+/* --------------- 6.3 Recipe Details ------------------- */
 .recipe-header {
   position: relative;
   text-align: center;
@@ -485,73 +559,13 @@ a:hover {
   padding-bottom: var(--spacing-sm);
 }
 
-.recipe-list {
-  list-style-position: outside;
-  padding-left: var(--spacing-lg);
-  color: var(--secondary-bg-color);
-}
-
-.recipe-list li {
-  margin-bottom: var(--spacing-md);
-  line-height: 1.6;
-  padding-left: var(--spacing-sm);
-}
-
-/* Recipe Grid Styles */
-.recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-lg);
-  max-width: var(--max-width-value);
-  margin: 0 auto;
-  padding: 0 var(--spacing-lg);
-}
-
-.recipe-card-container {
-  cursor: pointer;
-  transition: transform var(--transition-default-value);
-}
-
-.recipe-card-container:hover {
-  transform: translateY(-5px);
-}
-
 .selected-recipe-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Search Styles */
-.recipes-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
-.search-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: var(--spacing-lg);
-}
-
-.search-container input {
-  width: 100%;
-  max-width: 600px;
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-value);
-  border: 1px solid var(--secondary-bg-color);
-  background-color: var(--primary-bg-color);
-  color: var(--primary-text-color);
-}
-
-.no-results {
-  text-align: center;
-  color: var(--primary-text-color);
-  padding: var(--spacing-xl);
-}
-
-/* ------------------------------- 6. Login Page -------------------------------- */
-
+/* ------------------------------- 7. Pages -------------------------------- */
+/* --------------- 7.1 Login Page ------------------- */
 .login-page {
   min-height: 55vh;
   display: flex;
@@ -586,29 +600,6 @@ a:hover {
   gap: 1.5rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-
-.form-group label {
-  color: var(--primary-text-color);
-}
-
-.form-group input {
-  padding: 0.8rem;
-  border: 1px solid var(--primary-text-color);
-  border-radius: 4px;
-  background-color: #34495e;
-  transition: border-color var(--transition-default-value);
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--accent-color);
-}
-
 .remember-me {
   display: flex;
   align-items: center;
@@ -623,9 +614,14 @@ a:hover {
   cursor: pointer;
 }
 
-.forgot-password {
+.remember-me a {
   color: var(--accent-color);
+  text-decoration: none;
   transition: color var(--transition-default-value);
+}
+
+.remember-me a:hover {
+  color: var(--accent-hover-color);
 }
 
 .form-options {
@@ -633,6 +629,11 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   font-size: var(--p-font-size);
+}
+
+.forgot-password {
+  color: var(--accent-color);
+  transition: color var(--transition-default-value);
 }
 
 .forgot-password:hover {
@@ -681,49 +682,17 @@ a:hover {
   text-align: center;
 }
 
-/* ------------------------------- 7. Register -------------------------------- */
-
+/* --------------- 7.2 Register Page ------------------- */
 .register-page {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-md);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
 }
 
-.form-group select {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid var(--primary-text-color);
-  border-radius: 4px;
-  background-color: #34495e;
-  color: var(--primary-text-color);
-  transition: border-color var(--transition-default-value);
-  cursor: pointer;
-}
-
-.form-group select:focus {
-  outline: none;
-  border-color: var(--accent-color);
-}
-
-.form-group select option {
-  background-color: var(--secondary-bg-color);
-  color: var(--primary-text-color);
-}
-
-.remember-me a {
-  color: var(--accent-color);
-  text-decoration: none;
-  transition: color var(--transition-default-value);
-}
-
-.remember-me a:hover {
-  color: var(--accent-hover-color);
-}
-
-/* --------------------------------- 7. Footer -------------------------------------- */
-
+/* ------------------------------- 8. Footer -------------------------------- */
+/* --------------- 8.1 Footer Layout ------------------- */
 .footer {
   flex-shrink: 0;
   background-color: var(--primary-bg-color);
@@ -746,6 +715,7 @@ a:hover {
   gap: var(--spacing-lg);
 }
 
+/* --------------- 8.2 Footer Sections ------------------- */
 .footer-section {
   flex: 1;
 }
@@ -778,16 +748,12 @@ a:hover {
   color: var(--accent-color);
 }
 
+/* --------------- 8.3 Social Links ------------------- */
 .social-links {
   display: flex;
   justify-content: center;
   color: var(--secondary-text-color);
   gap: var(--spacing-md);
-}
-
-.footer-bottom p {
-  margin-top: var(--spacing-sm);
-  color: var(--secondary-text-color);
 }
 
 .social-links a {
@@ -798,4 +764,83 @@ a:hover {
 
 .social-links a:hover {
   color: var(--accent-color);
+}
+
+.footer-bottom p {
+  margin-top: var(--spacing-sm);
+  color: var(--secondary-text-color);
+}
+
+/* ------------------------------- 9. Utilities -------------------------------- */
+/* --------------- 9.1 Difficulty Indicators ------------------- */
+.difficulty {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.difficulty-beginner {
+  background-color: #a8e6cf;
+  color: #2d6a4f;
+}
+
+.difficulty-intermediate {
+  background-color: #ffd3b6;
+  color: #a04000;
+}
+
+.difficulty-advanced {
+  background-color: #ffaaa5;
+  color: #8b0000;
+}
+
+.difficulty-getting-started {
+  background-color: #a8e6cf;
+  color: #2d6a4f;
+}
+
+.difficulty-equipment {
+  background-color: #ffd3b6;
+  color: #a04000;
+}
+
+.difficulty-ingredients {
+  background-color: #dcd6f7;
+  color: #4527a0;
+}
+
+.difficulty-techniques {
+  background-color: #ffaaa5;
+  color: #8b0000;
+}
+
+.difficulty-troubleshooting {
+  background-color: #ff8b94;
+  color: #721c24;
+}
+
+/* --------------- 9.2 Search Components ------------------- */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 600px;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-value);
+  border: 1px solid var(--secondary-bg-color);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+}
+
+.no-results {
+  text-align: center;
+  color: var(--primary-text-color);
+  padding: var(--spacing-xl);
 }
