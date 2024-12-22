@@ -30,6 +30,7 @@
     7. Pages
         7.1 Login Page
         7.2 Register Page
+        7.3 Guides Page
     8. Footer
         8.1 Footer Layout
         8.2 Footer Sections
@@ -689,6 +690,63 @@ a:hover {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-md);
+}
+
+/* --------------- 7.3 Guides Page --------------------- */
+
+.selected-guide-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background-color: var(--card-color);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+}
+
+.guide-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  border-bottom: 2px solid var(--secondary-bg-color);
+  padding-bottom: var(--spacing-lg);
+}
+
+.guide-title-container {
+  text-align: center;
+}
+
+.guide-title-container h3 {
+  font-size: var(--h2-font-size);
+  color: var(--secondary-bg-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.guide-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-md);
+}
+
+.guide-stats span {
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  padding: var(--spacing-sm);
+  border-radius: 20px;
+  font-size: var(--p-font-size);
+  text-align: center;
+  min-width: 120px;
+}
+
+.time-to-read {
+  color: var(--secondary-text-color);
+  font-size: var(--p-font-size);
+}
+
+.difficulty {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 /* ------------------------------- 8. Footer -------------------------------- */

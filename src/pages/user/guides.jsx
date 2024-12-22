@@ -1,48 +1,74 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const GuideCard = ({ title, description, category, timeToRead }) => (
-    <div className="base-card">
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <div className="card-footer">
-            <div className={`difficulty difficulty-${category}`}>
-                {category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-            </div>
-            <div className="time-to-read">{timeToRead} min read</div>
-        </div>
+const GuideFilterBar = ({ onFilterChange }) => (
+    <div className="recipe-filters">
+        <select
+            onChange={(e) => onFilterChange('category', e.target.value)}
+            className="filter-select"
+        >
+            <option value="all">All Categories</option>
+            <option value="getting-started">Getting Started</option>
+            <option value="equipment">Equipment</option>
+            <option value="ingredients">Ingredients</option>
+            <option value="techniques">Techniques</option>
+            <option value="troubleshooting">Troubleshooting</option>
+        </select>
     </div>
 );
+
+GuideFilterBar.propTypes = {
+    onFilterChange: PropTypes.func.isRequired
+};
+
+const GuideCard = ({ title, description, timeToRead, category, onClick }) => {
+    const getDifficultyClass = (category) => {
+        const classes = {
+            "getting-started": "difficulty-getting-started",
+            equipment: "difficulty-equipment",
+            ingredients: "difficulty-ingredients",
+            techniques: "difficulty-techniques",
+            troubleshooting: "difficulty-troubleshooting"
+        };
+        return `difficulty ${classes[category]}`;
+    };
+
+    return (
+        <div className="base-card" onClick={onClick}>
+            <h3>{title}</h3>
+            <p>{description}</p>
+            <div className="card-footer">
+                <span className={getDifficultyClass(category)}>
+                    {category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                </span>
+                <span className="time-to-read">{timeToRead} min read</span>
+            </div>
+        </div>
+    );
+};
 
 GuideCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    timeToRead: PropTypes.number.isRequired,
     category: PropTypes.string.isRequired,
-    timeToRead: PropTypes.number.isRequired
+    onClick: PropTypes.func.isRequired
 };
 
 const UserGuides = () => {
-    const [selectedCategory, setSelectedCategory] = useState('all');
-
-    const categories = [
-        'all',
-        'getting-started',
-        'equipment',
-        'ingredients',
-        'techniques',
-        'troubleshooting'
-    ];
+    const [selectedGuide, setSelectedGuide] = useState(null);
+    const [filters, setFilters] = useState({ category: 'all', searchTerm: '' });
 
     const guides = [
         {
             title: 'Getting Started with Home Brewing',
-            description: 'Everything you need to know to start your brewing journey. Learn about basic equipment, ingredients, and the brewing process.',
+            description: 'Everything you need to know to start your brewing journey.',
             category: 'getting-started',
             timeToRead: 15
         },
         {
             title: 'Essential Brewing Equipment Guide',
-            description: 'A comprehensive guide to all the equipment you will need for brewing, from basic starter kits to advanced setups.',
+            description: 'A comprehensive guide to all the equipment you will need.',
             category: 'equipment',
             timeToRead: 10
         },
@@ -90,38 +116,69 @@ const UserGuides = () => {
         }
     ];
 
-    const filteredGuides = selectedCategory === 'all'
-        ? guides
-        : guides.filter(guide => guide.category === selectedCategory);
+    const filteredGuides = guides.filter((guide) => {
+        const categoryMatch = filters.category === 'all' || guide.category === filters.category;
+        const searchMatch =
+            guide.title.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+            guide.description.toLowerCase().includes(filters.searchTerm.toLowerCase());
+        return categoryMatch && searchMatch;
+    });
+
+    const handleFilterChange = (filterType, value) => {
+        setFilters((prev) => ({ ...prev, [filterType]: value }));
+    };
 
     return (
         <main className="main-content">
-            <section className="main-section">
-                <h2 className="section-title"></h2>
+            <h2 className="section-title"></h2>
 
-                <div className="recipes-container">
-                    <div className="recipe-filters">
-                        {categories.map((category) => (
-                            <button
-                                key={category}
-                                onClick={() => setSelectedCategory(category)}
-                                className={`filter-select ${selectedCategory === category ? 'feature-button' : ''}`}
-                            >
-                                {category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                            </button>
-                        ))}
+            {selectedGuide ? (
+                <div className="selected-guide-container">
+                    <div className="guide-header">
+                        <button onClick={() => setSelectedGuide(null)} className="recipe-close-button">
+                            Close
+                        </button>
+                        <div className="guide-title-container">
+                            <h3>{selectedGuide.title}</h3>
+                            <p className="recipe-description">{selectedGuide.description}</p>
+                            <div className="guide-stats">
+                                <span className="time-to-read">{selectedGuide.timeToRead} min read</span>
+                                <span className={`difficulty ${selectedGuide.category}`}>
+                                    {selectedGuide.category
+                                        .split('-')
+                                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                        .join(' ')}
+                                </span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div className="base-grid">
+                </div>
+            ) : (
+                <>
+                    <div className="search-container">
+                        <input
+                            type="text"
+                            placeholder="Search guides..."
+                            value={filters.searchTerm}
+                            onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
+                            className="filter-select"
+                        />
+                    </div>
+                    <GuideFilterBar onFilterChange={handleFilterChange} />
+                    <div className="recipe-grid">
                         {filteredGuides.map((guide, index) => (
                             <GuideCard
                                 key={index}
-                                {...guide}
+                                title={guide.title}
+                                description={guide.description}
+                                timeToRead={guide.timeToRead}
+                                category={guide.category}
+                                onClick={() => setSelectedGuide(guide)}
                             />
                         ))}
                     </div>
-                </div>
-            </section>
+                </>
+            )}
         </main>
     );
 };
