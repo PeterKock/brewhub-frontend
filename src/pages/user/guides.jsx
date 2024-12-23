@@ -45,7 +45,7 @@ const UserGuides = () => {
 
     return (
         <main className="main-content">
-            <h2 className="section-title">Brewing Guides</h2>
+            <h2 className="section-title"></h2>
 
             {selectedGuide ? (
                 <div className="selected-guide-container" ref={guideDetailRef}>
