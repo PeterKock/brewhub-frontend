@@ -1,60 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { RecipeCard } from '../../components/cards';
-import { RecipeDetailCard, RecipeFilterBar, recipeData } from '../../components/recipes';
-import PropTypes from 'prop-types';
-
-const RecipeList = ({ searchTerm, setSearchTerm, onFilterChange, filteredRecipes, onSelectRecipe }) => (
-    <div className="recipes-container">
-        <div className="search-container">
-            <input
-                type="text"
-                placeholder="Search recipes..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="filter-select"
-            />
-        </div>
-
-        <RecipeFilterBar onFilterChange={onFilterChange} />
-
-        {filteredRecipes.length === 0 ? (
-            <div className="no-results">
-                No recipes found matching your criteria
-            </div>
-        ) : (
-            <div className="recipe-grid">
-                {filteredRecipes.map((recipe) => (
-                    <div
-                        key={recipe.id}
-                        onClick={() => onSelectRecipe(recipe)}
-                        className="recipe-card-container"
-                    >
-                        <RecipeCard
-                            title={recipe.title}
-                            description={recipe.description}
-                            difficulty={recipe.difficulty}
-                        />
-                    </div>
-                ))}
-            </div>
-        )}
-    </div>
-);
-
-RecipeList.propTypes = {
-    searchTerm: PropTypes.string.isRequired,
-    setSearchTerm: PropTypes.func.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
-    filteredRecipes: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired,
-            description: PropTypes.string.isRequired,
-            difficulty: PropTypes.string.isRequired
-        })
-    ).isRequired,
-    onSelectRecipe: PropTypes.func.isRequired
-};
+import RecipeList from '../../components/recipes/RecipeList';
+import { RecipeDetailCard } from '../../components/recipes/index.js';
+import { recipeData } from '../../components/recipes/index.js';
 
 const UserRecipes = () => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -81,7 +28,11 @@ const UserRecipes = () => {
         };
     }, [selectedRecipe]);
 
-    const handleFilterChange = (filterType, value) => {
+    const handleSearch = (value) => {
+        setSearchTerm(value);
+    };
+
+    const handleFilter = (filterType, value) => {
         setFilters(prev => ({
             ...prev,
             [filterType]: value
@@ -109,10 +60,9 @@ const UserRecipes = () => {
                 </div>
             ) : (
                 <RecipeList
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    onFilterChange={handleFilterChange}
-                    filteredRecipes={filteredRecipes}
+                    recipes={filteredRecipes}
+                    onSearch={handleSearch}
+                    onFilter={handleFilter}
                     onSelectRecipe={setSelectedRecipe}
                 />
             )}

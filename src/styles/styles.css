@@ -17,6 +17,7 @@
         4.2 Buttons
         4.3 Forms
         4.4 Lists
+        4.5 Shared Components
     5. Header
         5.1 Header Layout
         5.2 Logo
@@ -269,6 +270,37 @@ a:hover {
   padding-left: var(--spacing-sm);
 }
 
+/* --------------- 4.5 Share Components ------------------- */
+.filter-bar {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  justify-content: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-default-value);
+}
+
+.close-button:hover {
+  background-color: var(--accent-color);
+}
+
+.content-description {
+  color: var(--secondary-text-color);
+  margin-top: var(--spacing-sm);
+  text-align: center;
+}
+
 /* ------------------------------- 5. Header -------------------------------- */
 /* --------------- 5.1 Header Layout ------------------- */
 .header {
@@ -436,13 +468,6 @@ a:hover {
   gap: var(--spacing-lg);
 }
 
-.recipe-filters {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-xl);
-  justify-content: center;
-}
-
 .filter-select {
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-value);
@@ -490,29 +515,6 @@ a:hover {
   font-size: var(--h2-font-size);
   color: var(--secondary-bg-color);
   margin-bottom: var(--spacing-sm);
-  text-align: center;
-}
-
-.recipe-close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: var(--secondary-bg-color);
-  color: var(--primary-text-color);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color var(--transition-default-value);
-}
-
-.recipe-close-button:hover {
-  background-color: var(--accent-color);
-}
-
-.recipe-description {
-  color: var(--secondary-text-color);
-  margin-top: var(--spacing-sm);
   text-align: center;
 }
 

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-export const RecipeFilterBar = ({ onFilterChange }) => {
+export const FilterBar = ({ onFilterChange }) => {
     return (
-        <div className="recipe-filters">
+        <div className="filter-bar">
             <select
                 onChange={(e) => onFilterChange('difficulty', e.target.value)}
                 className="filter-select"
@@ -26,6 +26,6 @@ export const RecipeFilterBar = ({ onFilterChange }) => {
     );
 };
 
-RecipeFilterBar.propTypes = {
+FilterBar.propTypes = {
     onFilterChange: PropTypes.func.isRequired
 };

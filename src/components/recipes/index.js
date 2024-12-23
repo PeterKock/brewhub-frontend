@@ -1,3 +1,4 @@
-export { RecipeDetailCard } from './RecipeDetailCard.jsx';
-export { RecipeFilterBar } from './RecipeFilterBar.jsx';
-export { recipeData } from './recipeData.js';
+export { RecipeDetailCard } from './RecipeDetailCard';
+export { default as RecipeList } from './RecipeList';
+export { RecipeCard } from './RecipeCard';
+export { recipeData } from './recipeData';

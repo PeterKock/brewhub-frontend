@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { DetailHeader } from '../shared/DetailHeader';
 
 export const RecipeDetailCard = ({ recipe, onClose }) => {
     const getDifficultyClass = (level) => {
@@ -10,34 +11,26 @@ export const RecipeDetailCard = ({ recipe, onClose }) => {
         return `difficulty ${classes[level.toLowerCase()]}`;
     };
 
-    const handleCardClick = (e) => {
-        e.stopPropagation();
-    };
+    const stats = (
+        <>
+            <span className="recipe-stat">Time: {recipe.timeInWeeks} weeks</span>
+            <span className="recipe-stat">ABV: {recipe.abv}</span>
+            <span className="recipe-stat">IBU: {recipe.ibu}</span>
+            <span className="recipe-stat">Type: {recipe.type}</span>
+            <span className={getDifficultyClass(recipe.difficulty)}>
+                {recipe.difficulty}
+            </span>
+        </>
+    );
 
     return (
-        <div className="base-card" onClick={handleCardClick}>
-            <div className="recipe-header">
-                <button
-                    onClick={onClose}
-                    className="recipe-close-button"
-                >
-                    Close
-                </button>
-                <div className="recipe-title-container">
-                    <h3>{recipe.title}</h3>
-                    <p className="recipe-description">{recipe.description}</p>
-                    <span className={getDifficultyClass(recipe.difficulty)}>
-                        {recipe.difficulty}
-                    </span>
-                </div>
-            </div>
-
-            <div className="recipe-stats">
-                <span className="recipe-stat">Time: {recipe.timeInWeeks} weeks</span>
-                <span className="recipe-stat">ABV: {recipe.abv}</span>
-                <span className="recipe-stat">IBU: {recipe.ibu}</span>
-                <span className="recipe-stat">Type: {recipe.type}</span>
-            </div>
+        <div className="base-card" onClick={(e) => e.stopPropagation()}>
+            <DetailHeader
+                title={recipe.title}
+                description={recipe.description}
+                stats={stats}
+                onClose={onClose}
+            />
 
             <div className="recipe-content">
                 <div className="recipe-section">
