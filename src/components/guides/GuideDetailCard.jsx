@@ -14,12 +14,12 @@ export const GuideDetailCard = ({ guide, onClose }) => {
     };
 
     const stats = (
-        <>
-            <span className="time-to-read">{guide.timeToRead} min read</span>
+        <div className="recipe-stats">
+            <span className="recipe-stat">{guide.timeToRead} min read</span>
             <span className={getDifficultyClass(guide.category)}>
                 {guide.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
             </span>
-        </>
+        </div>
     );
 
     return (
@@ -30,19 +30,20 @@ export const GuideDetailCard = ({ guide, onClose }) => {
                 stats={stats}
                 onClose={onClose}
             />
-            <div className="guide-content">
-                <div className="guide-section">
+            <div className="recipe-content">
+                <div className="recipe-section">
                     <h4>Overview</h4>
                     <p>{guide.content.introduction}</p>
+                    {guide.content.sections.map((section, index) => (
+                        <div key={index} className="guide-subsection">
+                            <h5>{section.title}</h5>
+                            <p>{section.content}</p>
+                        </div>
+                    ))}
                 </div>
-                {guide.content.sections.map((section, index) => (
-                    <div key={index} className="guide-section">
-                        <h4>{section.title}</h4>
-                        <p>{section.content}</p>
-                    </div>
-                ))}
-                <div className="guide-section">
-                    <h4>Tips</h4>
+
+                <div className="recipe-section">
+                    <h4>Tips & Recommendations</h4>
                     <ul className="recipe-list">
                         {guide.content.tips.map((tip, index) => (
                             <li key={index}>{tip}</li>

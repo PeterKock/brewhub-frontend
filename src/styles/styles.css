@@ -702,7 +702,6 @@ a:hover {
   padding: var(--spacing-lg);
   background-color: var(--card-color);
   border-radius: var(--border-radius-value);
-  box-shadow: var(--card-shadow-value);
 }
 
 .guide-header {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { SearchBar } from '../shared/SearchBar';
-import { FilterBar } from '../shared/FilterBar';
+import { GuideFilterBar } from './GuideFilterBar';
 import { GuideCard } from './GuideCard';
 
 const GuideList = ({ guides, onSearch, onFilter, onSelectGuide }) => {
@@ -12,7 +12,7 @@ const GuideList = ({ guides, onSearch, onFilter, onSelectGuide }) => {
                 placeholder="Search guides..."
             />
 
-            <FilterBar
+            <GuideFilterBar
                 onFilterChange={onFilter}
             />
 

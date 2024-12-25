@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { SearchBar } from '../shared/SearchBar';
-import { FilterBar } from '../shared/FilterBar';
+import { RecipeFilterBar } from './RecipeFilterBar.jsx';
 import { RecipeCard } from './RecipeCard';
 
 const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe }) => {
@@ -29,7 +29,7 @@ const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe }) => {
                 placeholder="Search recipes..."
             />
 
-            <FilterBar
+            <RecipeFilterBar
                 filters={filterConfig}
                 onFilterChange={onFilter}
             />
