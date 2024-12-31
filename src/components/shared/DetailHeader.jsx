@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 
 export const DetailHeader = ({ title, description, stats, onClose }) => (
-    <div className="recipe-header">
+    <div className="detail-header">
         <button onClick={onClose} className="close-button">
             Close
         </button>
-        <div className="recipe-title-container">
+        <div className="title-container">
             <h3>{title}</h3>
             <p className="content-description">{description}</p>
-            {stats && <div className="recipe-stats">{stats}</div>}
+            {stats && <div className="stats-container">{stats}</div>}
         </div>
     </div>
 );
