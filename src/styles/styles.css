@@ -13,11 +13,11 @@
         3.1 App Structure
         3.2 Grid System
     4. Components
-        4.1 Cards
-        4.2 Buttons
-        4.3 Forms
-        4.4 Lists
-        4.5 Shared Components
+        4.1 Button
+        4.2 Forms
+        4.3 Base Card
+        4.4 Detail Header
+        4.5 Filter Bar
     5. Header
         5.1 Header Layout
         5.2 Logo
@@ -26,12 +26,11 @@
         5.5 Menu
     6. Main Content
         6.1 Sections
-        6.2 Recipe Components
-        6.3 Recipe Details
     7. Pages
         7.1 Login Page
         7.2 Register Page
         7.3 Guides Page
+        7.4 Recipes Page
     8. Footer
         8.1 Footer Layout
         8.2 Footer Sections
@@ -153,49 +152,7 @@ a:hover {
 }
 
 /* ------------------------------- 4. Components ----------------------------------- */
-/* --------------- 4.1 Cards ------------------- */
-.base-card {
-  background: var(--card-color);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius-value);
-  box-shadow: var(--card-shadow-value);
-  text-align: center;
-  transition: transform var(--transition-default-value);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.base-card:hover {
-  transform: translateY(-5px);
-}
-
-.base-card h3 {
-  color: var(--secondary-bg-color);
-  margin-bottom: var(--spacing-md);
-  font-size: var(--h3-font-size);
-}
-
-.base-card p {
-  margin: 0 0 var(--spacing-md) 0;
-  flex-grow: 1;
-}
-
-/* Guide Card Components */
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-  padding-top: var(--spacing-md);
-}
-
-.time-to-read {
-  color: var(--secondary-text-color);
-  font-size: var(--p-font-size);
-}
-
-/* --------------- 4.2 Buttons ------------------- */
+/* --------------- 4.1 Buttons ------------------- */
 .feature-button {
   background-color: var(--secondary-bg-color);
   color: var(--primary-text-color);
@@ -212,7 +169,7 @@ a:hover {
   background-color: var(--accent-color);
 }
 
-/* --------------- 4.3 Forms ------------------- */
+/* --------------- 4.2 Forms ------------------- */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -257,31 +214,77 @@ a:hover {
   color: var(--primary-text-color);
 }
 
-/* --------------- 4.4 Lists ------------------- */
-.recipe-list {
-  list-style-position: outside;
-  padding-left: var(--spacing-lg);
-  color: var(--secondary-bg-color);
-}
-
-.recipe-list li {
-  margin-bottom: var(--spacing-md);
-  line-height: 1.6;
-  padding-left: var(--spacing-sm);
-}
-
-/* --------------- 4.5 Share Components ------------------- */
-.filter-bar {
+/* --------------- 4.3 Base Card ------------------- */
+.base-card {
+  background: var(--card-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+  text-align: center;
+  transition: transform var(--transition-default-value);
   display: flex;
-  gap: var(--spacing-md);
+  flex-direction: column;
+  height: 100%;
+}
+
+.base-card:hover {
+  transform: translateY(-5px);
+}
+
+.base-card h3 {
+  color: var(--secondary-bg-color);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--h3-font-size);
+}
+
+.base-card p {
+  margin: 0 0 var(--spacing-md) 0;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+}
+
+/* --------------- 4.4 Detail Header ------------------- */
+.detail-header {
+  position: relative;
+  text-align: center;
   margin-bottom: var(--spacing-xl);
-  justify-content: center;
+  border-bottom: 2px solid var(--secondary-bg-color);
+  padding-bottom: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
+  padding-right: var(--spacing-lg);
+}
+
+.title-container {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.title-container h3 {
+  font-size: var(--h2-font-size);
+  color: var(--secondary-bg-color);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
+.content-description {
+  color: var(--secondary-text-color);
+  margin-top: var(--spacing-sm);
+  text-align: center;
 }
 
 .close-button {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
   background-color: var(--secondary-bg-color);
   color: var(--primary-text-color);
   border: none;
@@ -289,16 +292,28 @@ a:hover {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color var(--transition-default-value);
+  z-index: 2;
 }
 
 .close-button:hover {
   background-color: var(--accent-color);
 }
 
-.content-description {
-  color: var(--secondary-text-color);
-  margin-top: var(--spacing-sm);
-  text-align: center;
+/* --------------- 4.5 Filter Bar ------------------- */
+.filter-bar {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  justify-content: center;
+}
+
+.filter-select {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-value);
+  border: 1px solid var(--secondary-bg-color);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  cursor: pointer;
 }
 
 /* ------------------------------- 5. Header -------------------------------- */
@@ -461,112 +476,6 @@ a:hover {
   position: relative;
 }
 
-/* --------------- 6.2 Recipe Components ------------------- */
-.recipes-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
-.filter-select {
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-value);
-  border: 1px solid var(--secondary-bg-color);
-  background-color: var(--primary-bg-color);
-  color: var(--primary-text-color);
-  cursor: pointer;
-}
-
-.recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-lg);
-  max-width: var(--max-width-value);
-  margin: 0 auto;
-  padding: 0 var(--spacing-lg);
-}
-
-.recipe-card-container {
-  cursor: pointer;
-  transition: transform var(--transition-default-value);
-}
-
-.recipe-card-container:hover {
-  transform: translateY(-5px);
-}
-
-/* --------------- 6.3 Recipe Details ------------------- */
-.recipe-header {
-  position: relative;
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-  border-bottom: 2px solid var(--secondary-bg-color);
-  padding-bottom: var(--spacing-lg);
-  padding-top: var(--spacing-sm);
-  padding-right: var(--spacing-lg);
-}
-
-.recipe-title-container {
-  width: 100%;
-  text-align: center;
-}
-
-.recipe-title-container h3 {
-  font-size: var(--h2-font-size);
-  color: var(--secondary-bg-color);
-  margin-bottom: var(--spacing-sm);
-  text-align: center;
-}
-
-.recipe-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-xl);
-  justify-content: center;
-}
-
-.recipe-stat {
-  background-color: var(--secondary-bg-color);
-  color: var(--primary-text-color);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: 20px;
-  font-size: var(--p-font-size);
-  min-width: 120px;
-  text-align: center;
-}
-
-.recipe-content {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background-color: var(--primary-bg-color);
-  border-radius: var(--border-radius-value);
-}
-
-.recipe-section {
-  background-color: var(--card-color);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius-value);
-  box-shadow: var(--card-shadow-value);
-  margin-bottom: var(--spacing-lg);
-}
-
-.recipe-section h4 {
-  color: var(--secondary-bg-color);
-  font-size: var(--h3-font-size);
-  margin-bottom: var(--spacing-lg);
-  text-align: center;
-  border-bottom: 2px solid var(--secondary-bg-color);
-  padding-bottom: var(--spacing-sm);
-}
-
-.selected-recipe-container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 /* ------------------------------- 7. Pages -------------------------------- */
 /* --------------- 7.1 Login Page ------------------- */
 .login-page {
@@ -685,6 +594,8 @@ a:hover {
   text-align: center;
 }
 
+/* ... (rest of login page styles remain the same) ... */
+
 /* --------------- 7.2 Register Page ------------------- */
 .register-page {
   min-height: 90vh;
@@ -695,7 +606,6 @@ a:hover {
 }
 
 /* --------------- 7.3 Guides Page --------------------- */
-
 .selected-guide-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -704,37 +614,70 @@ a:hover {
   border-radius: var(--border-radius-value);
 }
 
-.guide-header {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-  border-bottom: 2px solid var(--secondary-bg-color);
-  padding-bottom: var(--spacing-lg);
-}
-
-.guide-title-container {
-  text-align: center;
-}
-
-.guide-title-container h3 {
-  font-size: var(--h2-font-size);
-  color: var(--secondary-bg-color);
-  margin-bottom: var(--spacing-md);
-}
-
 .guide-stats {
   display: flex;
-  justify-content: space-between;
-  margin-top: var(--spacing-md);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  justify-content: center;
 }
 
-.guide-stats span {
+.guide-stat {
   background-color: var(--secondary-bg-color);
   color: var(--primary-text-color);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
   border-radius: 20px;
   font-size: var(--p-font-size);
-  text-align: center;
   min-width: 120px;
+  text-align: center;
+}
+
+.guide-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background-color: var(--primary-bg-color);
+  border-radius: var(--border-radius-value);
+}
+
+.guide-section {
+  background-color: var(--card-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+  margin-bottom: var(--spacing-lg);
+}
+
+.guide-section h4 {
+  color: var(--secondary-bg-color);
+  font-size: var(--h3-font-size);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  border-bottom: 2px solid var(--secondary-bg-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.guide-list {
+  list-style-position: outside;
+  padding-left: var(--spacing-lg);
+  color: var(--secondary-bg-color);
+}
+
+.guide-list li {
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+  padding-left: var(--spacing-sm);
+}
+
+.guide-subsection {
+  margin-bottom: var(--spacing-lg);
+}
+
+.guide-subsection h5 {
+  color: var(--secondary-bg-color);
+  font-size: var(--h4-font-size);
+  margin-bottom: var(--spacing-sm);
 }
 
 .time-to-read {
@@ -742,12 +685,99 @@ a:hover {
   font-size: var(--p-font-size);
 }
 
-.difficulty {
-  display: inline-block;
-  padding: 0.5rem 1rem;
+/* --------------- 7.4 Recipes Page ------------------- */
+.recipes-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  max-width: var(--max-width-value);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.recipe-card-container {
+  cursor: pointer;
+  transition: transform var(--transition-default-value);
+}
+
+.recipe-card-container:hover {
+  transform: translateY(-5px);
+}
+
+.selected-recipe-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.recipe-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  justify-content: center;
+}
+
+.recipe-stat {
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-text-color);
+  padding: var(--spacing-sm) var(--spacing-md);
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: var(--p-font-size);
+  min-width: 120px;
   text-align: center;
+}
+
+.recipe-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background-color: var(--primary-bg-color);
+  border-radius: var(--border-radius-value);
+}
+
+.recipe-section {
+  background-color: var(--card-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  box-shadow: var(--card-shadow-value);
+  margin-bottom: var(--spacing-lg);
+}
+
+.recipe-section h4 {
+  color: var(--secondary-bg-color);
+  font-size: var(--h3-font-size);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  border-bottom: 2px solid var(--secondary-bg-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.recipe-list {
+  list-style-position: outside;
+  padding-left: var(--spacing-lg);
+  color: var(--secondary-bg-color);
+}
+
+.recipe-list li {
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+  padding-left: var(--spacing-sm);
+}
+
+.filter-select {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-value);
+  border: 1px solid var(--secondary-bg-color);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  cursor: pointer;
 }
 
 /* ------------------------------- 8. Footer -------------------------------- */

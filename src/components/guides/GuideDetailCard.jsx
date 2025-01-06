@@ -14,8 +14,8 @@ export const GuideDetailCard = ({ guide, onClose }) => {
     };
 
     const stats = (
-        <div className="recipe-stats">
-            <span className="recipe-stat">{guide.timeToRead} min read</span>
+        <div className="guide-stats">
+            <span className="guide-stat">{guide.timeToRead} min read</span>
             <span className={getDifficultyClass(guide.category)}>
                 {guide.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
             </span>
@@ -30,8 +30,8 @@ export const GuideDetailCard = ({ guide, onClose }) => {
                 stats={stats}
                 onClose={onClose}
             />
-            <div className="recipe-content">
-                <div className="recipe-section">
+            <div className="guide-content">
+                <div className="guide-section">
                     <h4>Overview</h4>
                     <p>{guide.content.introduction}</p>
                     {guide.content.sections.map((section, index) => (
@@ -42,9 +42,9 @@ export const GuideDetailCard = ({ guide, onClose }) => {
                     ))}
                 </div>
 
-                <div className="recipe-section">
+                <div className="guide-section">
                     <h4>Tips & Recommendations</h4>
-                    <ul className="recipe-list">
+                    <ul className="guide-list">
                         {guide.content.tips.map((tip, index) => (
                             <li key={index}>{tip}</li>
                         ))}
