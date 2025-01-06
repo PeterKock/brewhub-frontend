@@ -1,4 +1,4 @@
-import { FeatureCard, RecipeCard, CardGrid } from '../../components/cards';
+import { FeatureCard, RecipeCard, CardGrid } from '../../components/shared/cards.jsx';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {

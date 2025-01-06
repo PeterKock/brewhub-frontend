@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { authService } from './services/authService';
 
 // Header
 import Header from './components/header';
@@ -24,7 +25,6 @@ import UserCommunity from './pages/user/community.jsx';
 import RetailerDashboard from './pages/retailer/dashboard';
 import RetailerInventory from './pages/retailer/inventory';
 
-// Protected Route Component
 const ProtectedRoute = ({ children, isAuthenticated }) => {
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
@@ -32,27 +32,30 @@ const ProtectedRoute = ({ children, isAuthenticated }) => {
     return children;
 };
 
-// PropTypes for ProtectedRoute
 ProtectedRoute.propTypes = {
     children: PropTypes.node.isRequired,
     isAuthenticated: PropTypes.bool.isRequired
 };
 
-function App() {
+function AppContent() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
-        const isAuth = localStorage.getItem('isAuthenticated') === 'true';
-        setIsAuthenticated(isAuth);
-    }, []);
+        const checkAuth = () => {
+            const isAuth = authService.isAuthenticated();
+            console.log('Authentication check:', isAuth);
+            console.log('Current token:', localStorage.getItem('token'));
+            setIsAuthenticated(isAuth);
+        };
+        checkAuth();
+    }, [location.pathname]);
 
     const handleLogin = async (credentials) => {
         try {
-            // Here you would typically make an API call to your backend
-            // For demonstration, we'll simulate a successful login
-            console.log('Processing login with credentials:', credentials);
+            await authService.login(credentials);
+            console.log('Login successful, setting auth state to true');
             setIsAuthenticated(true);
-            localStorage.setItem('isAuthenticated', 'true');
         } catch (error) {
             console.error('Login failed:', error);
             throw error;
@@ -60,15 +63,18 @@ function App() {
     };
 
     const handleLogout = () => {
+        authService.logout();
         setIsAuthenticated(false);
-        localStorage.removeItem('isAuthenticated');
     };
 
     const handleRegister = async (registrationData) => {
         try {
-            // Here you would typically make an API call to your backend
-            console.log('Processing registration:', registrationData);
-            // Add your registration logic here
+            await authService.register(registrationData);
+            await authService.login({
+                email: registrationData.email,
+                password: registrationData.password
+            });
+            setIsAuthenticated(true);
         } catch (error) {
             console.error('Registration failed:', error);
             throw error;
@@ -76,88 +82,38 @@ function App() {
     };
 
     return (
+        <div className="app">
+            <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+            <main className="main-content">
+                <Routes>
+                    {/* Public Routes */}
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+                    <Route path="/register" element={<RegisterPage onRegister={handleRegister} />} />
+                    <Route path="/aboutus" element={<AboutUsPage />} />
+
+                    {/* Protected Customer Routes */}
+                    <Route path="/user/dashboard" element={<ProtectedRoute isAuthenticated={isAuthenticated}><UserDashboard /></ProtectedRoute>} />
+                    <Route path="/user/orders" element={<ProtectedRoute isAuthenticated={isAuthenticated}><UserOrders /></ProtectedRoute>} />
+                    <Route path="/user/favorites" element={<ProtectedRoute isAuthenticated={isAuthenticated}><UserFavorites /></ProtectedRoute>} />
+                    <Route path="/user/community" element={<ProtectedRoute isAuthenticated={isAuthenticated}><UserCommunity /></ProtectedRoute>} />
+                    <Route path="/user/recipes" element={<UserRecipes />} />
+                    <Route path="/user/guides" element={<UserGuides />} />
+
+                    {/* Protected Retailer Routes */}
+                    <Route path="/retailer/dashboard" element={<ProtectedRoute isAuthenticated={isAuthenticated}><RetailerDashboard /></ProtectedRoute>} />
+                    <Route path="/retailer/inventory" element={<ProtectedRoute isAuthenticated={isAuthenticated}><RetailerInventory /></ProtectedRoute>} />
+                </Routes>
+            </main>
+            <Footer />
+        </div>
+    );
+}
+
+function App() {
+    return (
         <Router>
-            <div className="app">
-                <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
-                <main className="main-content">
-                    <Routes>
-                        {/* Public Routes */}
-                        <Route path="/" element={<HomePage />} />
-                        <Route
-                            path="/login"
-                            element={
-                                <LoginPage
-                                    onLogin={handleLogin}
-                                />
-                            }
-                        />
-                        <Route
-                            path="/register"
-                            element={
-                                <RegisterPage
-                                    onRegister={handleRegister}
-                                />
-                            }
-                        />
-                        <Route path="/aboutus" element={<AboutUsPage />} />
-
-                        {/* Protected Customer Routes */}
-                        <Route
-                            path="/user/dashboard"
-                            element={
-                                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <UserDashboard />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/user/orders"
-                            element={
-                                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <UserOrders />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/user/favorites"
-                            element={
-                                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <UserFavorites />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/user/community"
-                            element={
-                                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <UserCommunity />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route path="/user/recipes" element={<UserRecipes />} />
-                        <Route path="/user/guides" element={<UserGuides />} />
-
-                        {/* Protected Retailer Routes */}
-                        <Route
-                            path="/retailer/dashboard"
-                            element={
-                                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <RetailerDashboard />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/retailer/inventory"
-                            element={
-                                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                    <RetailerInventory />
-                                </ProtectedRoute>
-                            }
-                        />
-                    </Routes>
-                </main>
-                <Footer />
-            </div>
+            <AppContent />
         </Router>
     );
 }
