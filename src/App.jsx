@@ -26,9 +26,37 @@ import RetailerDashboard from './pages/retailer/dashboard';
 import RetailerInventory from './pages/retailer/inventory';
 
 const ProtectedRoute = ({ children, isAuthenticated }) => {
+    const [isChecking, setIsChecking] = useState(true);
+
+    useEffect(() => {
+        let isMounted = true;
+        (async () => {
+            try {
+                setIsChecking(true);
+                if (isMounted) {
+                    setIsChecking(false);
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                if (isMounted) {
+                    setIsChecking(false);
+                }
+            }
+        })();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    if (isChecking) {
+        return <div>Loading...</div>;
+    }
+
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
+
     return children;
 };
 
@@ -39,23 +67,46 @@ ProtectedRoute.propTypes = {
 
 function AppContent() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isInitializing, setIsInitializing] = useState(true);
     const location = useLocation();
 
     useEffect(() => {
+        let isMounted = true;
+
         const checkAuth = () => {
-            const isAuth = authService.isAuthenticated();
-            console.log('Authentication check:', isAuth);
-            console.log('Current token:', localStorage.getItem('token'));
-            setIsAuthenticated(isAuth);
+            if (isMounted) {
+                const authStatus = authService.isAuthenticated();
+                console.log('Authentication check:', authStatus);
+                console.log('Current token:', localStorage.getItem('token'));
+                setIsAuthenticated(authStatus);
+                setIsInitializing(false);
+            }
         };
+
+        // Initial check
         checkAuth();
+
+        // Listen for localStorage changes
+        window.addEventListener('storage', checkAuth);
+
+        // Regular token check
+        const tokenCheckInterval = setInterval(checkAuth, 1000);
+
+        // Cleanup
+        return () => {
+            isMounted = false;
+            window.removeEventListener('storage', checkAuth);
+            clearInterval(tokenCheckInterval);
+        };
     }, [location.pathname]);
 
     const handleLogin = async (credentials) => {
         try {
-            await authService.login(credentials);
+            const response = await authService.login(credentials);
             console.log('Login successful, setting auth state to true');
             setIsAuthenticated(true);
+            window.location.href = '/user/dashboard';
+            return response;
         } catch (error) {
             console.error('Login failed:', error);
             throw error;
@@ -65,21 +116,28 @@ function AppContent() {
     const handleLogout = () => {
         authService.logout();
         setIsAuthenticated(false);
+        window.location.href = '/login';
     };
 
     const handleRegister = async (registrationData) => {
         try {
             await authService.register(registrationData);
-            await authService.login({
+            const loginResponse = await authService.login({
                 email: registrationData.email,
                 password: registrationData.password
             });
             setIsAuthenticated(true);
+            window.location.href = '/user/dashboard';
+            return loginResponse;
         } catch (error) {
             console.error('Registration failed:', error);
             throw error;
         }
     };
+
+    if (isInitializing) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="app">

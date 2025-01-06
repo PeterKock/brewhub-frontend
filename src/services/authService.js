@@ -1,6 +1,9 @@
+// Constants
 const API_URL = 'http://localhost:8080/api/auth';
 
+// Main Service Export
 export const authService = {
+    // Authentication Methods
     login: async (credentials) => {
         console.log('Login attempt with:', credentials.email);
         const response = await fetch(`${API_URL}/login`, {
@@ -12,8 +15,11 @@ export const authService = {
         });
 
         if (!response.ok) {
-            const error = await response.text();
-            throw new Error(error || 'Login failed');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.dispatchEvent(new Event('storage'));
+            const errorText = await response.text();
+            throw new Error(errorText || 'Login failed');
         }
 
         const data = await response.json();
@@ -23,14 +29,16 @@ export const authService = {
             console.log('Storing auth data in localStorage');
             localStorage.setItem('token', data['token']);
             localStorage.setItem('user', JSON.stringify({
-                id: data['id'],
-                email: data['email'],
-                role: data['role']
+                id: data.id,
+                email: data.email,
+                role: data.role
             }));
+            window.dispatchEvent(new Event('storage'));
         }
         return data;
     },
 
+    // Registration Method
     register: async (userData) => {
         console.log('Registration attempt for:', userData.email);
         const response = await fetch(`${API_URL}/signup`, {
@@ -42,24 +50,39 @@ export const authService = {
         });
 
         if (!response.ok) {
-            const error = await response.text();
-            throw new Error(error || 'Registration failed');
+            const errorText = await response.text();
+            throw new Error(errorText || 'Registration failed');
         }
 
         return response.json();
     },
 
+    // Session Management Methods
     logout: () => {
         console.log('Logging out user');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        window.dispatchEvent(new Event('storage'));
     },
 
+    // Authentication State Check
     isAuthenticated: () => {
-        const token = localStorage.getItem('token');
-        const user = localStorage.getItem('user');
-        console.log('Auth check - Token exists:', !!token);
-        console.log('Auth check - User exists:', !!user);
-        return !!token && !!user;
+        const userStr = localStorage.getItem('user');
+
+        if (!localStorage.getItem('token') || !userStr) {
+            return false;
+        }
+
+        try {
+            const user = JSON.parse(userStr);
+            const isValid = !!(user && user.id && user.email && user.role);
+
+            console.log('Auth check - Token exists:', !!localStorage.getItem('token'));
+            console.log('Auth check - User valid:', isValid);
+
+            return isValid;
+        } catch {
+            return false;
+        }
     }
 };
