@@ -15,6 +15,15 @@
     .action-buttons {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    /* Homepage Responsive */
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .recipes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 640px) {
@@ -40,6 +49,20 @@
     .dashboard-section {
         padding: var(--spacing-md);
     }
+
+    /* Homepage Responsive */
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .recipes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-section {
+        padding: var(--spacing-md);
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -80,5 +103,14 @@
 
     .profile-info {
         width: 100%;
+    }
+
+    /* Homepage Responsive */
+    .home-content {
+        padding: var(--spacing-md);
+    }
+
+    .feature-section {
+        padding: var(--spacing-lg);
     }
 }
