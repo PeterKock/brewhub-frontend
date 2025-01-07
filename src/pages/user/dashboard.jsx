@@ -1,8 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+    ShoppingCart,
+    Book,
+    Heart,
+    Coffee,
+    Mail,
+    MapPin,
+    Calendar,
+    Store
+} from 'lucide-react';
 
 const UserDashboard = () => {
-    // State declaration with initial mock data
     const [userData] = useState({
         name: "John Doe",
         email: "john.doe@example.com",
@@ -15,60 +24,83 @@ const UserDashboard = () => {
         ]
     });
 
-    //Overview Section
     return (
-        <div className="dashboard-container">
+        <main className="dashboard-container">
             {/* Overview Section */}
-            <section className="dashboard-section overview">
+            <section className="dashboard-section">
                 <div className="welcome-header">
-                    <h2>Welcome back, {userData.name}</h2>
+                    <h1>Welcome back, {userData.name}</h1>
                 </div>
 
                 <div className="stats-container">
                     <div className="stat-card">
-                        <h3>Total Orders</h3>
-                        <p>{userData.totalOrders}</p>
+                        <div className="stat-icon">
+                            <ShoppingCart size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <h2>Total Orders</h2>
+                            <p>{userData.totalOrders}</p>
+                        </div>
                     </div>
                     <div className="stat-card">
-                        <h3>Favorite Retailers</h3>
-                        <p>{userData.favoriteRetailers}</p>
+                        <div className="stat-icon">
+                            <Store size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <h2>Favorite Retailers</h2>
+                            <p>{userData.favoriteRetailers}</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* Quick Actions */}
-            <section className="dashboard-section quick-actions">
-                <h3>Quick Actions</h3>
+            <section className="dashboard-section">
+                <h2 className="section-title">Quick Actions</h2>
                 <div className="action-buttons">
-                    <Link to="/user/recipes" className="action-button">
-                        Browse Recipes
+                    <Link to="/user/recipes" className="action-button recipes-action">
+                        <Coffee size={20} />
+                        <span>Browse Recipes</span>
                     </Link>
-                    <Link to="/user/orders" className="action-button">
-                        New Order
+                    <Link to="/user/guides" className="action-button guides-action">
+                        <Book size={20} />
+                        <span>Brewing Guides</span>
                     </Link>
-                    <Link to="/user/guides" className="action-button">
-                        Brewing Guides
+                    <Link to="/user/orders" className="action-button orders-action">
+                        <ShoppingCart size={20} />
+                        <span>New Order</span>
                     </Link>
-                    <Link to="/user/favorites" className="action-button">
-                        Favorites
+                    <Link to="/user/favorites" className="action-button favorites-action">
+                        <Heart size={20} />
+                        <span>Favorites</span>
                     </Link>
                 </div>
             </section>
 
             {/* Recent Orders */}
-            <section className="dashboard-section recent-orders">
-                <h3>Recent Orders</h3>
+            <section className="dashboard-section">
+                <h2 className="section-title">Recent Orders</h2>
                 <div className="orders-list">
                     {userData.recentOrders.map(order => (
                         <div key={order.id} className="order-card">
                             <div className="order-info">
-                                <p className="order-date">{order.date}</p>
-                                <p className="order-retailer">{order.retailer}</p>
+                                <div className="order-detail">
+                                    <Calendar size={20} />
+                                    <span className="order-date">{order.date}</span>
+                                </div>
+                                <div className="order-detail">
+                                    <Store size={20} />
+                                    <span className="order-retailer">{order.retailer}</span>
+                                </div>
                                 <span className={`order-status status-${order.status.toLowerCase()}`}>
                                     {order.status}
                                 </span>
                             </div>
-                            <Link to={`/user/orders/${order.id}`} className="view-order-button">
+                            <Link
+                                to={`/user/orders/${order.id}`}
+                                className="view-order-button"
+                                aria-label={`View details for order from ${order.retailer}`}
+                            >
                                 View Details
                             </Link>
                         </div>
@@ -77,19 +109,29 @@ const UserDashboard = () => {
             </section>
 
             {/* Profile Summary */}
-            <section className="dashboard-section profile-summary">
-                <h3>Profile Summary</h3>
+            <section className="dashboard-section">
+                <h2 className="section-title">Profile Summary</h2>
                 <div className="profile-card">
                     <div className="profile-info">
-                        <p><strong>Email:</strong> {userData.email}</p>
-                        <p><strong>Location:</strong> {userData.location}</p>
+                        <div className="profile-detail">
+                            <Mail size={20} />
+                            <span>{userData.email}</span>
+                        </div>
+                        <div className="profile-detail">
+                            <MapPin size={20} />
+                            <span>{userData.location}</span>
+                        </div>
                     </div>
-                    <Link to="/user/profile" className="edit-profile-button">
+                    <Link
+                        to="/user/profile"
+                        className="edit-profile-button"
+                        aria-label="Edit your profile"
+                    >
                         Edit Profile
                     </Link>
                 </div>
             </section>
-        </div>
+        </main>
     );
 };
 
