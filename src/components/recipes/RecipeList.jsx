@@ -39,7 +39,7 @@ const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe }) => {
                     No recipes found matching your criteria
                 </div>
             ) : (
-                <div className="recipe-grid">
+                <div className="card-grid">
                     {recipes.map((recipe) => (
                         <RecipeCard
                             key={recipe.id}

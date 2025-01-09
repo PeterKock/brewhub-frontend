@@ -21,7 +21,7 @@ const GuideList = ({ guides, onSearch, onFilter, onSelectGuide }) => {
                     No guides found matching your criteria
                 </div>
             ) : (
-                <div className="base-grid">
+                <div className="card-grid">
                     {guides.map((guide) => (
                         <GuideCard
                             key={guide.id}

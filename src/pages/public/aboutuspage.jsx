@@ -4,7 +4,7 @@ const AboutUsPage = () => {
             <section className="main-section">
                 <h2 className="section-title">About BrewHub</h2>
 
-                <div className="base-grid">
+                <div className="card-grid">
                     <div className="base-card">
                         <h3>Our Mission</h3>
                         <p>At BrewHub, we&apos;re passionate about bringing the art and science of craft brewing to enthusiasts of all levels. We believe that great beer is more than just a beverage—it&apos;s a journey of discovery, creativity, and community.</p>

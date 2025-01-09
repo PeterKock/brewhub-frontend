@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import RecipeList from '../../components/recipes/RecipeList';
 import { RecipeDetailCard } from '../../components/recipes/index.js';
 import { recipeData } from '../../components/recipes/index.js';
 
 const UserRecipes = () => {
+    const location = useLocation();
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [filters, setFilters] = useState({
         difficulty: 'all',
@@ -13,11 +15,23 @@ const UserRecipes = () => {
     const recipeDetailRef = useRef(null);
 
     useEffect(() => {
+        // Check for selected recipe from homepage
+        if (location.state?.selectedRecipeId) {
+            const recipe = recipeData.find(r => r.title === location.state.selectedRecipeId);
+            if (recipe) {
+                setSelectedRecipe(recipe);
+            }
+        }
+    }, [location.state]);
+
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (recipeDetailRef.current && !recipeDetailRef.current.contains(event.target)) {
                 setSelectedRecipe(null);
             }
         };
+
+
 
         if (selectedRecipe) {
             document.addEventListener('mousedown', handleClickOutside);

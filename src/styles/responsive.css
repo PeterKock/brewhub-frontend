@@ -1,68 +1,27 @@
 /* ================= Media Queries ================= */
 
 @media (max-width: 1024px) {
-    .base-grid {
+    .recipes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+
+    .recipes-grid > *:last-child:nth-child(3n - 2) {
+        grid-column: auto;
+    }
+
+    /* Other existing rules... */
+    .card-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .base-grid > *:last-child:nth-child(2n - 1) {
-        grid-column: 1 / -1;
-        margin: 0 auto;
-        max-width: calc((100% - var(--spacing-lg)) / 2);
-    }
-
-    /* Dashboard Responsive */
     .action-buttons {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    /* Homepage Responsive */
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .recipes-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .base-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .base-grid > *:last-child {
-        grid-column: 1;
-        margin: 0;
-        max-width: 100%;
-    }
-
-    /* Dashboard Responsive */
-    .action-buttons {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-container {
-        padding: var(--spacing-md);
-    }
-
-    .dashboard-section {
-        padding: var(--spacing-md);
-    }
-
-    /* Homepage Responsive */
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .recipes-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .feature-section {
-        padding: var(--spacing-md);
-    }
-
 }
 
 @media (max-width: 768px) {
@@ -112,5 +71,38 @@
 
     .feature-section {
         padding: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 640px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .recipes-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    /* Dashboard Responsive */
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-container {
+        padding: var(--spacing-md);
+    }
+
+    .dashboard-section {
+        padding: var(--spacing-md);
+    }
+
+    /* Homepage Responsive */
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-section {
+        padding: var(--spacing-md);
     }
 }

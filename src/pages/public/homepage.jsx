@@ -68,7 +68,7 @@ const HomePage = () => {
     return (
         <main className="main-content home-content">
             <section className="home-section feature-section">
-                <h1 className="section-title">Start Brewing</h1>
+                {/*<h1 className="section-title">Start Brewing</h1>*/}
                 <div className="features-grid">
                     {features.map((feature, index) => (
                         <div key={index} className="feature-card-wrapper">
@@ -88,15 +88,15 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="home-section recipes-section">
-                <h2 className="section-title">Popular Recipes</h2>
+            <section className="home-section recipes-section feature-section">
+                {/*<h2 className="section-title">Popular Recipes</h2>*/}
                 <div className="recipes-grid">
                     {recipes.map((recipe, index) => (
                         <Link
                             key={index}
                             to={`/user/recipes`}
                             className="recipe-card-wrapper"
-                            state={{ searchTerm: recipe.title }}
+                            state={{selectedRecipeId: recipe.title}}
                             aria-label={`View recipe for ${recipe.title}`}
                         >
                             <RecipeCard {...recipe} />

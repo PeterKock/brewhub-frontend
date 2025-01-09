@@ -51,7 +51,7 @@ RecipeCard.propTypes = {
 // Grid Container Component
 export const CardGrid = ({ children }) => {
     return (
-        <div className="base-grid">
+        <div className="card-grid">
             {children}
         </div>
     );
