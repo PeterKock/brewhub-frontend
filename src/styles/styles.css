@@ -445,7 +445,7 @@ a:hover {
   width: 100%;
   padding: 0 var(--spacing-md);
   text-align: center;
-  margin: 0 auto var(--spacing-xl);
+  margin: 0 auto var(--spacing-md);
 }
 
 .main-section {
@@ -591,12 +591,9 @@ a:hover {
 }
 
 /* --------------- 7.3 Guides Page --------------------- */
-.selected-guide-container {
+.selected-recipe-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-lg);
-  background-color: var(--card-color);
-  border-radius: var(--border-radius-value);
 }
 
 .guide-stats {
@@ -1024,9 +1021,9 @@ a:hover {
   color: var(--primary-text-color);
 }
 
-.recipes-section {
+/*.recipes-section {
   margin-top: var(--spacing-xxl);
-}
+}*/
 
 .recipes-grid {
   display: grid;
