@@ -1,25 +1,29 @@
 /* ================= Media Queries ================= */
 
 @media (max-width: 1024px) {
-    .recipes-grid {
+    .card-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-lg);
     }
 
-    .recipes-grid > *:last-child:nth-child(3n - 2) {
+    .card-grid > *:last-child:nth-child(3n - 2) {
         grid-column: auto;
     }
 
-    /* Other existing rules... */
-    .card-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .action-buttons {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .recipes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .user-action-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .retailer-stats-grid,
+    .retailer-quick-actions-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -38,39 +42,51 @@
         margin-bottom: var(--spacing-sm);
     }
 
-    /* Dashboard Responsive */
-    .stats-container {
+    /* User Dashboard Responsive */
+    .user-dashboard-stats-container {
         grid-template-columns: 1fr;
     }
 
-    .order-card {
+    .user-order-card {
         flex-direction: column;
         align-items: stretch;
         gap: var(--spacing-md);
     }
 
-    .order-info {
+    .user-order-info {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .profile-card {
+    .user-profile-card {
         flex-direction: column;
         gap: var(--spacing-md);
         text-align: center;
     }
 
-    .profile-info {
+    .user-profile-info {
         width: 100%;
     }
 
     /* Homepage Responsive */
-    .home-content {
+    .feature-section {
+        padding: var(--spacing-lg);
+    }
+
+    .main-content {
         padding: var(--spacing-md);
     }
 
-    .feature-section {
-        padding: var(--spacing-lg);
+    /* Footer Responsive */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section + .footer-section {
+        margin-left: 0;
+        margin-top: var(--spacing-lg);
     }
 }
 
@@ -79,30 +95,69 @@
         grid-template-columns: 1fr;
     }
 
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
     .recipes-grid {
         grid-template-columns: 1fr;
         gap: var(--spacing-lg);
     }
 
-    /* Dashboard Responsive */
-    .action-buttons {
+    /* User Dashboard Responsive */
+    .user-action-buttons {
         grid-template-columns: 1fr;
     }
 
-    .dashboard-container {
+    .user-dashboard-container {
         padding: var(--spacing-md);
     }
 
-    .dashboard-section {
+    .user-dashboard-section {
         padding: var(--spacing-md);
     }
 
-    /* Homepage Responsive */
-    .features-grid {
+    /* Retailer Dashboard Responsive */
+    .retailer-dashboard-container {
+        padding: var(--spacing-md);
+    }
+
+    .retailer-dashboard-section {
+        padding: var(--spacing-md);
+    }
+
+    .retailer-stats-grid,
+    .retailer-quick-actions-grid,
+    .retailer-low-stock-grid {
         grid-template-columns: 1fr;
     }
 
-    .feature-section {
-        padding: var(--spacing-md);
+    .retailer-order-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .retailer-order-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Header Responsive */
+    .header-content {
+        padding: 0 var(--spacing-md);
+    }
+
+    .brand-name {
+        display: none;
+    }
+
+    /* Filter Bar Responsive */
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-select {
+        width: 100%;
     }
 }

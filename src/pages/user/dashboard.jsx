@@ -32,7 +32,7 @@ const UserDashboard = () => {
                     <h1>Welcome back, {userData.name}</h1>
                 </div>
 
-                <div className="dashboard-stats-container">
+                <div className="user-dashboard-stats-container">
                     <div className="stat-card">
                         <div className="stat-icon">
                             <ShoppingCart size={24}/>
@@ -58,19 +58,19 @@ const UserDashboard = () => {
             <section className="dashboard-section">
                 <h2 className="section-title">Quick Actions</h2>
                 <div className="action-buttons">
-                    <Link to="/user/recipes" className="action-button recipes-action">
+                    <Link to="/user/recipes" className="action-button user-recipes-action">
                         <Coffee size={20} />
                         <span>Browse Recipes</span>
                     </Link>
-                    <Link to="/user/guides" className="action-button guides-action">
+                    <Link to="/user/guides" className="action-button user-guides-action">
                         <Book size={20} />
                         <span>Brewing Guides</span>
                     </Link>
-                    <Link to="/user/orders" className="action-button orders-action">
+                    <Link to="/user/orders" className="action-button user-orders-action">
                         <ShoppingCart size={20} />
                         <span>New Order</span>
                     </Link>
-                    <Link to="/user/favorites" className="action-button favorites-action">
+                    <Link to="/user/favorites" className="action-button user-favorites-action">
                         <Heart size={20} />
                         <span>Favorites</span>
                     </Link>
@@ -86,19 +86,19 @@ const UserDashboard = () => {
                             <div className="order-info">
                                 <div className="order-detail">
                                     <Calendar size={20} />
-                                    <span className="order-date">{order.date}</span>
+                                    <span>{order.date}</span>
                                 </div>
                                 <div className="order-detail">
                                     <Store size={20} />
-                                    <span className="order-retailer">{order.retailer}</span>
+                                    <span>{order.retailer}</span>
                                 </div>
-                                <span className={`order-status status-${order.status.toLowerCase()}`}>
+                                <span className={`status-badge user-status-${order.status.toLowerCase()}`}>
                                     {order.status}
                                 </span>
                             </div>
                             <Link
                                 to={`/user/orders/${order.id}`}
-                                className="view-order-button"
+                                className="user-view-order-button"
                                 aria-label={`View details for order from ${order.retailer}`}
                             >
                                 View Details
@@ -111,20 +111,20 @@ const UserDashboard = () => {
             {/* Profile Summary */}
             <section className="dashboard-section">
                 <h2 className="section-title">Profile Summary</h2>
-                <div className="profile-card">
-                    <div className="profile-info">
-                        <div className="profile-detail">
+                <div className="user-profile-card">
+                    <div className="user-profile-info">
+                        <div className="user-profile-detail">
                             <Mail size={20} />
                             <span>{userData.email}</span>
                         </div>
-                        <div className="profile-detail">
+                        <div className="user-profile-detail">
                             <MapPin size={20} />
                             <span>{userData.location}</span>
                         </div>
                     </div>
                     <Link
                         to="/user/profile"
-                        className="edit-profile-button"
+                        className="user-edit-profile-button"
                         aria-label="Edit your profile"
                     >
                         Edit Profile
