@@ -22,6 +22,11 @@
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .stats-grid,
+    .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -39,7 +44,7 @@
     }
 
     /* Dashboard Responsive */
-    .stats-container {
+    .dashboard-stats-container {
         grid-template-columns: 1fr;
     }
 
@@ -104,5 +109,21 @@
 
     .feature-section {
         padding: var(--spacing-md);
+    }
+
+    .stats-grid,
+    .quick-actions-grid,
+    .low-stock-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-actions {
+        width: 100%;
+        justify-content: space-between;
     }
 }

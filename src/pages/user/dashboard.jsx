@@ -25,9 +25,9 @@ const UserDashboard = () => {
     });
 
     return (
-        <main className="dashboard-container">
+        <main className="user-dashboard-container">
             {/* Overview Section */}
-            <section className="dashboard-section">
+            <section className="user-dashboard-section">
                 <div className="welcome-header">
                     <h1>Welcome back, {userData.name}</h1>
                 </div>

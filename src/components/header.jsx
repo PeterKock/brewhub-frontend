@@ -63,7 +63,8 @@ const Header = ({ isAuthenticated, onLogout }) => {
                     </button>
 
                     <div className={`menu-dropdown ${isMenuOpen ? 'open' : ''}`}>
-                        <Link to="/user/dashboard" className="UserDashboard" onClick={handleMenuItemClick}>Dashboard</Link>
+                        <Link to="/user/dashboard" className="UserDashboard" onClick={handleMenuItemClick}>Dashboard U</Link>
+                        <Link to="/retailer/dashboard" className="RetailerDashboard" onClick={handleMenuItemClick}>Dashboard R</Link>
                         <Link to="/user/community" className="UserCommunity" onClick={handleMenuItemClick}>Community</Link>
                         <Link to="/user/recipes" className="UserRecipes" onClick={handleMenuItemClick}>Recipes</Link>
                         <Link to="/user/guides" className="UserGuides" onClick={handleMenuItemClick}>Guides</Link>

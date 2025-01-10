@@ -31,8 +31,9 @@
         7.3 Guides Page
         7.4 Recipes Page
         7.5 User Dashboard
-        7.6 Home Page
-        7.7 Shared
+        7.6 User Dashboard
+        7.7 Home Page
+        7.8 Shared
     8. Footer
         8.1 Footer Layout
         8.2 Footer Sections
@@ -750,7 +751,7 @@ a:hover {
 
 /* --------------- 7.5 User Dashboard ------------------- */
 /* Dashboard Layout */
-.dashboard-container {
+.user-dashboard-container {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
@@ -759,7 +760,7 @@ a:hover {
   padding: var(--spacing-lg);
 }
 
-.dashboard-section {
+.user-dashboard-section {
   background-color: var(--secondary-bg-color);
   border-radius: var(--border-radius-value);
   padding: var(--spacing-lg);
@@ -941,7 +942,205 @@ a:hover {
   background-color: var(--accent-hover-color);
 }
 
-/* --------------- 7.6 Home Page ------------------- */
+/* --------------- 7.6 Retailer Dashboard ---------- */
+.retailer-dashboard-container {
+  padding: 24px;
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.retailer-dashboard-section {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-header {
+  margin-bottom: 24px;
+}
+
+.welcome-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a202c;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background: #f7fafc;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.stat-card h3 {
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a202c;
+}
+
+.stat-card p.alert {
+  color: #e53e3e;
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: #3182ce;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background: #2c5282;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.order-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-date {
+  color: #718096;
+  font-size: 14px;
+}
+
+.order-customer {
+  font-weight: 500;
+}
+
+.order-items {
+  color: #718096;
+}
+
+.order-total {
+  font-weight: bold;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 14px;
+}
+
+.status-badge.pending {
+  background: #fefcbf;
+  color: #975a16;
+}
+
+.status-badge.processing {
+  background: #e9d8fd;
+  color: #553c9a;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.view-details-button {
+  padding: 8px 16px;
+  background: #edf2f7;
+  color: #4a5568;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.process-button {
+  padding: 8px 16px;
+  background: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.low-stock-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.low-stock-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stock-info h4 {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.stock-info p {
+  color: #718096;
+  font-size: 14px;
+}
+
+.restock-button {
+  padding: 8px 16px;
+  background: #e53e3e;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.restock-button:hover {
+  background: #c53030;
+}
+
+/* --------------- 7.7 Home Page ------------------- */
 .feature-section {
   background-color: var(--secondary-bg-color);
   padding: var(--spacing-xl);
@@ -1048,7 +1247,7 @@ a:hover {
   line-height: 1.6;
 }
 
-/* --------------- 7.7 Shared ------------------- */
+/* --------------- 7.8 Shared ------------------- */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
