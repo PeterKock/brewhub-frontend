@@ -32,10 +32,10 @@ const UserDashboard = () => {
                     <h1>Welcome back, {userData.name}</h1>
                 </div>
 
-                <div className="stats-container">
+                <div className="dashboard-stats-container">
                     <div className="stat-card">
                         <div className="stat-icon">
-                            <ShoppingCart size={24} />
+                            <ShoppingCart size={24}/>
                         </div>
                         <div className="stat-content">
                             <h2>Total Orders</h2>
@@ -44,7 +44,7 @@ const UserDashboard = () => {
                     </div>
                     <div className="stat-card">
                         <div className="stat-icon">
-                            <Store size={24} />
+                            <Store size={24}/>
                         </div>
                         <div className="stat-content">
                             <h2>Favorite Retailers</h2>

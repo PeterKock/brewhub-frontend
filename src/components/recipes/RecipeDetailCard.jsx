@@ -2,25 +2,21 @@ import PropTypes from 'prop-types';
 import { DetailHeader } from '../shared/DetailHeader';
 
 export const RecipeDetailCard = ({ recipe, onClose }) => {
-    const getDifficultyClass = (level) => {
-        const classes = {
-            beginner: 'difficulty-beginner',
-            intermediate: 'difficulty-intermediate',
-            advanced: 'difficulty-advanced'
-        };
-        return `difficulty ${classes[level.toLowerCase()]}`;
-    };
-
     const stats = (
-        <>
-            <span className="recipe-stat">Time: {recipe.timeInWeeks} weeks</span>
-            <span className="recipe-stat">ABV: {recipe.abv}</span>
-            <span className="recipe-stat">IBU: {recipe.ibu}</span>
-            <span className="recipe-stat">Type: {recipe.type}</span>
-            <span className={getDifficultyClass(recipe.difficulty)}>
-                {recipe.difficulty}
+        <div className="recipe-stats">
+            <span className="recipe-stat">
+                Time: {recipe.timeInWeeks} weeks
             </span>
-        </>
+            <span className="recipe-stat">
+                ABV: {recipe.abv}
+            </span>
+            <span className="recipe-stat">
+                IBU: {recipe.ibu}
+            </span>
+            <span className="recipe-stat">
+                Type: {recipe.type}
+            </span>
+        </div>
     );
 
     return (
@@ -33,22 +29,28 @@ export const RecipeDetailCard = ({ recipe, onClose }) => {
             />
 
             <div className="recipe-content">
+                {/* Left Column: Ingredients */}
                 <div className="recipe-section">
                     <h4>Ingredients</h4>
-                    <ul className="recipe-list">
-                        {recipe.ingredients.map((ingredient, index) => (
-                            <li key={index}>{ingredient}</li>
-                        ))}
-                    </ul>
+                    <div className="recipe-subsection">
+                        <ul className="recipe-list">
+                            {recipe.ingredients.map((ingredient, index) => (
+                                <li key={index}>{ingredient}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
 
+                {/* Right Column: Instructions */}
                 <div className="recipe-section">
                     <h4>Instructions</h4>
-                    <ol className="recipe-list">
-                        {recipe.instructions.map((step, index) => (
-                            <li key={index}>{step}</li>
-                        ))}
-                    </ol>
+                    <div className="recipe-subsection">
+                        <ol className="recipe-list">
+                            {recipe.instructions.map((step, index) => (
+                                <li key={index}>{step}</li>
+                            ))}
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>

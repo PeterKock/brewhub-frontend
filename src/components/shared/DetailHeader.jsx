@@ -8,7 +8,7 @@ export const DetailHeader = ({ title, description, stats, onClose }) => (
         <div className="title-container">
             <h3>{title}</h3>
             <p className="content-description">{description}</p>
-            {stats && <div className="stats-container">{stats}</div>}
+            {stats && <div>{stats}</div>}
         </div>
     </div>
 );

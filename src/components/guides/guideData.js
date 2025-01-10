@@ -6,7 +6,6 @@ export const guideData = [
         category: 'getting-started',
         timeToRead: 15,
         content: {
-            introduction: 'Begin your home brewing adventure with this comprehensive guide designed for newcomers.',
             sections: [
                 {
                     title: 'Basic Brewing Concepts',
@@ -36,7 +35,6 @@ export const guideData = [
         category: 'equipment',
         timeToRead: 10,
         content: {
-            introduction: 'Learn about the essential equipment needed for successful home brewing.',
             sections: [
                 {
                     title: 'Basic Equipment List',
@@ -66,7 +64,6 @@ export const guideData = [
         category: 'ingredients',
         timeToRead: 12,
         content: {
-            introduction: 'Explore the world of malts and their crucial role in brewing.',
             sections: [
                 {
                     title: 'Base Malts',
@@ -96,7 +93,6 @@ export const guideData = [
         category: 'ingredients',
         timeToRead: 20,
         content: {
-            introduction: 'Master the art of hopping and understand how different varieties affect your beer.',
             sections: [
                 {
                     title: 'Hop Characteristics',
@@ -126,7 +122,6 @@ export const guideData = [
         category: 'techniques',
         timeToRead: 25,
         content: {
-            introduction: 'Learn advanced mashing techniques to improve your brewing process.',
             sections: [
                 {
                     title: 'Mash Chemistry',
@@ -156,7 +151,6 @@ export const guideData = [
         category: 'techniques',
         timeToRead: 15,
         content: {
-            introduction: 'Master temperature control for better fermentation results.',
             sections: [
                 {
                     title: 'Temperature Effects',
@@ -186,7 +180,6 @@ export const guideData = [
         category: 'troubleshooting',
         timeToRead: 18,
         content: {
-            introduction: 'Learn to identify and solve common brewing problems.',
             sections: [
                 {
                     title: 'Off-Flavors',
@@ -216,7 +209,6 @@ export const guideData = [
         category: 'techniques',
         timeToRead: 30,
         content: {
-            introduction: 'Learn about water chemistry and its impact on beer quality.',
             sections: [
                 {
                     title: 'Water Profiles',
@@ -246,7 +238,6 @@ export const guideData = [
         category: 'getting-started',
         timeToRead: 10,
         content: {
-            introduction: 'Master the crucial aspects of cleaning and sanitization in brewing.',
             sections: [
                 {
                     title: 'Cleaning Basics',
