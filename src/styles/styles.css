@@ -750,7 +750,6 @@ a:hover {
 
 
 /* --------------- 7.5 User Dashboard ------------------- */
-
 /* Overview Section */
 
 .user-dashboard-stats-container {
@@ -777,7 +776,6 @@ a:hover {
 }
 
 /* Recent Orders */
-
 .user-status-delivered {
   background-color: #a8e6cf;
   color: #2d6a4f;
@@ -824,9 +822,7 @@ a:hover {
 }
 
 /* --------------- 7.6 Retailer Dashboard ---------- */
-
 /* Overview Section */
-
 .retailer-dashboard-stats-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -855,7 +851,6 @@ a:hover {
 }
 
 /* Recent Orders */
-
 .retailer-order-customer {
   color: var(--primary-text-color);
   margin-bottom: var(--spacing-sm);
@@ -1036,7 +1031,7 @@ a:hover {
   justify-content: center;
 }
 
-/* Dashboard */
+/* Dashboards */
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -1162,8 +1157,6 @@ a:hover {
 .retailer-restock-button:hover {
   background-color: var(--accent-hover-color);
 }
-
-
 
 /* ------------------------------- 8. Footer -------------------------------- */
 /* --------------- 8.1 Footer Layout ------------------- */
