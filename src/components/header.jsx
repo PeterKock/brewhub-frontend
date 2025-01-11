@@ -48,7 +48,12 @@ const Header = ({ isAuthenticated, onLogout }) => {
                     ]);
                 });
         } else {
-            setMenuItems([]);
+            // Set default menu items for non-authenticated users
+            setMenuItems([
+                { label: 'Community', path: '/user/community' },
+                { label: 'Recipes', path: '/user/recipes' },
+                { label: 'Guides', path: '/user/guides' }
+            ]);
         }
     }, [isAuthenticated]);
 
