@@ -24,6 +24,7 @@ import UserCommunity from './pages/user/community.jsx';
 // Retailer Pages
 import RetailerDashboard from './pages/retailer/dashboard';
 import RetailerInventory from './pages/retailer/inventory';
+import RetailerOrders from './pages/retailer/orders';
 
 const ProtectedRoute = ({ children, isAuthenticated }) => {
     const [isChecking, setIsChecking] = useState(true);
@@ -105,7 +106,17 @@ function AppContent() {
             const response = await authService.login(credentials);
             console.log('Login successful, setting auth state to true');
             setIsAuthenticated(true);
-            window.location.href = '/user/dashboard';
+
+            // Get the stored user data
+            const userStr = localStorage.getItem('user');
+            const user = JSON.parse(userStr);
+
+            // Redirect based on role
+            if (user && user.role === 'ROLE_RETAILER') {
+                window.location.href = '/retailer/dashboard';
+            } else {
+                window.location.href = '/user/dashboard';
+            }
             return response;
         } catch (error) {
             console.error('Login failed:', error);
@@ -127,7 +138,17 @@ function AppContent() {
                 password: registrationData.password
             });
             setIsAuthenticated(true);
-            window.location.href = '/user/dashboard';
+
+            // Get the stored user data
+            const userStr = localStorage.getItem('user');
+            const user = JSON.parse(userStr);
+
+            // Redirect based on role
+            if (user && user.role === 'ROLE_RETAILER') {
+                window.location.href = '/retailer/dashboard';
+            } else {
+                window.location.href = '/user/dashboard';
+            }
             return loginResponse;
         } catch (error) {
             console.error('Registration failed:', error);
@@ -161,6 +182,7 @@ function AppContent() {
                     {/* Protected Retailer Routes */}
                     <Route path="/retailer/dashboard" element={<ProtectedRoute isAuthenticated={isAuthenticated}><RetailerDashboard /></ProtectedRoute>} />
                     <Route path="/retailer/inventory" element={<ProtectedRoute isAuthenticated={isAuthenticated}><RetailerInventory /></ProtectedRoute>} />
+                    <Route path="/retailer/orders" element={<ProtectedRoute isAuthenticated={isAuthenticated}><RetailerOrders /></ProtectedRoute>} />
                 </Routes>
             </main>
             <Footer />
