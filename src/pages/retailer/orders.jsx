@@ -12,7 +12,7 @@ const RetailerOrders = () => {
         setOrders([
             {
                 id: 1,
-                date: "2024-01-15",
+                date: "2025-01-15",
                 customerName: "John Doe",
                 beerType: "IPA",
                 status: "PENDING",
@@ -20,7 +20,7 @@ const RetailerOrders = () => {
             },
             {
                 id: 2,
-                date: "2024-01-14",
+                date: "2025-01-14",
                 customerName: "Jane Smith",
                 beerType: "Stout",
                 status: "PROCESSING",
@@ -28,7 +28,7 @@ const RetailerOrders = () => {
             },
             {
                 id: 3,
-                date: "2024-01-10",
+                date: "2025-01-10",
                 customerName: "Mike Johnson",
                 beerType: "Pale Ale",
                 status: "COMPLETED",
@@ -55,8 +55,8 @@ const RetailerOrders = () => {
     });
 
     return (
-                <main className="dashboard-container">
-                    <section className="dashboard-section">
+                <main className="dashboard-order-container">
+                    <section className="dashboard-order-section">
                         <h2 className="section-title">Manage Orders</h2>
 
                         <div className="order-filter-bar">

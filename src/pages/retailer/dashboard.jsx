@@ -24,7 +24,7 @@ const RetailerDashboard = () => {
         recentOrders: [
             {
                 id: 1,
-                date: "2024-01-15",
+                date: "2025-01-15",
                 status: "Pending",
                 customer: "John Doe",
                 items: "Barley, Hops",
@@ -32,7 +32,7 @@ const RetailerDashboard = () => {
             },
             {
                 id: 2,
-                date: "2024-01-14",
+                date: "2025-01-14",
                 status: "Processing",
                 customer: "Jane Smith",
                 items: "Yeast, Malt",
@@ -45,14 +45,14 @@ const RetailerDashboard = () => {
                 name: "Cascade Hops",
                 quantity: 5,
                 threshold: 10,
-                lastRestocked: "2024-01-01"
+                lastRestocked: "2025-01-01"
             },
             {
                 id: 2,
                 name: "Pilsner Malt",
                 quantity: 8,
                 threshold: 15,
-                lastRestocked: "2024-01-05"
+                lastRestocked: "2025-01-05"
             }
         ]
     };
@@ -134,7 +134,7 @@ const RetailerDashboard = () => {
             {/* Recent Orders */}
             <section className="dashboard-section">
                 <h2 className="section-title">Recent Orders</h2>
-                <div className="orders-list">
+                <div className="dashboard-list">
                     {retailerData.recentOrders.map(order => (
                         <div key={order.id} className="order-card">
                             <div className="order-info">
@@ -177,7 +177,7 @@ const RetailerDashboard = () => {
             {/* Low Stock Alerts */}
             <section className="dashboard-section">
                 <h2 className="section-title">Low Stock Alerts</h2>
-                <div className="orders-list">
+                <div className="dashboard-list">
                     {retailerData.lowStockItems.map(item => (
                         <div key={item.id} className="order-card">
                             <div className="order-info">

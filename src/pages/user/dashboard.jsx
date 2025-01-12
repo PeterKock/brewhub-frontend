@@ -19,8 +19,8 @@ const UserDashboard = () => {
         totalOrders: 5,
         favoriteRetailers: 3,
         recentOrders: [
-            { id: 1, date: "2024-01-05", status: "Delivered", retailer: "Brew Supply Co" },
-            { id: 2, date: "2024-01-15", status: "Processing", retailer: "Malt Masters" }
+            { id: 1, date: "2025-01-05", status: "Delivered", retailer: "Brew Supply Co" },
+            { id: 2, date: "2025-01-15", status: "Processing", retailer: "Malt Masters" }
         ]
     });
 
@@ -80,7 +80,7 @@ const UserDashboard = () => {
             {/* Recent Orders */}
             <section className="dashboard-section">
                 <h2 className="section-title">Recent Orders</h2>
-                <div className="orders-list">
+                <div className="dashboard-list">
                     {userData.recentOrders.map(order => (
                         <div key={order.id} className="order-card">
                             <div className="order-info">
