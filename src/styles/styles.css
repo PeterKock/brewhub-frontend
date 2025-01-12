@@ -32,8 +32,9 @@
         7.4 Recipes Page
         7.5 User Dashboard
         7.6 User Dashboard
-        7.7 Home Page
-        7.8 Shared
+        7.7 Order Pages
+        7.8 Home Page
+        7.9 Shared
     8. Footer
         8.1 Footer Layout
         8.2 Footer Sections
@@ -298,10 +299,10 @@ a:hover {
 .filter-select {
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-value);
-  border: 1px solid var(--secondary-bg-color);
+  border: 1px solid var(--primary-text-color);
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
-  cursor: pointer;
+  height: 42px;
 }
 
 /* ------------------------------- 5. Header -------------------------------- */
@@ -739,16 +740,6 @@ a:hover {
   padding-left: var(--spacing-sm);
 }
 
-.filter-select {
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-value);
-  border: 1px solid var(--secondary-bg-color);
-  background-color: var(--primary-bg-color);
-  color: var(--primary-text-color);
-  cursor: pointer;
-}
-
-
 /* --------------- 7.5 User Dashboard ------------------- */
 /* Overview Section */
 
@@ -908,7 +899,129 @@ a:hover {
   margin-bottom: var(--spacing-md);
 }
 
-/* --------------- 7.7 Home Page ------------------- */
+/* --------------- 7.7 Order Pages ------------------- */
+/* Search and Filter Bar */
+.order-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  width: 100%;
+}
+
+.status-select {
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-value);
+  border: 1px solid var(--primary-text-color);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+/* Order Card */
+.order-card {
+  background-color: var(--primary-bg-color);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--card-shadow-value);
+}
+
+.order-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.order-detail {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--primary-text-color);
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+}
+
+/* Buttons */
+.view-details-button,
+.cancel-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-default-value);
+}
+
+.view-details-button {
+  background-color: var(--accent-color);
+  color: var(--primary-text-color);
+}
+
+.view-details-button:hover {
+  background-color: var(--accent-hover-color);
+}
+
+.cancel-button {
+  background-color: #e74c3c;
+  color: var(--primary-text-color);
+}
+
+.cancel-button:hover {
+  background-color: #c0392b;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: var(--spacing-xsm) var(--spacing-md);
+  border-radius: 20px;
+  font-size: var(--p-font-size);
+}
+
+.user-status-pending {
+  background-color: #ffeaa7;
+  color: #d35400;
+}
+
+.user-status-processing {
+  background-color: #81ecec;
+  color: #00838f;
+}
+
+.user-status-shipped {
+  background-color: #74b9ff;
+  color: #2e86de;
+}
+
+.user-status-delivered {
+  background-color: #a8e6cf;
+  color: #2d6a4f;
+}
+
+.user-status-cancelled {
+  background-color: #fab1a0;
+  color: #e17055;
+}
+
+/* No Results Message */
+.no-results {
+  text-align: center;
+  color: var(--primary-text-color);
+  padding: var(--spacing-xl);
+}
+
+/* --------------- 7.8 Home Page ------------------- */
 .feature-section {
   background-color: var(--secondary-bg-color);
   padding: var(--spacing-xl);
@@ -1015,7 +1128,7 @@ a:hover {
   line-height: 1.6;
 }
 
-/* --------------- 7.8 Shared ------------------- */
+/* --------------- 7.9 Shared ------------------- */
 /* Card Grid */
 .card-grid {
   display: grid;
@@ -1294,6 +1407,7 @@ a:hover {
   display: flex;
   justify-content: center;
   margin-bottom: var(--spacing-lg);
+  height: 42px;
 }
 
 .search-container input {
@@ -1301,7 +1415,7 @@ a:hover {
   max-width: 600px;
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-value);
-  border: 1px solid var(--secondary-bg-color);
+  border: 1px solid var(--primary-text-color);
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
 }
