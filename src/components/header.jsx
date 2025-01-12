@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Header = ({ isAuthenticated, onLogout }) => {
+    const [menuItems, setMenuItems] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const navigate = useNavigate();
@@ -20,7 +21,45 @@ const Header = ({ isAuthenticated, onLogout }) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetch('http://localhost:8080/api/public/navigation', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Navigation data:', data);
+                    setMenuItems(data.items || []);
+                })
+                .catch(error => {
+                    console.error('Error fetching navigation:', error);
+                    setMenuItems([
+                        { label: 'Dashboard', path: '/user/dashboard' },
+                        { label: 'Community', path: '/user/community' },
+                        { label: 'Recipes', path: '/user/recipes' },
+                        { label: 'Guides', path: '/user/guides' }
+                    ]);
+                });
+        } else {
+            // Set default menu items for non-authenticated users
+            setMenuItems([
+                { label: 'Community', path: '/user/community' },
+                { label: 'Recipes', path: '/user/recipes' },
+                { label: 'Guides', path: '/user/guides' }
+            ]);
+        }
+    }, [isAuthenticated]);
+
     const toggleMenu = () => {
+        console.log('Menu toggled, isMenuOpen before:', isMenuOpen);
+        console.log('Current menuItems:', menuItems);
         setIsMenuOpen(!isMenuOpen);
     };
 
@@ -56,18 +95,27 @@ const Header = ({ isAuthenticated, onLogout }) => {
                     ) : (
                         <Link to="/login" className="login-link">Sign in</Link>
                     )}
-                    <button className="hamburger-button" onClick={toggleMenu}>
+                    <button
+                        className="hamburger-button"
+                        onClick={toggleMenu}
+                        aria-expanded={isMenuOpen}
+                        aria-label="Menu"
+                    >
                         <span className="hamburger-line"></span>
                         <span className="hamburger-line"></span>
                         <span className="hamburger-line"></span>
                     </button>
 
                     <div className={`menu-dropdown ${isMenuOpen ? 'open' : ''}`}>
-                        <Link to="/user/dashboard" className="UserDashboard" onClick={handleMenuItemClick}>Dashboard U</Link>
-                        <Link to="/retailer/dashboard" className="RetailerDashboard" onClick={handleMenuItemClick}>Dashboard R</Link>
-                        <Link to="/user/community" className="UserCommunity" onClick={handleMenuItemClick}>Community</Link>
-                        <Link to="/user/recipes" className="UserRecipes" onClick={handleMenuItemClick}>Recipes</Link>
-                        <Link to="/user/guides" className="UserGuides" onClick={handleMenuItemClick}>Guides</Link>
+                        {menuItems.map((item, index) => (
+                            <Link
+                                key={index}
+                                to={item.path}
+                                onClick={handleMenuItemClick}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
                     </div>
                 </nav>
             </div>
