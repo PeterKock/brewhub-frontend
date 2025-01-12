@@ -26,6 +26,10 @@
     .retailer-quick-actions-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .inventory-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -183,5 +187,14 @@
 
     .filter-select {
         width: 100%;
+    }
+
+    .inventory-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        gap: var(--spacing-md);
     }
 }
