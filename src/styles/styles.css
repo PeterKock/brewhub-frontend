@@ -17,6 +17,7 @@
         4.3 Base Card
         4.4 Detail Header
         4.5 Filter Bar
+        4.6 Modal Component
     5. Header
         5.1 Header Layout
         5.2 Logo
@@ -169,6 +170,11 @@ a:hover {
   transition: border-color var(--transition-default-value);
 }
 
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
 .form-group input:focus {
   outline: none;
   border-color: var(--accent-color);
@@ -304,6 +310,148 @@ a:hover {
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
   height: 42px;
+}
+
+/* --------------- 4.6 Modal Component ------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-md);
+}
+
+.modal-content {
+  background-color: var(--secondary-bg-color);
+  border-radius: var(--border-radius-value);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--card-shadow-value);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  background-color: var(--secondary-bg-color);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+  font-family: 'Spectral SC', serif;
+  color: var(--primary-text-color);
+  font-size: var(--h3-font-size);
+}
+
+.modal-close-button {
+  background: transparent;
+  border: none;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-default-value);
+}
+
+.modal-close-button:hover {
+  color: var(--accent-color);
+}
+
+.modal-form {
+  padding: var(--spacing-lg);
+}
+
+.modal-form .form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.modal-form .form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  color: var(--primary-text-color);
+  font-size: 0.9rem;
+}
+
+.modal-form .form-group input,
+.modal-form .form-group select {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-value);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  transition: border-color var(--transition-default-value);
+}
+
+.modal-form .form-group input:focus,
+.modal-form .form-group select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.modal-form .form-group input::placeholder {
+  color: var(--secondary-text-color);
+}
+
+.modal-form .form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-cancel-button,
+.modal-submit-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  font-size: var(--p-font-size);
+  cursor: pointer;
+  transition: all var(--transition-default-value);
+}
+
+.modal-cancel-button {
+  background-color: transparent;
+  border: 1px solid var(--secondary-text-color);
+  color: var(--secondary-text-color);
+}
+
+.modal-cancel-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-text-color);
+  color: var(--primary-text-color);
+}
+
+.modal-submit-button {
+  background-color: var(--accent-color);
+  border: none;
+  color: var(--primary-text-color);
+}
+
+.modal-submit-button:hover {
+  background-color: var(--accent-hover-color);
 }
 
 /* ------------------------------- 5. Header -------------------------------- */

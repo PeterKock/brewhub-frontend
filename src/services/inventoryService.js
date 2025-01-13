@@ -43,17 +43,26 @@ export const inventoryService = {
 
     // Create new inventory item
     createItem: async (itemData) => {
+        const token = localStorage.getItem('token');
+        console.log('Using token:', token);
+
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(itemData)
         });
 
         if (!response.ok) {
-            throw new Error('Failed to create inventory item');
+            const errorBody = await response.text();
+            console.error('Server response:', response.status, errorBody);
+
+            if (response.status === 403) {
+                throw new Error('Not authorized. Please check if you are logged in with a retailer account.');
+            }
+            throw new Error(`Failed to create inventory item: ${errorBody}`);
         }
 
         return response.json();
