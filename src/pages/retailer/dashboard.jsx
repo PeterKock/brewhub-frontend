@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     ShoppingBag,
@@ -13,56 +14,77 @@ import {
     AlertTriangle,
     BarChart2
 } from 'lucide-react';
+import { inventoryService } from '../../services/inventoryService';
 
 const RetailerDashboard = () => {
-    const retailerData = {
+    const [dashboardData, setDashboardData] = useState({
         name: "Brew Supply Co",
         pendingOrders: 3,
         completedOrders: 12,
         totalProducts: 45,
-        lowStock: 5,
-        recentOrders: [
-            {
-                id: 1,
-                date: "2025-01-15",
-                status: "Pending",
-                customer: "John Doe",
-                items: "Barley, Hops",
-                total: "€75.00"
-            },
-            {
-                id: 2,
-                date: "2025-01-14",
-                status: "Processing",
-                customer: "Jane Smith",
-                items: "Yeast, Malt",
-                total: "€45.50"
+        lowStock: 0
+    });
+
+    const [recentOrders] = useState([
+        {
+            id: 1,
+            date: "2025-01-15",
+            status: "Pending",
+            customer: "John Doe",
+            items: "Barley, Hops",
+            total: "€75.00"
+        },
+        {
+            id: 2,
+            date: "2025-01-14",
+            status: "Processing",
+            customer: "Jane Smith",
+            items: "Yeast, Malt",
+            total: "€45.50"
+        }
+    ]);
+
+    const [lowStockItems, setLowStockItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadLowStockItems = async () => {
+            try {
+                const items = await inventoryService.getLowStockItems();
+                setLowStockItems(items);
+                setDashboardData(prevData => ({
+                    ...prevData,
+                    lowStock: items.length
+                }));
+                setError(null);
+            } catch (err) {
+                console.error('Failed to load low stock items:', err);
+                setError('Failed to load low stock items');
+            } finally {
+                setLoading(false);
             }
-        ],
-        lowStockItems: [
-            {
-                id: 1,
-                name: "Cascade Hops",
-                quantity: 5,
-                threshold: 10,
-                lastRestocked: "2025-01-01"
-            },
-            {
-                id: 2,
-                name: "Pilsner Malt",
-                quantity: 8,
-                threshold: 15,
-                lastRestocked: "2025-01-05"
-            }
-        ]
-    };
+        };
+
+        loadLowStockItems().catch(err => {
+            console.error('Error in loadLowStockItems:', err);
+            setError('Failed to load low stock items');
+            setLoading(false);
+        });
+    }, []);
+
+    if (loading) {
+        return <div className="loading">Loading...</div>;
+    }
 
     return (
         <main className="dashboard-container">
+            {error && <div className="error-message">{error}</div>}
+
             {/* Overview Section */}
             <section className="dashboard-section">
                 <div className="welcome-header">
-                    <h1>Welcome back, {retailerData.name}</h1>
+                    <h1>Welcome back, {dashboardData.name}</h1>
                 </div>
 
                 <div className="retailer-dashboard-stats-container">
@@ -72,7 +94,7 @@ const RetailerDashboard = () => {
                         </div>
                         <div className="stat-content">
                             <h2>Pending Orders</h2>
-                            <p>{retailerData.pendingOrders}</p>
+                            <p>{dashboardData.pendingOrders}</p>
                         </div>
                     </div>
                     <div className="stat-card">
@@ -81,7 +103,7 @@ const RetailerDashboard = () => {
                         </div>
                         <div className="stat-content">
                             <h2>Completed Orders</h2>
-                            <p>{retailerData.completedOrders}</p>
+                            <p>{dashboardData.completedOrders}</p>
                         </div>
                     </div>
                     <div className="stat-card">
@@ -90,7 +112,7 @@ const RetailerDashboard = () => {
                         </div>
                         <div className="stat-content">
                             <h2>Total Products</h2>
-                            <p>{retailerData.totalProducts}</p>
+                            <p>{dashboardData.totalProducts}</p>
                         </div>
                     </div>
                     <div className="stat-card">
@@ -99,8 +121,8 @@ const RetailerDashboard = () => {
                         </div>
                         <div className="stat-content">
                             <h2>Low Stock Alerts</h2>
-                            <p className={retailerData.lowStock > 0 ? 'alert' : ''}>
-                                {retailerData.lowStock}
+                            <p className={dashboardData.lowStock > 0 ? 'alert' : ''}>
+                                {dashboardData.lowStock}
                             </p>
                         </div>
                     </div>
@@ -119,7 +141,6 @@ const RetailerDashboard = () => {
                         <ClipboardList size={20} />
                         <span>View Orders</span>
                     </Link>
-
                     <Link to="/retailer/inventory" className="action-button retailer-inventory-action">
                         <LayoutGrid size={20} />
                         <span>Manage Inventory</span>
@@ -135,7 +156,7 @@ const RetailerDashboard = () => {
             <section className="dashboard-section">
                 <h2 className="section-title">Recent Orders</h2>
                 <div className="dashboard-list">
-                    {retailerData.recentOrders.map(order => (
+                    {recentOrders.map(order => (
                         <div key={order.id} className="order-card">
                             <div className="order-info">
                                 <div className="order-detail">
@@ -178,39 +199,39 @@ const RetailerDashboard = () => {
             <section className="dashboard-section">
                 <h2 className="section-title">Low Stock Alerts</h2>
                 <div className="dashboard-list">
-                    {retailerData.lowStockItems.map(item => (
-                        <div key={item.id} className="order-card">
-                            <div className="order-info">
-                                <div className="order-detail">
-                                    <Box size={20} />
-                                    <span>{item.name}</span>
+                    {lowStockItems.length > 0 ? (
+                        lowStockItems.map(item => (
+                            <div key={item.id} className="order-card">
+                                <div className="order-info">
+                                    <div className="order-detail">
+                                        <Box size={20} />
+                                        <span>{item.name}</span>
+                                    </div>
+                                    <div className="order-detail">
+                                        <BarChart2 size={20} />
+                                        <span>{Number(item.quantity).toFixed(2)} {item.unit}</span>
+                                    </div>
+                                    <div className="order-detail">
+                                        <AlertTriangle size={20} />
+                                        <span>Threshold: {Number(item.lowStockThreshold).toFixed(2)} {item.unit}</span>
+                                    </div>
+                                    <span className="status-badge retailer-status-pending">
+                                        Low Stock
+                                    </span>
                                 </div>
-                                <div className="order-detail">
-                                    <BarChart2 size={20} />
-                                    <span>{item.quantity} units</span>
+                                <div className="retailer-order-actions">
+                                    <Link
+                                        to={`/retailer/inventory/edit/${item.id}`}
+                                        className="retailer-restock-button"
+                                    >
+                                        Restock Now
+                                    </Link>
                                 </div>
-                                <div className="order-detail">
-                                    <AlertTriangle size={20} />
-                                    <span>Threshold: {item.threshold}</span>
-                                </div>
-                                <div className="order-detail">
-                                    <Calendar size={20} />
-                                    <span>Last Restocked: {item.lastRestocked}</span>
-                                </div>
-                                <span className="status-badge retailer-status-pending">
-                                    Low Stock
-                                </span>
                             </div>
-                            <div className="retailer-order-actions">
-                                <Link
-                                    to={`/retailer/inventory/edit/${item.id}`}
-                                    className="retailer-restock-button"
-                                >
-                                    Restock Now
-                                </Link>
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <div className="no-results">No low stock items</div>
+                    )}
                 </div>
             </section>
         </main>

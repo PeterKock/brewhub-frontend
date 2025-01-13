@@ -197,4 +197,31 @@
         flex-direction: column;
         gap: var(--spacing-md);
     }
+
+    .modal-overlay {
+        padding: var(--spacing-sm);
+    }
+
+    .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-form {
+        padding: var(--spacing-md);
+    }
+
+    .modal-form .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .modal-cancel-button,
+    .modal-submit-button {
+        width: 100%;
+        text-align: center;
+    }
 }
