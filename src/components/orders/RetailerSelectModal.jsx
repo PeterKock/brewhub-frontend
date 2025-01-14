@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { X, MapPin } from 'lucide-react';
+import RatingComponent from '../../components/ratings/RatingComponent';
+import { ratingService } from '../../services/ratingService';
 
 const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
     const [retailers, setRetailers] = useState([]);
@@ -28,7 +30,25 @@ const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
 
                 const data = await response.json();
                 if (isMounted) {
-                    setRetailers(data);
+                    // Fetch ratings for each retailer
+                    const retailersWithRatings = await Promise.all(
+                        data.map(async (retailer) => {
+                            try {
+                                const avgRating = await ratingService.getRetailerAverageRating(retailer.id);
+                                const ratings = await ratingService.getRetailerRatings(retailer.id);
+                                return {
+                                    ...retailer,
+                                    averageRating: avgRating,
+                                    ratings: ratings,
+                                    totalRatings: ratings.length
+                                };
+                            } catch (err) {
+                                console.error(`Failed to fetch ratings for retailer ${retailer.id}:`, err);
+                                return retailer;
+                            }
+                        })
+                    );
+                    setRetailers(retailersWithRatings);
                 }
             } catch (err) {
                 console.error('Error loading retailers:', err);
@@ -104,6 +124,18 @@ const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
                                                 <MapPin size={16} />
                                                 {retailer.location}
                                             </span>
+                                            {retailer.averageRating !== null && (
+                                                <div className="retailer-rating">
+                                                    <RatingComponent
+                                                        retailerId={retailer.id}
+                                                        initialRating={retailer.averageRating}
+                                                        readOnly
+                                                    />
+                                                    <span className="rating-count">
+                                                        ({retailer.totalRatings} {retailer.totalRatings === 1 ? 'rating' : 'ratings'})
+                                                    </span>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

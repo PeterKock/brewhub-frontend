@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { X, Calendar, User, Store } from 'lucide-react';
+import RatingComponent from '../../components/ratings/RatingComponent';
 
 const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
     if (!isOpen || !order) return null;
@@ -31,6 +32,13 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                                 <>
                                     <Store size={20} />
                                     <span>{order.retailerName}</span>
+                                    {order.retailerRating && (
+                                        <RatingComponent
+                                            retailerId={order.retailerId}
+                                            initialRating={order.retailerRating}
+                                            readOnly
+                                        />
+                                    )}
                                 </>
                             ) : (
                                 <>
@@ -80,6 +88,18 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                             <p>{order.notes}</p>
                         </div>
                     )}
+
+                    {role === 'USER' && order.status === 'DELIVERED' && (
+                        <div className="rating-section">
+                            <h4>Rate this Retailer</h4>
+                            <RatingComponent
+                                retailerId={order.retailerId}
+                                onRatingSubmit={() => {
+                                    // Optionally refresh the order details or show a success message
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -94,6 +114,8 @@ OrderDetailsModal.propTypes = {
         status: PropTypes.string.isRequired,
         retailerName: PropTypes.string,
         customerName: PropTypes.string,
+        retailerId: PropTypes.number,
+        retailerRating: PropTypes.number,
         items: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             ingredientName: PropTypes.string.isRequired,

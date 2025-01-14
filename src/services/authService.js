@@ -1,9 +1,6 @@
-// Constants
 const API_URL = 'http://localhost:8080/api/auth';
 
-// Main Service Export
 export const authService = {
-    // Authentication Methods
     login: async (credentials) => {
         console.log('Login attempt with:', credentials.email);
         const response = await fetch(`${API_URL}/login`, {
@@ -32,14 +29,15 @@ export const authService = {
                 id: data.id,
                 email: data.email,
                 role: data.role,
-                firstName: data.firstName
+                firstName: data.firstName,
+                averageRating: data.averageRating,
+                totalRatings: data.totalRatings
             }));
             window.dispatchEvent(new Event('storage'));
         }
         return data;
     },
 
-    // Registration Method
     register: async (userData) => {
         console.log('Registration attempt for:', userData.email);
         const response = await fetch(`${API_URL}/signup`, {
@@ -58,7 +56,6 @@ export const authService = {
         return response.json();
     },
 
-    // Session Management Methods
     logout: () => {
         console.log('Logging out user');
         localStorage.removeItem('token');
@@ -66,7 +63,6 @@ export const authService = {
         window.dispatchEvent(new Event('storage'));
     },
 
-    // Authentication State Check
     isAuthenticated: () => {
         const userStr = localStorage.getItem('user');
 
