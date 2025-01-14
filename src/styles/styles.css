@@ -1197,6 +1197,7 @@ a:hover {
 /* Search and Filter Bar */
 .order-filter-bar {
   display: flex;
+  gap: var(--spacing-lg);
   margin-bottom: var(--spacing-md);
 }
 
