@@ -31,7 +31,8 @@ export const authService = {
             localStorage.setItem('user', JSON.stringify({
                 id: data.id,
                 email: data.email,
-                role: data.role
+                role: data.role,
+                firstName: data.firstName
             }));
             window.dispatchEvent(new Event('storage'));
         }

@@ -110,5 +110,63 @@ export const orderService = {
         if (!response.ok) {
             throw new Error('Failed to cancel order');
         }
+    },
+
+    // Retailer Dashboard
+    getRetailerDashboardStats: async () => {
+        const response = await fetch(`${API_URL}/retailer/dashboard/stats`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch dashboard stats');
+        }
+
+        return response.json();
+    },
+
+    getRetailerRecentOrders: async () => {
+        const response = await fetch(`${API_URL}/retailer/dashboard/recent-orders`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch recent orders');
+        }
+
+        return response.json();
+    },
+
+    // User Dashboard
+    getUserDashboardStats: async () => {
+        const response = await fetch(`${API_URL}/user/dashboard/stats`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user stats');
+        }
+
+        return response.json();
+    },
+
+    getUserRecentOrders: async () => {
+        const response = await fetch(`${API_URL}/user/dashboard/recent-orders`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch recent orders');
+        }
+
+        return response.json();
     }
 };

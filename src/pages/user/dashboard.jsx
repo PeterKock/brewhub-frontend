@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { orderService } from '../../services/orderService';
 import {
     ShoppingCart,
     Book,
@@ -12,17 +13,78 @@ import {
 } from 'lucide-react';
 
 const UserDashboard = () => {
-    const [userData] = useState({
-        name: "John Doe",
-        email: "john.doe@example.com",
-        location: "Amsterdam, NL",
-        totalOrders: 5,
-        favoriteRetailers: 3,
-        recentOrders: [
-            { id: 1, date: "2025-01-05", status: "Delivered", retailer: "Brew Supply Co" },
-            { id: 2, date: "2025-01-15", status: "Processing", retailer: "Malt Masters" }
-        ]
+    const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        location: "",
+        totalOrders: 0,
+        favoriteRetailers: 0,
+        recentOrders: []
     });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const loadDashboardData = async () => {
+            if (!isMounted) return;
+
+            try {
+                setLoading(true);
+                setError(null);
+
+                // Fetch dashboard data
+                const [stats, recentOrders] = await Promise.all([
+                    orderService.getUserDashboardStats(),
+                    orderService.getUserRecentOrders()
+                ]);
+
+                if (!isMounted) return;
+
+                // Get user info from localStorage
+                const user = JSON.parse(localStorage.getItem('user')) || {};
+
+                setUserData({
+                    name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Guest',
+                    email: user.email || 'No email provided',
+                    location: user.location || 'Location not set',
+                    totalOrders: stats.totalOrders || 0,
+                    favoriteRetailers: stats.favoriteRetailers || 0,
+                    recentOrders: recentOrders || []
+                });
+            } catch (err) {
+                if (!isMounted) return;
+                console.error('Failed to load dashboard data:', err);
+                setError('Failed to load dashboard data. Please try again later.');
+            } finally {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        void loadDashboardData(); // Use void operator to explicitly ignore the promise
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    if (loading) {
+        return (
+            <main className="dashboard-container">
+                <div className="loading">Loading dashboard...</div>
+            </main>
+        );
+    }
+
+    if (error) {
+        return (
+            <main className="dashboard-container">
+                <div className="error-message">{error}</div>
+            </main>
+        );
+    }
 
     return (
         <main className="dashboard-container">
@@ -86,20 +148,20 @@ const UserDashboard = () => {
                             <div className="order-info">
                                 <div className="order-detail">
                                     <Calendar size={20} />
-                                    <span>{order.date}</span>
+                                    {/*<span>{new Date(order.date).toLocaleDateString()}</span>*/}
                                 </div>
                                 <div className="order-detail">
                                     <Store size={20} />
-                                    <span>{order.retailer}</span>
+                                    <span>{order.retailerName || 'Unknown Retailer'}</span>
                                 </div>
-                                <span className={`status-badge user-status-${order.status.toLowerCase()}`}>
-                                    {order.status}
+                                <span className={`status-badge user-status-${order.status?.toLowerCase()}`}>
+                                    {order.status || 'Unknown Status'}
                                 </span>
                             </div>
                             <Link
                                 to={`/user/orders/${order.id}`}
                                 className="user-view-order-button"
-                                aria-label={`View details for order from ${order.retailer}`}
+                                aria-label={`View details for order from ${order.retailerName || 'Unknown Retailer'}`}
                             >
                                 View Details
                             </Link>
