@@ -17,7 +17,7 @@
         4.3 Base Card
         4.4 Detail Header
         4.5 Filter Bar
-        4.6 Modal Component
+        4.6 Modal Components
     5. Header
         5.1 Header Layout
         5.2 Logo
@@ -201,6 +201,27 @@ a:hover {
   color: var(--primary-text-color);
 }
 
+.form-group input[type="number"] {
+  padding: var(--spacing-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-value);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  width: 100%;
+}
+
+.form-group textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: var(--spacing-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-value);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  resize: vertical;
+}
+
+
 /* --------------- 4.3 Base Card ------------------- */
 .base-card {
   background: var(--card-color);
@@ -312,7 +333,8 @@ a:hover {
   height: 42px;
 }
 
-/* --------------- 4.6 Modal Component ------------------- */
+/* --------------- 4.6 Modal Components ------------------- */
+/* Add Inventory Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -328,7 +350,7 @@ a:hover {
   background-color: var(--secondary-bg-color);
   border-radius: var(--border-radius-value);
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   box-shadow: var(--card-shadow-value);
   animation: modalFadeIn 0.3s ease-out;
 }
@@ -452,6 +474,129 @@ a:hover {
 
 .modal-submit-button:hover {
   background-color: var(--accent-hover-color);
+}
+
+/* Create Order Modal */
+.price {
+  color: var(--accent-color);
+  margin-left: var(--spacing-sm);
+  font-size: 0.9em;
+}
+
+.loading {
+  color: var(--primary-text-color);
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+/* Retailer Select Modal */
+.retailers-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.retailer-card {
+  background-color: var(--primary-bg-color);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  cursor: pointer;
+  transition: transform var(--transition-default-value);
+}
+
+.retailer-card:hover {
+  transform: translateY(-2px);
+}
+
+.retailer-info h4 {
+  color: var(--primary-text-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.retailer-details {
+  display: flex;
+  gap: var(--spacing-lg);
+  color: var(--secondary-text-color);
+  font-size: var(--p-font-size);
+}
+
+.retailer-location,
+.retailer-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xsm);
+}
+
+.retailer-search {
+  margin-bottom: var(--spacing-lg);
+}
+
+.retailer-search input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-value);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+}
+
+/* Create Order Modal */
+.order-details-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--spacing-md) 0;
+  color: var(--primary-text-color);
+}
+
+.order-items-table th,
+.order-items-table td {
+  padding: var(--spacing-sm);
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-items-table th {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.order-items-table tfoot td {
+  font-weight: bold;
+  border-top: 2px solid var(--accent-color);
+}
+
+.order-notes {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-notes h4 {
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.order-notes p {
+  color: var(--primary-text-color);
+  line-height: 1.5;
+}
+
+.order-items-list h4 {
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-md);
 }
 
 /* ------------------------------- 5. Header -------------------------------- */
@@ -1179,6 +1324,21 @@ a:hover {
   text-align: center;
   color: var(--primary-text-color);
   padding: var(--spacing-xl);
+}
+
+/* Retailer Select */
+.order-summary {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: right;
+  color: var(--primary-text-color);
+  font-weight: bold;
+}
+
+.order-total {
+  font-size: var(--h4-font-size);
+  color: var(--accent-color);
 }
 
 /* --------------- 7.8 Home Page ------------------- */

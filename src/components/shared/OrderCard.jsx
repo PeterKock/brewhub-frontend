@@ -1,28 +1,33 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import OrderDetailsModal from '../orders/OrderDetailsModal';
 import { Calendar, Package, User, Store, DollarSign } from 'lucide-react';
 
 const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
     const canCancel = role === 'USER'
-        ? order.status !== 'SHIPPED' && order.status !== 'COMPLETED'
-        : true;
+        ? order.status === 'PENDING'
+        : order.status === 'PENDING';
 
     const getStatusClass = (status) => {
         const classes = {
             PENDING: 'user-status-pending',
             PROCESSING: 'user-status-processing',
             SHIPPED: 'user-status-shipped',
-            COMPLETED: 'user-status-delivered',
+            DELIVERED: 'user-status-delivered',
             CANCELLED: 'user-status-cancelled'
         };
         return `status-badge ${classes[status]}`;
     };
+
+    const formattedDate = new Date(order.orderDate).toLocaleDateString();
+    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
     return (
         <div className="order-card">
             <div className="order-info">
                 <div className="order-detail">
                     <Calendar size={20} />
-                    <span>{order.date}</span>
+                    <span>{formattedDate}</span>
                 </div>
                 {role === 'USER' ? (
                     <div className="order-detail">
@@ -37,7 +42,7 @@ const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
                 )}
                 <div className="order-detail">
                     <Package size={20} />
-                    <span>{order.beerType}</span>
+                    <span>{order.items?.length || 0} items</span>
                 </div>
                 <div className="order-detail">
                     <DollarSign size={20} />
@@ -48,7 +53,7 @@ const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
                 </span>
             </div>
             <div className="order-actions">
-                {role === 'RETAILER' && order.status !== 'COMPLETED' && order.status !== 'CANCELLED' && (
+                {role === 'RETAILER' && order.status !== 'DELIVERED' && order.status !== 'CANCELLED' && (
                     <select
                         className="status-select"
                         value={order.status}
@@ -57,7 +62,7 @@ const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
                         <option value="PENDING">Pending</option>
                         <option value="PROCESSING">Processing</option>
                         <option value="SHIPPED">Shipped</option>
-                        <option value="COMPLETED">Completed</option>
+                        <option value="DELIVERED">Delivered</option>
                     </select>
                 )}
                 {canCancel && (
@@ -71,11 +76,19 @@ const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
                 )}
                 <button
                     className="view-details-button"
+                    onClick={() => setIsDetailsModalOpen(true)}
                     aria-label="View order details"
                 >
                     View Details
                 </button>
             </div>
+
+            <OrderDetailsModal
+                isOpen={isDetailsModalOpen}
+                onClose={() => setIsDetailsModalOpen(false)}
+                order={order}
+                role={role}
+            />
         </div>
     );
 };
@@ -83,9 +96,16 @@ const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
 OrderCard.propTypes = {
     order: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        date: PropTypes.string.isRequired,
-        status: PropTypes.oneOf(['PENDING', 'PROCESSING', 'SHIPPED', 'COMPLETED', 'CANCELLED']).isRequired,
-        beerType: PropTypes.string.isRequired,
+        orderDate: PropTypes.string.isRequired,  // Changed from date
+        status: PropTypes.oneOf(['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED']).isRequired,
+        items: PropTypes.arrayOf(PropTypes.shape({  // Added items array
+            id: PropTypes.number.isRequired,
+            quantity: PropTypes.number.isRequired,
+            ingredientId: PropTypes.number.isRequired,
+            ingredientName: PropTypes.string.isRequired,
+            pricePerUnit: PropTypes.number.isRequired,
+            totalPrice: PropTypes.number.isRequired,
+        })),
         totalPrice: PropTypes.number.isRequired,
         retailerName: PropTypes.string,
         customerName: PropTypes.string
