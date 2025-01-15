@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ShoppingCart, X } from 'lucide-react';
-import { inventoryService } from '../../services/inventoryService';
+import { publicService } from '../../services/publicService';
 
 const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
     const [ingredients, setIngredients] = useState([]);
@@ -14,11 +14,11 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
         let isMounted = true;
 
         const fetchIngredients = async () => {
-            if (!isOpen || !isMounted) return;
+            if (!isOpen || !retailerId) return;
 
             try {
                 setIsLoading(true);
-                const data = await inventoryService.getAllItems('', '');
+                const data = await publicService.getRetailerIngredients(retailerId);
                 if (isMounted) {
                     setIngredients(data);
                     setError('');
@@ -35,12 +35,18 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
             }
         };
 
-        void fetchIngredients();
+        fetchIngredients().catch(err => {
+            if (isMounted) {
+                console.error('Failed to fetch ingredients:', err);
+                setError('Failed to load ingredients. Please try again later.');
+                setIsLoading(false);
+            }
+        });
 
         return () => {
             isMounted = false;
         };
-    }, [isOpen]);
+    }, [isOpen, retailerId]);
 
     const handleQuantityChange = (ingredientId, quantity) => {
         setSelectedItems(prev => {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { X, MapPin } from 'lucide-react';
 import RatingComponent from '../../components/ratings/RatingComponent';
 import { ratingService } from '../../services/ratingService';
-import { publicService } from '../../services/publicSevice.js';
+import { publicService } from '../../services/publicService.js';
 
 const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
     const [retailers, setRetailers] = useState([]);

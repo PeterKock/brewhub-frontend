@@ -12,5 +12,18 @@ export const publicService = {
         }
 
         return response.json();
+    },
+
+    // Get ingredients for a specific retailer
+    getRetailerIngredients: async (retailerId) => {
+        const response = await fetch(`${API_URL}/retailers/${retailerId}/ingredients`);
+
+        if (!response.ok) {
+            const errorData = await response.text();
+            console.error('Server response:', errorData);
+            throw new Error('Failed to load ingredients');
+        }
+
+        return response.json();
     }
 };
