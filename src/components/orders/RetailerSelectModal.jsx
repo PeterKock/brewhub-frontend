@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { X, MapPin } from 'lucide-react';
 import RatingComponent from '../../components/ratings/RatingComponent';
 import { ratingService } from '../../services/ratingService';
+import { publicService } from '../../services/publicSevice.js';
 
 const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
     const [retailers, setRetailers] = useState([]);
@@ -19,16 +20,8 @@ const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
             try {
                 setIsLoading(true);
                 setError('');
-                const response = await fetch('http://localhost:8080/api/public/retailers');
+                const data = await publicService.getRetailers();
 
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    console.error('Server response:', errorData);
-                    setError('Failed to load retailers. Please try again later.');
-                    return;
-                }
-
-                const data = await response.json();
                 if (isMounted) {
                     // Fetch ratings for each retailer
                     const retailersWithRatings = await Promise.all(
