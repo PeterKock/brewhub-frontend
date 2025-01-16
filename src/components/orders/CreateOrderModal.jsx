@@ -5,7 +5,9 @@ import { publicService } from '../../services/publicService';
 
 const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
     const [ingredients, setIngredients] = useState([]);
+    const [filteredIngredients, setFilteredIngredients] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [notes, setNotes] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +23,7 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
                 const data = await publicService.getRetailerIngredients(retailerId);
                 if (isMounted) {
                     setIngredients(data);
+                    setFilteredIngredients(data);
                     setError('');
                 }
             } catch (err) {
@@ -47,6 +50,13 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
             isMounted = false;
         };
     }, [isOpen, retailerId]);
+
+    useEffect(() => {
+        const filtered = ingredients.filter(ingredient =>
+            ingredient.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredIngredients(filtered);
+    }, [searchTerm, ingredients]);
 
     const handleQuantityChange = (ingredientId, quantity) => {
         setSelectedItems(prev => {
@@ -109,26 +119,42 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
                         <div className="loading">Loading ingredients...</div>
                     ) : (
                         <>
+                            <div className="search-container">
+                                <input
+                                    type="text"
+                                    placeholder="Search ingredients..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+
                             <div className="ingredients-list">
-                                {ingredients.map(ingredient => (
-                                    <div key={ingredient.id} className="form-group">
-                                        <label htmlFor={`quantity-${ingredient.id}`}>
-                                            {ingredient.name} ({ingredient.unit})
-                                        </label>
-                                        <div className="input-group">
+                                {filteredIngredients.map(ingredient => (
+                                    <div key={ingredient.id} className="ingredient-card">
+                                        <div className="ingredient-name">
+                                            <span>{ingredient.name}</span>
+                                            <small>Available: {ingredient.quantity} {ingredient.unit}</small>
+                                        </div>
+                                        <div className="ingredient-price">
+                                            €{ingredient.price} per {ingredient.unit}
+                                        </div>
+                                        <div className="ingredient-quantity">
                                             <input
-                                                id={`quantity-${ingredient.id}`}
                                                 type="number"
                                                 min="0"
                                                 max={ingredient.quantity}
                                                 step="0.01"
-                                                placeholder={`Available: ${ingredient.quantity} ${ingredient.unit}`}
                                                 onChange={(e) => handleQuantityChange(ingredient.id, e.target.value)}
                                             />
-                                            <span className="price">€{ingredient.price} per {ingredient.unit}</span>
+                                            <span>{ingredient.unit}</span>
                                         </div>
                                     </div>
                                 ))}
+                                {filteredIngredients.length === 0 && (
+                                    <div className="no-results">
+                                        No ingredients found matching your search
+                                    </div>
+                                )}
                             </div>
 
                             <div className="form-group">

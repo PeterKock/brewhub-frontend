@@ -447,7 +447,7 @@ a:hover {
   display: flex;
   justify-content: flex-end;
   gap: var(--spacing-md);
-  margin-top: var(--spacing-xl);
+  margin-top: var(--spacing-sm);
   padding-top: var(--spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -483,19 +483,6 @@ a:hover {
   background-color: var(--accent-hover-color);
 }
 
-/* Create Order Modal */
-.price {
-  color: var(--accent-color);
-  margin-left: var(--spacing-sm);
-  font-size: 0.9em;
-}
-
-.loading {
-  color: var(--primary-text-color);
-  text-align: center;
-  padding: var(--spacing-lg);
-}
-
 /* Retailer Select Modal */
 .retailers-list {
   display: flex;
@@ -517,11 +504,6 @@ a:hover {
 .retailer-card:hover {
   transform: translateY(-2px);
 }
-
-/*.retailer-info h4 {
-  color: var(--primary-text-color);
-  margin-bottom: var(--spacing-sm);
-}*/
 
 .retailer-details {
   display: flex;
@@ -556,7 +538,7 @@ a:hover {
   color: var(--primary-text-color);
 }
 
-/* Create Order Modal */
+/* Order Details Modal */
 .order-details-header {
   display: flex;
   flex-wrap: wrap;
@@ -607,6 +589,99 @@ a:hover {
 .order-items-list h4 {
   color: var(--accent-color);
   margin-bottom: var(--spacing-md);
+}
+
+/* Create Order Modal */
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+  margin: var(--spacing-lg) 0;
+}
+
+.ingredient-search {
+  margin-bottom: var(--spacing-lg);
+}
+
+.ingredient-search input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-value);
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+}
+
+.ingredient-card {
+  background-color: var(--primary-bg-color);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) auto auto;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.ingredient-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ingredient-name span {
+  color: var(--primary-text-color);
+  font-weight: 500;
+}
+
+.ingredient-name small {
+  color: var(--secondary-text-color);
+}
+
+.ingredient-price {
+  color: var(--accent-color);
+  white-space: nowrap;
+}
+
+.ingredient-quantity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.ingredient-quantity input {
+  width: 80px;
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-value);
+  padding: var(--spacing-sm);
+}
+
+.ingredient-quantity span {
+  color: var(--primary-text-color);
+  min-width: 30px;
+}
+
+.loading {
+  color: var(--primary-text-color);
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+.order-summary {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: right;
+  color: var(--primary-text-color);
+  font-weight: bold;
+  font-size: var(--h4-font-size);
+}
+
+.price {
+  color: var(--accent-color);
 }
 
 /* Rating Component */
@@ -1394,21 +1469,6 @@ a:hover {
   padding: var(--spacing-xl);
 }
 
-/* Retailer Select */
-.order-summary {
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: right;
-  color: var(--primary-text-color);
-  font-weight: bold;
-}
-
-.order-total {
-  font-size: var(--h4-font-size);
-  color: var(--accent-color);
-}
-
 /* --------------- 7.8 Home Page ------------------- */
 .feature-section {
   background-color: var(--secondary-bg-color);
@@ -1936,7 +1996,7 @@ a:hover {
 
 .search-container input {
   width: 100%;
-  max-width: 600px;
+  max-width: 400px;
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-value);
   border: 1px solid var(--primary-text-color);
