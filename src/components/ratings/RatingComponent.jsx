@@ -65,7 +65,7 @@ const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }
                 {[1, 2, 3, 4, 5].map(index => (
                     <Star
                         key={index}
-                        size={24}
+                        size={20}
                         style={{
                             color: index <= rating ? '#FFD700' : '#7f8c8d',
                             fill: index <= rating ? '#FFD700' : 'none'

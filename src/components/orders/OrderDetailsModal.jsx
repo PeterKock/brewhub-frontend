@@ -12,12 +12,15 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
             <div className="modal-content">
                 <div className="modal-header">
                     <h3>Order Details</h3>
+                    <span className={`status-badge user-status-${order.status?.toLowerCase()}`}>
+                            {order.status}
+                    </span>
                     <button
                         className="modal-close-button"
                         onClick={onClose}
                         aria-label="Close modal"
                     >
-                        <X size={24} />
+                        <X size={24}/>
                     </button>
                 </div>
 
@@ -47,13 +50,9 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                                 </>
                             )}
                         </div>
-                        <span className={`status-badge user-status-${order.status?.toLowerCase()}`}>
-                            {order.status}
-                        </span>
                     </div>
 
                     <div className="order-items-list">
-                        <h4>Order Items</h4>
                         <table className="order-items-table">
                             <thead>
                             <tr>

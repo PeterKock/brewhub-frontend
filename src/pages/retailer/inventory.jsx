@@ -161,7 +161,7 @@ export default function RetailerInventory() {
                         <span>{quantity} {unit}</span>
                     </div>
                     <div className="order-detail">
-                        <span>€{itemPrice.toFixed(2)} per {unit}</span>
+                        <span>€{itemPrice.valueOf()} per {unit}</span>
                     </div>
                     <div className="order-detail">
                         <Calendar size={20} />

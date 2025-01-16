@@ -57,6 +57,7 @@
   --accent-color: #3498db;
   --accent-hover-color: #2980b9;
   --card-color: #ffffff;
+  --buy-color: #29b92b;
 
   /* Font Size */
   --p-font-size: 0.8rem;
@@ -473,7 +474,7 @@ a:hover {
 }
 
 .modal-submit-button {
-  background-color: var(--accent-color);
+  background-color: var(--buy-color);
   border: none;
   color: var(--primary-text-color);
 }
@@ -502,7 +503,6 @@ a:hover {
   gap: var(--spacing-md);
   max-height: 400px;
   overflow-y: auto;
-  padding-right: var(--spacing-sm);
   margin-top: var(--spacing-lg);
 }
 
@@ -518,23 +518,30 @@ a:hover {
   transform: translateY(-2px);
 }
 
-.retailer-info h4 {
+/*.retailer-info h4 {
   color: var(--primary-text-color);
   margin-bottom: var(--spacing-sm);
-}
+}*/
 
 .retailer-details {
   display: flex;
-  gap: var(--spacing-lg);
+  justify-content: space-between;
   color: var(--secondary-text-color);
   font-size: var(--p-font-size);
+}
+
+.retailer-info h4 {
+  color: var(--primary-text-color);
+  font-size: var(--h4-font-size);
 }
 
 .retailer-location,
 .retailer-rating {
   display: flex;
   align-items: center;
+  font-size: var(--h4-font-size);
   gap: var(--spacing-xsm);
+  color: var(--primary-text-color);
 }
 
 .retailer-search {
@@ -542,7 +549,6 @@ a:hover {
 }
 
 .retailer-search input {
-  width: 100%;
   padding: var(--spacing-sm);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--border-radius-value);
@@ -603,6 +609,7 @@ a:hover {
   margin-bottom: var(--spacing-md);
 }
 
+/* Rating Component */
 .rating-container {
   display: flex;
   flex-direction: column;
@@ -625,6 +632,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  padding-left: var(--spacing-lg);
 }
 
 .rating-value {
@@ -1309,6 +1317,7 @@ a:hover {
   align-items: center;
   gap: var(--spacing-sm);
   color: var(--primary-text-color);
+  padding-left: var(--spacing-xl);
 }
 
 .order-actions {

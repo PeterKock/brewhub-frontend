@@ -185,7 +185,7 @@ const UserOrders = () => {
                                             <span>{order.items?.length || 0} items</span>
                                         </div>
                                         <div className="order-detail">
-                                            <span>€{order.totalPrice.toFixed(2)}</span>
+                                            <span>€{order.totalPrice}</span>
                                         </div>
                                         <span className={`status-badge user-status-${order.status.toLowerCase()}`}>
                                         {order.status}

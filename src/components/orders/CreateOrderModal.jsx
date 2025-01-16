@@ -162,7 +162,6 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
                             disabled={isLoading || selectedItems.filter(item => item.quantity > 0).length === 0}
                         >
                             <ShoppingCart size={20} />
-                            Place Order
                         </button>
                     </div>
                 </form>

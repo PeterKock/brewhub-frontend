@@ -111,7 +111,6 @@ const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
                                     onClick={() => onSelect(retailer)}
                                 >
                                     <div className="retailer-info">
-                                        <h4>{retailer.name}</h4>
                                         <div className="retailer-details">
                                             <span className="retailer-location">
                                                 <MapPin size={16} />
@@ -119,6 +118,7 @@ const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
                                             </span>
                                             {retailer.averageRating !== null && (
                                                 <div className="retailer-rating">
+                                                    <h4>{retailer.name}</h4>
                                                     <RatingComponent
                                                         retailerId={retailer.id}
                                                         initialRating={retailer.averageRating}
