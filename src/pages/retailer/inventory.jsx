@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { SearchBar } from '../../components/shared/SearchBar';
-import { Plus, Edit2, Trash2, AlertTriangle, Package, Calendar, DollarSign, Box } from 'lucide-react';
+import { Plus, Edit2, Trash2, AlertTriangle, Package, Calendar, Box } from 'lucide-react';
 import { inventoryService } from '../../services/inventoryService';
 import AddInventoryModal from '../../components/inventory/AddInventoryModal';
 
@@ -161,7 +161,6 @@ export default function RetailerInventory() {
                         <span>{quantity} {unit}</span>
                     </div>
                     <div className="order-detail">
-                        <DollarSign size={20} />
                         <span>€{itemPrice.toFixed(2)} per {unit}</span>
                     </div>
                     <div className="order-detail">

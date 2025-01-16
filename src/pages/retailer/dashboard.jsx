@@ -15,8 +15,7 @@ import {
     Calendar,
     Box,
     AlertTriangle,
-    BarChart2,
-    DollarSign
+    BarChart2
 } from 'lucide-react';
 
 const RetailerDashboard = () => {
@@ -24,7 +23,7 @@ const RetailerDashboard = () => {
         name: "",
         pendingOrders: 0,
         completedOrders: 0,
-        totalProducts: 0,
+        shippedOrders: 0,
         lowStock: 0
     });
 
@@ -62,7 +61,7 @@ const RetailerDashboard = () => {
                     name: userName,
                     pendingOrders: stats.pendingOrders || 0,
                     completedOrders: stats.completedOrders || 0,
-                    totalProducts: stats.totalProducts || 0,
+                    shippedOrders: stats.shippedOrders || 0,
                     lowStock: lowStockData?.length || 0
                 });
                 setRecentOrders(recentOrdersData || []);
@@ -115,7 +114,7 @@ const RetailerDashboard = () => {
             {/* Overview Section */}
             <section className="dashboard-section">
                 <div className="welcome-header">
-                    <h1>Welcome back, {dashboardData.name}</h1>
+                    <h1>Welcome back {dashboardData.name}!</h1>
                 </div>
 
                 <div className="retailer-dashboard-stats-container">
@@ -130,20 +129,20 @@ const RetailerDashboard = () => {
                     </div>
                     <div className="stat-card">
                         <div className="stat-icon">
-                            <CheckSquare size={24} />
+                            <Package size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <h2>Shipped Orders</h2>
+                            <p>{dashboardData.shippedOrders}</p>
+                        </div>
+                    </div>
+                    <div className="stat-card">
+                    <div className="stat-icon">
+                        <CheckSquare size={24} />
                         </div>
                         <div className="stat-content">
                             <h2>Completed Orders</h2>
                             <p>{dashboardData.completedOrders}</p>
-                        </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-icon">
-                            <Package size={24} />
-                        </div>
-                        <div className="stat-content">
-                            <h2>Total Products</h2>
-                            <p>{dashboardData.totalProducts}</p>
                         </div>
                     </div>
                     <div className="stat-card">
@@ -203,8 +202,7 @@ const RetailerDashboard = () => {
                                     <span>{order.items?.length || 0} items</span>
                                 </div>
                                 <div className="order-detail">
-                                    <DollarSign size={20} />
-                                    <span>€{(order.totalPrice || 0).toFixed(2)}</span>
+                                    <span>€{(order.totalPrice || 0)}</span>
                                 </div>
                                 <span className={`status-badge retailer-status-${order.status?.toLowerCase()}`}>
                         {order.status || 'Unknown Status'}

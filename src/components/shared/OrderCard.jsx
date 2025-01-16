@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import OrderDetailsModal from '../orders/OrderDetailsModal';
-import { Calendar, Package, User, Store, DollarSign } from 'lucide-react';
+import { Calendar, Package, User, Store } from 'lucide-react';
 
 const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
     const canCancel = role === 'USER'
@@ -45,7 +45,6 @@ const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
                     <span>{order.items?.length || 0} items</span>
                 </div>
                 <div className="order-detail">
-                    <DollarSign size={20} />
                     <span>€{order.totalPrice.toFixed(2)}</span>
                 </div>
                 <span className={getStatusClass(order.status)}>

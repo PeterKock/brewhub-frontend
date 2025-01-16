@@ -9,6 +9,7 @@ const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }
     const [comment, setComment] = useState('');
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
     const handleRatingSubmit = async () => {
         if (!rating) {
@@ -25,6 +26,7 @@ const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }
                 comment: comment.trim()
             });
 
+            setSubmitted(true);
             if (onRatingSubmit) {
                 onRatingSubmit(rating);
             }
@@ -37,28 +39,40 @@ const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }
         }
     };
 
-    const renderStar = (index) => {
-        const filled = (hover || rating) >= index;
-
+    if (submitted) {
         return (
-            <Star
-                key={index}
-                size={24}
-                className={`cursor-pointer transition-colors ${
-                    filled ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                }`}
-                onMouseEnter={() => !readOnly && setHover(index)}
-                onMouseLeave={() => !readOnly && setHover(0)}
-                onClick={() => !readOnly && setRating(index)}
-            />
+            <div className="rating-success">
+                <p>Thank you for your rating!</p>
+                <div className="stars-container">
+                    {[1, 2, 3, 4, 5].map((index) => (
+                        <Star
+                            key={index}
+                            size={24}
+                            style={{
+                                color: index <= rating ? '#FFD700' : '#7f8c8d',
+                                fill: index <= rating ? '#FFD700' : 'none'
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
         );
-    };
+    }
 
     if (readOnly) {
         return (
-            <div className="flex items-center gap-1">
-                {[1, 2, 3, 4, 5].map(index => renderStar(index))}
-                <span className="text-primary-text-color ml-2">
+            <div className="rating-display">
+                {[1, 2, 3, 4, 5].map(index => (
+                    <Star
+                        key={index}
+                        size={24}
+                        style={{
+                            color: index <= rating ? '#FFD700' : '#7f8c8d',
+                            fill: index <= rating ? '#FFD700' : 'none'
+                        }}
+                    />
+                ))}
+                <span className="rating-value">
                     {rating.toFixed(1)}
                 </span>
             </div>
@@ -69,8 +83,22 @@ const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }
         <div className="rating-container">
             {error && <div className="error-message">{error}</div>}
 
-            <div className="stars-container flex gap-1 mb-4">
-                {[1, 2, 3, 4, 5].map(index => renderStar(index))}
+            <div className="stars-container">
+                {[1, 2, 3, 4, 5].map(index => (
+                    <Star
+                        key={index}
+                        size={24}
+                        style={{
+                            cursor: 'pointer',
+                            color: (hover || rating) >= index ? '#FFD700' : '#7f8c8d',
+                            fill: (hover || rating) >= index ? '#FFD700' : 'none',
+                            transition: 'all var(--transition-default-value)'
+                        }}
+                        onMouseEnter={() => !readOnly && setHover(index)}
+                        onMouseLeave={() => !readOnly && setHover(0)}
+                        onClick={() => !readOnly && setRating(index)}
+                    />
+                ))}
             </div>
 
             <div className="form-group">

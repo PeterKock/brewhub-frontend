@@ -68,15 +68,15 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                                 <tr key={item.id}>
                                     <td>{item.ingredientName}</td>
                                     <td>{item.quantity} {item.unit}</td>
-                                    <td>€{item.pricePerUnit.toFixed(2)}</td>
-                                    <td>€{item.totalPrice.toFixed(2)}</td>
+                                    <td>€{item.pricePerUnit}</td>
+                                    <td>€{item.totalPrice}</td>
                                 </tr>
                             ))}
                             </tbody>
                             <tfoot>
                             <tr>
                                 <td colSpan="3">Total</td>
-                                <td>€{order.totalPrice.toFixed(2)}</td>
+                                <td>€{order.totalPrice}</td>
                             </tr>
                             </tfoot>
                         </table>

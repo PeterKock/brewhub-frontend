@@ -8,8 +8,7 @@ import {
     Calendar,
     Store,
     ShoppingCart,
-    Plus,
-    DollarSign
+    Plus
 } from 'lucide-react';
 
 const UserOrders = () => {
@@ -186,7 +185,6 @@ const UserOrders = () => {
                                             <span>{order.items?.length || 0} items</span>
                                         </div>
                                         <div className="order-detail">
-                                            <DollarSign size={20} />
                                             <span>€{order.totalPrice.toFixed(2)}</span>
                                         </div>
                                         <span className={`status-badge user-status-${order.status.toLowerCase()}`}>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { orderService } from '../../services/orderService';
+import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
 import {
     ShoppingCart,
     Book,
@@ -23,6 +24,8 @@ const UserDashboard = () => {
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
@@ -64,11 +67,26 @@ const UserDashboard = () => {
             }
         };
 
-        void loadDashboardData(); // Use void operator to explicitly ignore the promise
+        void loadDashboardData();
         return () => {
             isMounted = false;
         };
     }, []);
+
+    const handleViewDetails = async (orderId) => {
+        try {
+            setLoading(true);
+            const orderDetails = await orderService.getUserOrder(orderId);
+            setSelectedOrderDetails(orderDetails);
+            setIsDetailsModalOpen(true);
+            setError('');
+        } catch (err) {
+            setError('Failed to load order details');
+            console.error('Error loading order details:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -78,16 +96,10 @@ const UserDashboard = () => {
         );
     }
 
-    if (error) {
-        return (
-            <main className="dashboard-container">
-                <div className="error-message">{error}</div>
-            </main>
-        );
-    }
-
     return (
         <main className="dashboard-container">
+            {error && <div className="error-message">{error}</div>}
+
             {/* Overview Section */}
             <section className="dashboard-section">
                 <div className="welcome-header">
@@ -130,7 +142,7 @@ const UserDashboard = () => {
                     </Link>
                     <Link to="/user/orders" className="action-button user-orders-action">
                         <ShoppingCart size={20} />
-                        <span>New Order</span>
+                        <span>Orders</span>
                     </Link>
                     <Link to="/user/favorites" className="action-button user-favorites-action">
                         <Heart size={20} />
@@ -148,23 +160,29 @@ const UserDashboard = () => {
                             <div className="order-info">
                                 <div className="order-detail">
                                     <Calendar size={20} />
-                                    {/*<span>{new Date(order.date).toLocaleDateString()}</span>*/}
+                                    <span>{new Date(order.orderDate).toLocaleDateString()}</span>
                                 </div>
                                 <div className="order-detail">
                                     <Store size={20} />
-                                    <span>{order.retailerName || 'Unknown Retailer'}</span>
+                                    <span>{order.retailerName}</span>
+                                </div>
+                                <div className="order-detail">
+                                    <ShoppingCart size={20} />
+                                    <span>{order.items?.length || 0} items</span>
+                                </div>
+                                <div className="order-detail">
+                                    <span>€{(order.totalPrice || 0)}</span>
                                 </div>
                                 <span className={`status-badge user-status-${order.status?.toLowerCase()}`}>
-                                    {order.status || 'Unknown Status'}
+                                    {order.status}
                                 </span>
                             </div>
-                            <Link
-                                to={`/user/orders/${order.id}`}
+                            <button
+                                onClick={() => handleViewDetails(order.id)}
                                 className="user-view-order-button"
-                                aria-label={`View details for order from ${order.retailerName || 'Unknown Retailer'}`}
                             >
                                 View Details
-                            </Link>
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -193,6 +211,13 @@ const UserDashboard = () => {
                     </Link>
                 </div>
             </section>
+
+            <OrderDetailsModal
+                isOpen={isDetailsModalOpen}
+                onClose={() => setIsDetailsModalOpen(false)}
+                order={selectedOrderDetails}
+                role="USER"
+            />
         </main>
     );
 };

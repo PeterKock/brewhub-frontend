@@ -62,7 +62,7 @@ const RetailerOrders = () => {
     const handleStatusChange = async (orderId, newStatus) => {
         try {
             await orderService.updateOrderStatus(orderId, newStatus);
-            await loadOrders(); // Refresh the orders list
+            await loadOrders();
         } catch (err) {
             setError('Failed to update order status');
             console.error('Error updating order status:', err);
@@ -73,7 +73,7 @@ const RetailerOrders = () => {
         if (window.confirm('Are you sure you want to cancel this order?')) {
             try {
                 await orderService.updateOrderStatus(orderId, 'CANCELLED');
-                await loadOrders(); // Refresh the orders list
+                await loadOrders();
             } catch (err) {
                 setError('Failed to cancel order');
                 console.error('Error cancelling order:', err);

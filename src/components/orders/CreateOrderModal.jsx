@@ -66,7 +66,7 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
         return selectedItems.reduce((total, item) => {
             const ingredient = ingredients.find(ing => ing.id === item.ingredientId);
             return total + (ingredient?.price || 0) * (item.quantity || 0);
-        }, 0).toFixed(2);
+        }, 0);
     };
 
     const handleSubmit = (e) => {
