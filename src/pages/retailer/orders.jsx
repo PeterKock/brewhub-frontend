@@ -106,67 +106,68 @@ const RetailerOrders = () => {
     };
 
     return (
-        <main className="dashboard-order-container">
-            <section className="dashboard-order-section">
-                <h2 className="section-title">Manage Orders</h2>
+        <div className="main-section">
+            <main className="dashboard-order-container">
+                <section className="dashboard-order-section">
+                    <h2 className="section-title">Manage Orders</h2>
 
-                {error && <div className="error-message">{error}</div>}
+                    {error && <div className="error-message">{error}</div>}
 
-                <div className="order-filter-bar">
-                    <SearchBar
-                        searchTerm={searchTerm}
-                        onSearchChange={setSearchTerm}
-                        placeholder="Search orders..."
-                    />
-                    <select
-                        className="filter-select"
-                        value={filterStatus}
-                        onChange={(e) => setFilterStatus(e.target.value)}
-                    >
-                        <option value="ALL">All Status</option>
-                        <option value="PENDING">Pending</option>
-                        <option value="PROCESSING">Processing</option>
-                        <option value="SHIPPED">Shipped</option>
-                        <option value="DELIVERED">Delivered</option>
-                        <option value="CANCELLED">Cancelled</option>
-                    </select>
-                </div>
-
-                {isLoading ? (
-                    <div className="loading">Loading orders...</div>
-                ) : (
-                    <div className="orders-list">
-                        {filteredOrders.length > 0 ? (
-                            filteredOrders.map(order => (
-                                <OrderCard
-                                    key={order.id}
-                                    order={order}
-                                    role="RETAILER"
-                                    onStatusChange={handleStatusChange}
-                                    onCancel={handleCancelOrder}
-                                    onViewDetails={() => handleViewDetails(order.id)}
-                                />
-                            ))
-                        ) : (
-                            <div className="no-results">
-                                {searchTerm || filterStatus !== 'ALL'
-                                    ? 'No orders match your search criteria'
-                                    : 'No orders received yet'
-                                }
-                            </div>
-                        )}
+                    <div className="order-filter-bar">
+                        <SearchBar
+                            searchTerm={searchTerm}
+                            onSearchChange={setSearchTerm}
+                            placeholder="Search orders..."
+                        />
+                        <select
+                            className="filter-select"
+                            value={filterStatus}
+                            onChange={(e) => setFilterStatus(e.target.value)}
+                        >
+                            <option value="ALL">All Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="PROCESSING">Processing</option>
+                            <option value="SHIPPED">Shipped</option>
+                            <option value="DELIVERED">Delivered</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
                     </div>
-                )}
-            </section>
 
-            <OrderDetailsModal
-                isOpen={isDetailsModalOpen}
-                onClose={() => setIsDetailsModalOpen(false)}
-                order={selectedOrderDetails}
-                role="RETAILER"
-            />
+                    {isLoading ? (
+                        <div className="loading">Loading orders...</div>
+                    ) : (
+                        <div className="orders-list">
+                            {filteredOrders.length > 0 ? (
+                                filteredOrders.map(order => (
+                                    <OrderCard
+                                        key={order.id}
+                                        order={order}
+                                        role="RETAILER"
+                                        onStatusChange={handleStatusChange}
+                                        onCancel={handleCancelOrder}
+                                        onViewDetails={() => handleViewDetails(order.id)}
+                                    />
+                                ))
+                            ) : (
+                                <div className="no-results">
+                                    {searchTerm || filterStatus !== 'ALL'
+                                        ? 'No orders match your search criteria'
+                                        : 'No orders received yet'
+                                    }
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </section>
 
-        </main>
+                <OrderDetailsModal
+                    isOpen={isDetailsModalOpen}
+                    onClose={() => setIsDetailsModalOpen(false)}
+                    order={selectedOrderDetails}
+                    role="RETAILER"
+                />
+            </main>
+        </div>
     );
 };
 

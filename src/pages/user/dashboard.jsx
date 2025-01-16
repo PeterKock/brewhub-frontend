@@ -91,7 +91,7 @@ const UserDashboard = () => {
             {/* Overview Section */}
             <section className="dashboard-section">
                 <div className="welcome-header">
-                    <h1>Welcome back, {userData.name}</h1>
+                    <h1>Welcome back {userData.name}!</h1>
                 </div>
 
                 <div className="user-dashboard-stats-container">

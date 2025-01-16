@@ -347,12 +347,15 @@ a:hover {
 }
 
 .modal-content {
+  position: relative;
+  width: 95%;
+  max-width: 800px;
+  max-height: 90vh;
+  margin: auto;
   background-color: var(--secondary-bg-color);
   border-radius: var(--border-radius-value);
-  width: 100%;
-  max-width: 600px;
   box-shadow: var(--card-shadow-value);
-  animation: modalFadeIn 0.3s ease-out;
+  overflow-y: auto;
 }
 
 @keyframes modalFadeIn {
@@ -368,7 +371,7 @@ a:hover {
 
 .modal-header {
   background-color: var(--secondary-bg-color);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -379,6 +382,9 @@ a:hover {
 }
 
 .modal-close-button {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
   background: transparent;
   border: none;
   color: var(--primary-text-color);
@@ -547,7 +553,8 @@ a:hover {
 /* Create Order Modal */
 .order-details-header {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-lg);
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
@@ -557,13 +564,13 @@ a:hover {
 .order-items-table {
   width: 100%;
   border-collapse: collapse;
-  margin: var(--spacing-md) 0;
-  color: var(--primary-text-color);
+  margin: var(--spacing-lg) 0;
 }
 
 .order-items-table th,
 .order-items-table td {
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md);
+  color: var(--primary-text-color);
   text-align: left;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -579,9 +586,7 @@ a:hover {
 }
 
 .order-notes {
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  justify-content: center;
 }
 
 .order-notes h4 {
@@ -591,7 +596,6 @@ a:hover {
 
 .order-notes p {
   color: var(--primary-text-color);
-  line-height: 1.5;
 }
 
 .order-items-list h4 {
@@ -1162,6 +1166,11 @@ a:hover {
   color: #2d6a4f;
 }
 
+.retailer-status-delivered {
+  background-color: #a8e6cf;
+  color: #2d6a4f;
+}
+
 .retailer-order-actions {
   display: flex;
   gap: var(--spacing-md);
@@ -1316,8 +1325,13 @@ a:hover {
 }
 
 .user-status-cancelled {
-  background-color: #fab1a0;
-  color: #e17055;
+  background-color: #ffaaa5;
+  color: #8b0000;
+}
+
+.retailer-status-cancelled {
+  background-color: #ffaaa5;
+  color: #8b0000;
 }
 
 /* No Results Message */
@@ -1553,12 +1567,23 @@ a:hover {
   background-color: #c0392b;
 }
 
-.low-stock-badge {
+.out-of-stock-badge {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
   color: var(--primary-text-color);
   background-color: #e74c3c;
+  padding: var(--spacing-xsm) var(--spacing-md);
+  border-radius: 20px;
+  font-size: var(--p-font-size);
+}
+
+.low-stock-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: #ffd3b6;
+  color: #a04000;
   padding: var(--spacing-xsm) var(--spacing-md);
   border-radius: 20px;
   font-size: var(--p-font-size);

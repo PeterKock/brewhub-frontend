@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { X, Calendar, User, Store } from 'lucide-react';
-import RatingComponent from '../../components/ratings/RatingComponent';
+import RatingComponent from '../ratings/RatingComponent';
 
 const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
     if (!isOpen || !order) return null;
@@ -47,7 +47,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                                 </>
                             )}
                         </div>
-                        <span className={`status-badge user-status-${order.status.toLowerCase()}`}>
+                        <span className={`status-badge user-status-${order.status?.toLowerCase()}`}>
                             {order.status}
                         </span>
                     </div>
@@ -64,7 +64,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                             </tr>
                             </thead>
                             <tbody>
-                            {order.items.map(item => (
+                            {order.items?.map(item => (
                                 <tr key={item.id}>
                                     <td>{item.ingredientName}</td>
                                     <td>{item.quantity} {item.unit}</td>

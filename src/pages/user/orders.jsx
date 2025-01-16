@@ -134,116 +134,115 @@ const UserOrders = () => {
     }
 
     return (
-        <main className="dashboard-container">
-            <section className="dashboard-section">
-                <div className="welcome-header">
-                    <h1>My Orders</h1>
-                </div>
+        <div className="main-section">
+            <main className="dashboard-order-container">
+                <section className="dashboard-order-section">
+                    <h2 className="section-title">My Orders</h2>
 
-                {error && <div className="error-message">{error}</div>}
+                    {error && <div className="error-message">{error}</div>}
 
-                <div className="order-filter-bar">
-                    <SearchBar
-                        searchTerm={searchTerm}
-                        onSearchChange={setSearchTerm}
-                        placeholder="Search orders..."
-                    />
-                    <select
-                        className="filter-select"
-                        value={filterStatus}
-                        onChange={(e) => setFilterStatus(e.target.value)}
-                    >
-                        <option value="ALL">All Status</option>
-                        <option value="PENDING">Pending</option>
-                        <option value="PROCESSING">Processing</option>
-                        <option value="SHIPPED">Shipped</option>
-                        <option value="DELIVERED">Delivered</option>
-                        <option value="CANCELLED">Cancelled</option>
-                    </select>
-                    <button
-                        className="inventory-add-button"
-                        onClick={() => setIsRetailerModalOpen(true)}
-                    >
-                        <Plus size={20}/>
-                        New Order
-                    </button>
-                </div>
+                    <div className="order-filter-bar">
+                        <SearchBar
+                            searchTerm={searchTerm}
+                            onSearchChange={setSearchTerm}
+                            placeholder="Search orders..."
+                        />
+                        <select
+                            className="filter-select"
+                            value={filterStatus}
+                            onChange={(e) => setFilterStatus(e.target.value)}
+                        >
+                            <option value="ALL">All Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="PROCESSING">Processing</option>
+                            <option value="SHIPPED">Shipped</option>
+                            <option value="DELIVERED">Delivered</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                        <button
+                            className="filter-select inventory-add-button"
+                            onClick={() => setIsRetailerModalOpen(true)}
+                        >
+                            <Plus size={20}/>
+                            New Order
+                        </button>
+                    </div>
 
-                <div className="orders-list">
-                    {filteredOrders.length > 0 ? (
-                        filteredOrders.map(order => (
-                            <div key={order.id} className="order-card">
-                                <div className="order-info">
-                                    <div className="order-detail">
-                                        <Calendar size={20} />
-                                        <span>{new Date(order.orderDate).toLocaleDateString()}</span>
-                                    </div>
-                                    <div className="order-detail">
-                                        <Store size={20} />
-                                        <span>{order.retailerName}</span>
-                                    </div>
-                                    <div className="order-detail">
-                                        <ShoppingCart size={20} />
-                                        <span>{order.items?.length || 0} items</span>
-                                    </div>
-                                    <div className="order-detail">
-                                        <DollarSign size={20} />
-                                        <span>€{order.totalPrice.toFixed(2)}</span>
-                                    </div>
-                                    <span className={`status-badge user-status-${order.status.toLowerCase()}`}>
+                    <div className="orders-list">
+                        {filteredOrders.length > 0 ? (
+                            filteredOrders.map(order => (
+                                <div key={order.id} className="order-card">
+                                    <div className="order-info">
+                                        <div className="order-detail">
+                                            <Calendar size={20} />
+                                            <span>{new Date(order.orderDate).toLocaleDateString()}</span>
+                                        </div>
+                                        <div className="order-detail">
+                                            <Store size={20} />
+                                            <span>{order.retailerName}</span>
+                                        </div>
+                                        <div className="order-detail">
+                                            <ShoppingCart size={20} />
+                                            <span>{order.items?.length || 0} items</span>
+                                        </div>
+                                        <div className="order-detail">
+                                            <DollarSign size={20} />
+                                            <span>€{order.totalPrice.toFixed(2)}</span>
+                                        </div>
+                                        <span className={`status-badge user-status-${order.status.toLowerCase()}`}>
                                         {order.status}
                                     </span>
-                                </div>
-                                <div className="order-actions">
-                                    <button
-                                        className="view-details-button"
-                                        onClick={() => handleViewDetails(order.id)}
-                                    >
-                                        View Details
-                                    </button>
-                                    {order.status === 'PENDING' && (
+                                    </div>
+                                    <div className="order-actions">
                                         <button
-                                            className="cancel-button"
-                                            onClick={() => handleCancelOrder(order.id)}
+                                            className="view-details-button"
+                                            onClick={() => handleViewDetails(order.id)}
                                         >
-                                            Cancel Order
+                                            View Details
                                         </button>
-                                    )}
+                                        {order.status === 'PENDING' && (
+                                            <button
+                                                className="cancel-button"
+                                                onClick={() => handleCancelOrder(order.id)}
+                                            >
+                                                Cancel Order
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
+                            ))
+                        ) : (
+                            <div className="no-results">
+                                {searchTerm || filterStatus !== 'ALL'
+                                    ? 'No orders match your search criteria'
+                                    : 'You haven\'t placed any orders yet'
+                                }
                             </div>
-                        ))
-                    ) : (
-                        <div className="no-results">
-                            {searchTerm || filterStatus !== 'ALL'
-                                ? 'No orders match your search criteria'
-                                : 'You haven\'t placed any orders yet'
-                            }
-                        </div>
-                    )}
-                </div>
-            </section>
+                        )}
+                    </div>
+                </section>
 
-            <OrderDetailsModal
-                isOpen={isDetailsModalOpen}
-                onClose={() => setIsDetailsModalOpen(false)}
-                order={selectedOrderDetails}
-                role="USER"
-            />
+                <OrderDetailsModal
+                    isOpen={isDetailsModalOpen}
+                    onClose={() => setIsDetailsModalOpen(false)}
+                    order={selectedOrderDetails}
+                    role="USER"
+                />
 
-            <RetailerSelectModal
-                isOpen={isRetailerModalOpen}
-                onClose={() => setIsRetailerModalOpen(false)}
-                onSelect={handleRetailerSelect}
-            />
+                <RetailerSelectModal
+                    isOpen={isRetailerModalOpen}
+                    onClose={() => setIsRetailerModalOpen(false)}
+                    onSelect={handleRetailerSelect}
+                />
 
-            <CreateOrderModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onSubmit={handleCreateOrder}
-                retailerId={selectedRetailerId}
-            />
-
-        </main>
+                <CreateOrderModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    onSubmit={handleCreateOrder}
+                    retailerId={selectedRetailerId}
+                />
+            </main>
+        </div>
     );
 };
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SearchBar } from '../../components/shared/SearchBar';
 import { Plus, Edit2, Trash2, AlertTriangle, Package, Calendar, DollarSign, Box } from 'lucide-react';
 import { inventoryService } from '../../services/inventoryService';
@@ -12,6 +13,8 @@ export default function RetailerInventory() {
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
+
+    const location = useLocation();
 
     const handleAddItem = async (itemData) => {
         try {
@@ -66,7 +69,7 @@ export default function RetailerInventory() {
 
     const loadInventory = useCallback(async () => {
         try {
-            setIsLoading(true);  // Set loading state before fetch
+            setIsLoading(true);
             const data = await inventoryService.getAllItems(searchTerm, filterCategory);
             setInventory(data);
             setError(null);
@@ -99,6 +102,17 @@ export default function RetailerInventory() {
         };
     }, [loadInventory]);
 
+    useEffect(() => {
+        // Check for item to edit from location state
+        if (location.state?.editItemId) {
+            const itemToEdit = inventory.find(item => item.id === location.state.editItemId);
+            if (itemToEdit) {
+                setEditingItem(itemToEdit);
+                setIsModalOpen(true);
+            }
+        }
+    }, [location.state, inventory]);
+
     const handleSearch = (term) => {
         setSearchTerm(term);
     };
@@ -121,19 +135,19 @@ export default function RetailerInventory() {
     };
 
     const renderInventoryItem = (item) => {
-        const { price, expiryDate, id, name, quantity, unit, lowStock } = item;
-        const itemPrice = price !== undefined ? Number(price) : 0;
-        const expiryDateStr = expiryDate ? new Date(expiryDate).toLocaleDateString() : 'No date';
+        const {
+            price = 0,
+            expiryDate,
+            id,
+            name,
+            quantity = 0,
+            unit,
+            lowStock
+        } = item;
 
-        if (isLoading) {
-            return (
-                <div className="dashboard-container">
-                    <section className="dashboard-section">
-                        <div className="loading">Loading inventory items...</div>
-                    </section>
-                </div>
-            );
-        }
+        const itemPrice = Number(price);
+        const expiryDateStr = expiryDate ? new Date(expiryDate).toLocaleDateString() : 'No date';
+        const isOutOfStock = quantity === 0;
 
         return (
             <div key={id} className="order-card">
@@ -154,9 +168,14 @@ export default function RetailerInventory() {
                         <Calendar size={20} />
                         <span>Expires: {expiryDateStr}</span>
                     </div>
-                    {lowStock && (
+                    {isOutOfStock ? (
+                        <span className="out-of-stock-badge">
+                            <AlertTriangle size={16} />
+                            Out of Stock
+                        </span>
+                    ) : lowStock && (
                         <span className="low-stock-badge">
-                            <AlertTriangle />
+                            <AlertTriangle size={16} />
                             Low Stock
                         </span>
                     )}
@@ -180,6 +199,16 @@ export default function RetailerInventory() {
             </div>
         );
     };
+
+    if (isLoading) {
+        return (
+            <div className="dashboard-container">
+                <section className="dashboard-section">
+                    <div className="loading">Loading inventory items...</div>
+                </section>
+            </div>
+        );
+    }
 
     return (
         <div className="dashboard-container">
