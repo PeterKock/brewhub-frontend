@@ -84,18 +84,48 @@ function AppContent() {
     useEffect(() => {
         let isMounted = true;
 
-        const checkAuth = () => {
+        const checkAuth = async () => {
             if (isMounted) {
-                const authStatus = authService.isAuthenticated();
-                console.log('Authentication check:', authStatus);
-                console.log('Current token:', localStorage.getItem('token'));
-                setIsAuthenticated(authStatus);
-                setIsInitializing(false);
+                const token = localStorage.getItem('token');
+                const userStr = localStorage.getItem('user');
+
+                // Clear invalid state
+                if (!token || !userStr) {
+                    authService.logout();
+                    setIsAuthenticated(false);
+                    setIsInitializing(false);
+                    return;
+                }
+
+                try {
+                    // Try to parse user data
+                    const user = JSON.parse(userStr);
+                    if (!user || !user.id || !user.email || !user.role) {
+                        console.error('Invalid user data');
+                        authService.logout();
+                        setIsAuthenticated(false);
+                        return;
+                    }
+
+                    setIsAuthenticated(true);
+                    console.log('Authentication check:', true);
+                    console.log('Current token:', token);
+                } catch (error) {
+                    console.error('Auth validation failed:', error);
+                    authService.logout();
+                    setIsAuthenticated(false);
+                } finally {
+                    if (isMounted) {
+                        setIsInitializing(false);
+                    }
+                }
             }
         };
 
         // Initial check
-        checkAuth();
+        checkAuth().catch(error => {
+            console.error('Error during authentication check:', error);
+        });
 
         // Listen for localStorage changes
         window.addEventListener('storage', checkAuth);

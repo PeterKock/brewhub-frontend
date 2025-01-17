@@ -64,21 +64,20 @@ export const authService = {
     },
 
     isAuthenticated: () => {
+        const token = localStorage.getItem('token');
         const userStr = localStorage.getItem('user');
 
-        if (!localStorage.getItem('token') || !userStr) {
+        if (!token || !userStr) {
             return false;
         }
 
         try {
             const user = JSON.parse(userStr);
-            const isValid = !!(user && user.id && user.email && user.role);
-
-            console.log('Auth check - Token exists:', !!localStorage.getItem('token'));
-            console.log('Auth check - User valid:', isValid);
-
-            return isValid;
+            return !!(user && user.id && user.email && user.role);
         } catch {
+            // If there's any error parsing the user data, consider it invalid
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             return false;
         }
     }

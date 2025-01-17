@@ -84,16 +84,18 @@ const Header = ({ isAuthenticated, onLogout }) => {
                     <h1 className="brand-name">Brew Hub</h1>
                 </Link>
                 <nav className="menu-container" ref={menuRef} role="navigation">
-                    {isAuthenticated ? (
-                        <button
-                            onClick={handleLogout}
-                            className="login-link"
-                            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-                        >
-                            Sign out
-                        </button>
-                    ) : (
-                        <Link to="/login" className="login-link">Sign in</Link>
+                    {isAuthenticated !== null && (
+                        isAuthenticated ? (
+                            <button
+                                onClick={handleLogout}
+                                className="login-link"
+                                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                            >
+                                Sign out
+                            </button>
+                        ) : (
+                            <Link to="/login" className="login-link">Sign in</Link>
+                        )
                     )}
                     <button
                         className="hamburger-button"
