@@ -15,6 +15,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                 try {
                     const rating = await ratingService.getOrderRating(order.id);
                     if (isMounted) {
+                        console.log('Setting order rating:', rating);
                         setOrderRating(rating);
                     }
                 } catch (error) {
@@ -118,33 +119,37 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                     {order.status === 'DELIVERED' && (
                         <div className="rating-section">
                             {role === 'USER' ? (
-                                !orderRating ? (
-                                    <>
-                                        <h4>Rate this Retailer</h4>
-                                        <RatingComponent
-                                            retailerId={order.retailerId}
-                                            orderId={order.id}
-                                            onRatingSubmit={() => {
-                                                void (async () => {
-                                                    const rating = await ratingService.getOrderRating(order.id);
-                                                    setOrderRating(rating);
-                                                })();
-                                            }}
-                                        />
-                                    </>
-                                ) : (
-                                    <>
-                                        <h4>Your Rating</h4>
-                                        <RatingComponent
-                                            retailerId={order.retailerId}
-                                            initialRating={orderRating.score}
-                                            readOnly
-                                        />
-                                        {orderRating.comment && (
-                                            <p className="rating-comment">{orderRating.comment}</p>
-                                        )}
-                                    </>
-                                )
+                                <>
+                                    {orderRating ? (
+                                        <>
+                                            <h4>Your Rating</h4>
+                                            <RatingComponent
+                                                retailerId={order.retailerId}
+                                                initialRating={orderRating.score}
+                                                readOnly
+                                            />
+                                            {orderRating.comment && (
+                                                <p className="rating-comment">{orderRating.comment}</p>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h4>Rate this Retailer</h4>
+                                            <RatingComponent
+                                                retailerId={order.retailerId}
+                                                orderId={order.id}
+                                                onRatingSubmit={async () => {
+                                                    try {
+                                                        const rating = await ratingService.getOrderRating(order.id);
+                                                        setOrderRating(rating);
+                                                    } catch (error) {
+                                                        console.error('Error updating rating:', error);
+                                                    }
+                                                }}
+                                            />
+                                        </>
+                                    )}
+                                </>
                             ) : (
                                 orderRating && (
                                     <div className="customer-rating">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Star } from 'lucide-react';
 import { ratingService } from '../../services/ratingService';
@@ -10,6 +10,10 @@ const RatingComponent = ({ retailerId, orderId, onRatingSubmit, initialRating, r
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+
+    useEffect(() => {
+        setRating(initialRating || 0);
+    }, [initialRating]);
 
     const handleRatingSubmit = async () => {
         if (!rating) {

@@ -3,20 +3,27 @@ const API_URL = 'http://localhost:8080/api';
 export const ratingService = {
     // Get the order rating
     getOrderRating: async (orderId) => {
-        const response = await fetch(`${API_URL}/public/orders/${orderId}/rating`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
+        try {
+            const response = await fetch(`${API_URL}/public/orders/${orderId}/rating`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
 
-        if (!response.ok) {
-            if (response.status === 404) {
-                return null; // No rating found
+            if (response.status === 403 || response.status === 404) {
+                return null;
             }
-            throw new Error('Failed to fetch order rating');
+
+            if (!response.ok) {
+                console.error('Failed to fetch order rating:', response.status);
+                return null;
+            }
+
+            return response.json();
+        } catch (error) {
+            console.error('Error fetching order rating:', error);
+            return null;
         }
-
-        return response.json();
     },
 
     // Create a new rating
