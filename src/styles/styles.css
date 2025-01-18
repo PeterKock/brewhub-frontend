@@ -445,7 +445,7 @@ a:hover {
 
 .modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: var(--spacing-md);
   margin-top: var(--spacing-sm);
   padding-top: var(--spacing-md);
@@ -474,6 +474,7 @@ a:hover {
 }
 
 .modal-submit-button {
+  margin: 0 auto;
   background-color: var(--buy-color);
   border: none;
   color: var(--primary-text-color);
@@ -543,7 +544,7 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-xxl);
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -707,7 +708,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding-left: var(--spacing-lg);
+  justify-content: center;
 }
 
 .rating-value {
@@ -728,6 +729,8 @@ a:hover {
 
 .rating-section h4 {
   color: var(--primary-text-color);
+  margin-bottom: var(--spacing-sm);
+
 }
 
 .rating-section {
@@ -743,6 +746,9 @@ a:hover {
   padding: var(--spacing-md);
   background-color: var(--primary-bg-color);
   border-radius: var(--border-radius-value);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .rating-customer {
@@ -1461,18 +1467,18 @@ a:hover {
 /* Status Badges */
 
 .user-status-pending {
-  background-color: #ffeaa7;
-  color: #d35400;
+  background-color: #dcd6f7;
+  color: #4527a0;
 }
 
 .user-status-processing {
-  background-color: #81ecec;
-  color: #00838f;
+  background-color: #ffd3b6;
+  color: #a04000;
 }
 
 .user-status-shipped {
   background-color: #74b9ff;
-  color: var(--primary-text-color);
+  color: #2058a5;
 }
 
 .user-status-delivered {
@@ -1636,7 +1642,7 @@ a:hover {
 
 .inventory-add-button svg {
   width: 20px;
-  height: 40px;
+  height: 20px;
 }
 
 .inventory-list {
@@ -1669,11 +1675,12 @@ a:hover {
 
 .inventory-actions {
   display: flex;
-  justify-content: flex-end;
   gap: var(--spacing-md);
+  justify-content: flex-end;
 }
 
-.inventory-actions button {
+.inventory-edit-button,
+.inventory-delete-button {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
@@ -1683,16 +1690,18 @@ a:hover {
   cursor: pointer;
   transition: background-color var(--transition-default-value);
   color: var(--primary-text-color);
+  font-size: var(--p-font-size);
+  height: 36px;
 }
 
-.inventory-actions button svg {
+.inventory-edit-button svg,
+.inventory-delete-button svg {
   width: 16px;
   height: 16px;
 }
 
 .inventory-edit-button {
   background-color: var(--accent-color);
-  font-size: var(--p-font-size);
 }
 
 .inventory-edit-button:hover {
@@ -1701,7 +1710,6 @@ a:hover {
 
 .inventory-delete-button {
   background-color: #e74c3c;
-  font-size: var(--p-font-size);
 }
 
 .inventory-delete-button:hover {
@@ -1733,6 +1741,10 @@ a:hover {
 .low-stock-badge svg {
   width: 16px;
   height: 16px;
+}
+
+.inventory-modal-actions .modal-cancel-button {
+  margin-right: var(--spacing-lg);
 }
 
 /* --------------- 7.10 Shared ------------------- */

@@ -129,7 +129,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                                                 readOnly
                                             />
                                             {orderRating.comment && (
-                                                <p className="rating-comment">{orderRating.comment}</p>
+                                                <p className="rating-comment">{`"${orderRating.comment}"`}</p>
                                             )}
                                         </>
                                     ) : (
@@ -162,7 +162,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                                         {orderRating.comment && (
                                             <p className="rating-comment">{orderRating.comment}</p>
                                         )}
-                                        <p className="rating-customer">by {orderRating.customerName}</p>
+                                        {/*<p className="rating-customer">by {orderRating.customerName}</p>*/}
                                     </div>
                                 )
                             )}

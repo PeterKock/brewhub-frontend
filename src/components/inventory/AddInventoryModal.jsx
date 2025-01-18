@@ -152,7 +152,7 @@ const AddInventoryModal = ({ isOpen, onClose, onSubmit, initialData }) => {
                         />
                     </div>
 
-                    <div className="modal-actions">
+                    <div className="inventory-modal-actions">
                         <button
                             type="button"
                             onClick={onClose}
