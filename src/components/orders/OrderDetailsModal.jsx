@@ -1,8 +1,35 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { X, Calendar, User, Store } from 'lucide-react';
 import RatingComponent from '../ratings/RatingComponent';
+import { ratingService } from '../../services/ratingService';
 
 const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
+    const [orderRating, setOrderRating] = useState(null);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchOrderRating = async () => {
+            if (order && order.status === 'DELIVERED') {
+                try {
+                    const rating = await ratingService.getOrderRating(order.id);
+                    if (isMounted) {
+                        setOrderRating(rating);
+                    }
+                } catch (error) {
+                    console.error('Error fetching order rating:', error);
+                }
+            }
+        };
+
+        void fetchOrderRating();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [order]);
+
     if (!isOpen || !order) return null;
 
     const formattedDate = new Date(order.orderDate).toLocaleDateString();
@@ -13,7 +40,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                 <div className="modal-header">
                     <h3>Order Details</h3>
                     <span className={`status-badge user-status-${order.status?.toLowerCase()}`}>
-                            {order.status}
+                        {order.status}
                     </span>
                     <button
                         className="modal-close-button"
@@ -88,15 +115,52 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                         </div>
                     )}
 
-                    {role === 'USER' && order.status === 'DELIVERED' && (
+                    {order.status === 'DELIVERED' && (
                         <div className="rating-section">
-                            <h4>Rate this Retailer</h4>
-                            <RatingComponent
-                                retailerId={order.retailerId}
-                                onRatingSubmit={() => {
-                                    // Optionally refresh the order details or show a success message
-                                }}
-                            />
+                            {role === 'USER' ? (
+                                !orderRating ? (
+                                    <>
+                                        <h4>Rate this Retailer</h4>
+                                        <RatingComponent
+                                            retailerId={order.retailerId}
+                                            orderId={order.id}
+                                            onRatingSubmit={() => {
+                                                void (async () => {
+                                                    const rating = await ratingService.getOrderRating(order.id);
+                                                    setOrderRating(rating);
+                                                })();
+                                            }}
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <h4>Your Rating</h4>
+                                        <RatingComponent
+                                            retailerId={order.retailerId}
+                                            initialRating={orderRating.score}
+                                            readOnly
+                                        />
+                                        {orderRating.comment && (
+                                            <p className="rating-comment">{orderRating.comment}</p>
+                                        )}
+                                    </>
+                                )
+                            ) : (
+                                orderRating && (
+                                    <div className="customer-rating">
+                                        <h4>Customer Rating</h4>
+                                        <RatingComponent
+                                            retailerId={order.retailerId}
+                                            initialRating={orderRating.score}
+                                            readOnly
+                                        />
+                                        {orderRating.comment && (
+                                            <p className="rating-comment">{orderRating.comment}</p>
+                                        )}
+                                        <p className="rating-customer">by {orderRating.customerName}</p>
+                                    </div>
+                                )
+                            )}
                         </div>
                     )}
                 </div>
@@ -109,6 +173,7 @@ OrderDetailsModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     order: PropTypes.shape({
+        id: PropTypes.number.isRequired,
         orderDate: PropTypes.string.isRequired,
         status: PropTypes.string.isRequired,
         retailerName: PropTypes.string,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Star } from 'lucide-react';
 import { ratingService } from '../../services/ratingService';
 
-const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }) => {
+const RatingComponent = ({ retailerId, orderId, onRatingSubmit, initialRating, readOnly }) => {
     const [rating, setRating] = useState(initialRating || 0);
     const [hover, setHover] = useState(0);
     const [comment, setComment] = useState('');
@@ -23,7 +23,8 @@ const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }
 
             await ratingService.createRating(retailerId, {
                 score: rating,
-                comment: comment.trim()
+                comment: comment.trim(),
+                orderId: orderId
             });
 
             setSubmitted(true);
@@ -123,6 +124,7 @@ const RatingComponent = ({ retailerId, onRatingSubmit, initialRating, readOnly }
 
 RatingComponent.propTypes = {
     retailerId: PropTypes.number.isRequired,
+    orderId: PropTypes.number,
     onRatingSubmit: PropTypes.func,
     initialRating: PropTypes.number,
     readOnly: PropTypes.bool

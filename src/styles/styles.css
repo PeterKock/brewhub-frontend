@@ -730,6 +730,34 @@ a:hover {
   color: var(--primary-text-color);
 }
 
+.rating-section {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rating-comment {
+  margin-top: var(--spacing-md);
+  color: var(--primary-text-color);
+  font-style: italic;
+  padding: var(--spacing-md);
+  background-color: var(--primary-bg-color);
+  border-radius: var(--border-radius-value);
+}
+
+.rating-customer {
+  color: var(--secondary-text-color);
+  margin-top: var(--spacing-sm);
+  font-size: var(--p-font-size);
+}
+
+.customer-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
 /* ------------------------------- 5. Header -------------------------------- */
 /* --------------- 5.1 Header Layout ------------------- */
 .header {
