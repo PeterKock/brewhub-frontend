@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { inventoryService } from '../../services/inventoryService';
+import { orderService } from '../../services/orderService';
+import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
 import {
     ShoppingBag,
     CheckSquare,
@@ -14,67 +17,94 @@ import {
     AlertTriangle,
     BarChart2
 } from 'lucide-react';
-import { inventoryService } from '../../services/inventoryService';
 
 const RetailerDashboard = () => {
     const [dashboardData, setDashboardData] = useState({
-        name: "Brew Supply Co",
-        pendingOrders: 3,
-        completedOrders: 12,
-        totalProducts: 45,
+        name: "",
+        pendingOrders: 0,
+        completedOrders: 0,
+        shippedOrders: 0,
         lowStock: 0
     });
 
-    const [recentOrders] = useState([
-        {
-            id: 1,
-            date: "2025-01-15",
-            status: "Pending",
-            customer: "John Doe",
-            items: "Barley, Hops",
-            total: "€75.00"
-        },
-        {
-            id: 2,
-            date: "2025-01-14",
-            status: "Processing",
-            customer: "Jane Smith",
-            items: "Yeast, Malt",
-            total: "€45.50"
-        }
-    ]);
-
+    const [recentOrders, setRecentOrders] = useState([]);
     const [lowStockItems, setLowStockItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
     useEffect(() => {
-        const loadLowStockItems = async () => {
+        let isMounted = true;
+
+        const loadDashboardData = async () => {
+            if (!isMounted) return;
+
             try {
-                const items = await inventoryService.getLowStockItems();
-                setLowStockItems(items);
-                setDashboardData(prevData => ({
-                    ...prevData,
-                    lowStock: items.length
-                }));
+                setLoading(true);
                 setError(null);
+
+                // Fetch user information from localStorage
+                const user = JSON.parse(localStorage.getItem('user')) || {};
+                const userName = user.firstName || 'Retailer';
+
+                // Fetch all data concurrently
+                const [stats, recentOrdersData, lowStockData] = await Promise.all([
+                    orderService.getRetailerDashboardStats(),
+                    orderService.getRetailerRecentOrders(),
+                    inventoryService.getLowStockItems()
+                ]);
+
+                if (!isMounted) return;
+
+                setDashboardData({
+                    name: userName,
+                    pendingOrders: stats.pendingOrders || 0,
+                    completedOrders: stats.completedOrders || 0,
+                    shippedOrders: stats.shippedOrders || 0,
+                    lowStock: lowStockData?.length || 0
+                });
+                setRecentOrders(recentOrdersData || []);
+                setLowStockItems(lowStockData || []);
             } catch (err) {
-                console.error('Failed to load low stock items:', err);
-                setError('Failed to load low stock items');
+                if (!isMounted) return;
+                console.error('Failed to load dashboard data:', err);
+                setError('Failed to load dashboard data. Please try again later.');
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
-        loadLowStockItems().catch(err => {
-            console.error('Error in loadLowStockItems:', err);
-            setError('Failed to load low stock items');
-            setLoading(false);
-        });
+        void loadDashboardData();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
+    const handleViewDetails = async (orderId) => {
+        try {
+            setLoading(true);
+            const orderDetails = await orderService.getRetailerOrder(orderId);
+            setSelectedOrderDetails(orderDetails);
+            setIsDetailsModalOpen(true);
+            setError('');
+        } catch (err) {
+            setError('Failed to load order details');
+            console.error('Error loading order details:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     if (loading) {
-        return <div className="loading">Loading...</div>;
+        return (
+            <main className="dashboard-container">
+                <div className="loading">Loading dashboard...</div>
+            </main>
+        );
     }
 
     return (
@@ -84,7 +114,7 @@ const RetailerDashboard = () => {
             {/* Overview Section */}
             <section className="dashboard-section">
                 <div className="welcome-header">
-                    <h1>Welcome back, {dashboardData.name}</h1>
+                    <h1>Welcome back {dashboardData.name}!</h1>
                 </div>
 
                 <div className="retailer-dashboard-stats-container">
@@ -99,7 +129,16 @@ const RetailerDashboard = () => {
                     </div>
                     <div className="stat-card">
                         <div className="stat-icon">
-                            <CheckSquare size={24} />
+                            <Package size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <h2>Shipped Orders</h2>
+                            <p>{dashboardData.shippedOrders}</p>
+                        </div>
+                    </div>
+                    <div className="stat-card">
+                    <div className="stat-icon">
+                        <CheckSquare size={24} />
                         </div>
                         <div className="stat-content">
                             <h2>Completed Orders</h2>
@@ -108,19 +147,10 @@ const RetailerDashboard = () => {
                     </div>
                     <div className="stat-card">
                         <div className="stat-icon">
-                            <Package size={24} />
-                        </div>
-                        <div className="stat-content">
-                            <h2>Total Products</h2>
-                            <p>{dashboardData.totalProducts}</p>
-                        </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-icon">
                             <AlertCircle size={24} />
                         </div>
                         <div className="stat-content">
-                            <h2>Low Stock Alerts</h2>
+                            <h2>Stock Alerts</h2>
                             <p className={dashboardData.lowStock > 0 ? 'alert' : ''}>
                                 {dashboardData.lowStock}
                             </p>
@@ -161,34 +191,57 @@ const RetailerDashboard = () => {
                             <div className="order-info">
                                 <div className="order-detail">
                                     <Calendar size={20} />
-                                    <span>{order.date}</span>
+                                    <span>{new Date(order.orderDate).toLocaleDateString()}</span>
                                 </div>
                                 <div className="order-detail">
                                     <Users size={20} />
-                                    <span>{order.customer}</span>
+                                    <span>{order.customerName || 'Unknown Customer'}</span>
                                 </div>
                                 <div className="order-detail">
                                     <Package size={20} />
-                                    <span>{order.items}</span>
+                                    <span>{order.items?.length || 0} items</span>
                                 </div>
                                 <div className="order-detail">
-                                    <ShoppingBag size={20} />
-                                    <span>{order.total}</span>
+                                    <span>€{(order.totalPrice || 0)}</span>
                                 </div>
-                                <span className={`status-badge retailer-status-${order.status.toLowerCase()}`}>
-                                    {order.status}
-                                </span>
+                                <span className={`status-badge retailer-status-${order.status?.toLowerCase()}`}>
+                        {order.status || 'Unknown Status'}
+                    </span>
                             </div>
                             <div className="retailer-order-actions">
-                                <Link
-                                    to={`/retailer/orders/${order.id}`}
+                                <button
+                                    onClick={() => handleViewDetails(order.id)}
                                     className="retailer-view-details-button"
                                 >
                                     View Details
-                                </Link>
-                                <button className="retailer-process-button">
-                                    Process Order
                                 </button>
+                                {order.status === 'PENDING' && (
+                                    <button
+                                        className="retailer-process-button"
+                                        onClick={async () => {
+                                            try {
+                                                await orderService.updateOrderStatus(order.id, 'PROCESSING');
+                                                // Reload dashboard data after status update
+                                                const [stats, recentOrdersData] = await Promise.all([
+                                                    orderService.getRetailerDashboardStats(),
+                                                    orderService.getRetailerRecentOrders()
+                                                ]);
+                                                setDashboardData({
+                                                    ...dashboardData,
+                                                    pendingOrders: stats.pendingOrders || 0,
+                                                    completedOrders: stats.completedOrders || 0
+                                                });
+                                                setRecentOrders(recentOrdersData || []);
+                                                setError(null);
+                                            } catch (err) {
+                                                console.error('Error processing order:', err);
+                                                setError('Failed to process order');
+                                            }
+                                        }}
+                                    >
+                                        Process Order
+                                    </button>
+                                )}
                             </div>
                         </div>
                     ))}
@@ -197,7 +250,7 @@ const RetailerDashboard = () => {
 
             {/* Low Stock Alerts */}
             <section className="dashboard-section">
-                <h2 className="section-title">Low Stock Alerts</h2>
+                <h2 className="section-title">Stock Alerts</h2>
                 <div className="dashboard-list">
                     {lowStockItems.length > 0 ? (
                         lowStockItems.map(item => (
@@ -205,23 +258,32 @@ const RetailerDashboard = () => {
                                 <div className="order-info">
                                     <div className="order-detail">
                                         <Box size={20} />
-                                        <span>{item.name}</span>
+                                        <span>{item.name || 'Unknown Item'}</span>
                                     </div>
                                     <div className="order-detail">
                                         <BarChart2 size={20} />
-                                        <span>{Number(item.quantity).toFixed(2)} {item.unit}</span>
+                                        <span>{Number(item.quantity || 0).toFixed(2)} {item.unit || 'units'}</span>
                                     </div>
                                     <div className="order-detail">
                                         <AlertTriangle size={20} />
-                                        <span>Threshold: {Number(item.lowStockThreshold).toFixed(2)} {item.unit}</span>
+                                        <span>Threshold: {Number(item.lowStockThreshold || 0).toFixed(2)} {item.unit || 'units'}</span>
                                     </div>
-                                    <span className="status-badge retailer-status-pending">
-                                        Low Stock
-                                    </span>
+                                    {item.quantity === 0 ? (
+                                        <span className="out-of-stock-badge">
+                                <AlertTriangle size={16} />
+                                Out of Stock
+                            </span>
+                                    ) : (
+                                        <span className="low-stock-badge">
+                                <AlertTriangle size={16} />
+                                Low Stock
+                            </span>
+                                    )}
                                 </div>
                                 <div className="retailer-order-actions">
                                     <Link
-                                        to={`/retailer/inventory/edit/${item.id}`}
+                                        to="/retailer/inventory"
+                                        state={{ editItemId: item.id }}
                                         className="retailer-restock-button"
                                     >
                                         Restock Now
@@ -234,6 +296,13 @@ const RetailerDashboard = () => {
                     )}
                 </div>
             </section>
+
+            <OrderDetailsModal
+                isOpen={isDetailsModalOpen}
+                onClose={() => setIsDetailsModalOpen(false)}
+                order={selectedOrderDetails}
+                role="RETAILER"
+            />
         </main>
     );
 };

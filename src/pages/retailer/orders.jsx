@@ -1,84 +1,141 @@
 import { useState, useEffect } from 'react';
 import OrderCard from '../../components/shared/OrderCard';
 import { SearchBar } from '../../components/shared/SearchBar';
+import { orderService } from '../../services/orderService';
+import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
 
 const RetailerOrders = () => {
     const [orders, setOrders] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('ALL');
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
-    // Mock data - replace with actual API call
+    const loadOrders = async () => {
+        try {
+            setIsLoading(true);
+            const data = await orderService.getRetailerOrders();
+            setOrders(data);
+            setError('');
+        } catch (err) {
+            setError('Failed to load orders');
+            console.error('Error loading orders:', err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        setOrders([
-            {
-                id: 1,
-                date: "2025-01-15",
-                customerName: "John Doe",
-                beerType: "IPA",
-                status: "PENDING",
-                totalPrice: 75.00
-            },
-            {
-                id: 2,
-                date: "2025-01-14",
-                customerName: "Jane Smith",
-                beerType: "Stout",
-                status: "PROCESSING",
-                totalPrice: 45.50
-            },
-            {
-                id: 3,
-                date: "2025-01-10",
-                customerName: "Mike Johnson",
-                beerType: "Pale Ale",
-                status: "COMPLETED",
-                totalPrice: 62.25
+        let isMounted = true;
+
+        const fetchOrders = async () => {
+            if (!isMounted) return;
+
+            try {
+                setIsLoading(true);
+                const data = await orderService.getRetailerOrders();
+                if (isMounted) {
+                    setOrders(data);
+                    setError('');
+                }
+            } catch (err) {
+                if (isMounted) {
+                    console.error('Error loading orders:', err);
+                    setError('Failed to load orders. Please try again later.');
+                }
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
             }
-        ]);
+        };
+
+        void fetchOrders();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const handleStatusChange = async (orderId, newStatus) => {
-        // Add API call here
-        console.log('Changing order status:', orderId, newStatus);
+        try {
+            await orderService.updateOrderStatus(orderId, newStatus);
+            await loadOrders();
+        } catch (err) {
+            setError('Failed to update order status');
+            console.error('Error updating order status:', err);
+        }
     };
 
     const handleCancelOrder = async (orderId) => {
-        // Add API call here
-        console.log('Cancelling order:', orderId);
+        if (window.confirm('Are you sure you want to cancel this order?')) {
+            try {
+                await orderService.updateOrderStatus(orderId, 'CANCELLED');
+                await loadOrders();
+            } catch (err) {
+                setError('Failed to cancel order');
+                console.error('Error cancelling order:', err);
+            }
+        }
     };
 
     const filteredOrders = orders.filter(order => {
-        const matchesSearch = order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            order.beerType.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch =
+            order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (order.category && order.category.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (order.name && order.name.toLowerCase().includes(searchTerm.toLowerCase()));
         const matchesStatus = filterStatus === 'ALL' || order.status === filterStatus;
         return matchesSearch && matchesStatus;
     });
 
+    const handleViewDetails = async (orderId) => {
+        try {
+            setIsLoading(true);
+            const orderDetails = await orderService.getRetailerOrder(orderId);
+            setSelectedOrderDetails(orderDetails);
+            setIsDetailsModalOpen(true);
+            setError('');
+        } catch (err) {
+            setError('Failed to load order details');
+            console.error('Error loading order details:', err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
-                <main className="dashboard-order-container">
-                    <section className="dashboard-order-section">
-                        <h2 className="section-title">Manage Orders</h2>
+        <div className="main-section">
+            <main className="dashboard-order-container">
+                <section className="dashboard-order-section">
+                    <h2 className="section-title">Manage Orders</h2>
 
-                        <div className="order-filter-bar">
-                            <SearchBar
-                                searchTerm={searchTerm}
-                                onSearchChange={setSearchTerm}
-                                placeholder="Search orders..."
-                            />
-                            <select
-                                className="filter-select"
-                                value={filterStatus}
-                                onChange={(e) => setFilterStatus(e.target.value)}
-                            >
-                                <option value="ALL">All Status</option>
-                                <option value="PENDING">Pending</option>
-                                <option value="PROCESSING">Processing</option>
-                                <option value="SHIPPED">Shipped</option>
-                                <option value="COMPLETED">Completed</option>
-                                <option value="CANCELLED">Cancelled</option>
-                            </select>
-                        </div>
+                    {error && <div className="error-message">{error}</div>}
 
+                    <div className="order-filter-bar">
+                        <SearchBar
+                            searchTerm={searchTerm}
+                            onSearchChange={setSearchTerm}
+                            placeholder="Search orders..."
+                        />
+                        <select
+                            className="filter-select"
+                            value={filterStatus}
+                            onChange={(e) => setFilterStatus(e.target.value)}
+                        >
+                            <option value="ALL">All Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="PROCESSING">Processing</option>
+                            <option value="SHIPPED">Shipped</option>
+                            <option value="DELIVERED">Delivered</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </div>
+
+                    {isLoading ? (
+                        <div className="loading">Loading orders...</div>
+                    ) : (
                         <div className="orders-list">
                             {filteredOrders.length > 0 ? (
                                 filteredOrders.map(order => (
@@ -88,14 +145,29 @@ const RetailerOrders = () => {
                                         role="RETAILER"
                                         onStatusChange={handleStatusChange}
                                         onCancel={handleCancelOrder}
+                                        onViewDetails={() => handleViewDetails(order.id)}
                                     />
                                 ))
                             ) : (
-                                <div className="no-results">No orders found</div>
+                                <div className="no-results">
+                                    {searchTerm || filterStatus !== 'ALL'
+                                        ? 'No orders match your search criteria'
+                                        : 'No orders received yet'
+                                    }
+                                </div>
                             )}
-                </div>
-            </section>
-        </main>
+                        </div>
+                    )}
+                </section>
+
+                <OrderDetailsModal
+                    isOpen={isDetailsModalOpen}
+                    onClose={() => setIsDetailsModalOpen(false)}
+                    order={selectedOrderDetails}
+                    role="RETAILER"
+                />
+            </main>
+        </div>
     );
 };
 

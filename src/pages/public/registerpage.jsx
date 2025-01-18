@@ -10,7 +10,8 @@ export default function RegisterPage({ onRegister }) {
         confirmPassword: '',
         firstName: '',
         lastName: '',
-        role: 'user', // user or retailer
+        role: 'customer',
+        location: '',
         acceptTerms: false
     });
     const [error, setError] = useState('');
@@ -51,6 +52,12 @@ export default function RegisterPage({ onRegister }) {
             return;
         }
 
+        // Location validation for retailers
+        if (formData.role === 'retailer' && !formData.location.trim()) {
+            setError('Please enter your city');
+            return;
+        }
+
         // Terms acceptance validation
         if (!formData.acceptTerms) {
             setError('Please accept the terms and conditions');
@@ -61,9 +68,7 @@ export default function RegisterPage({ onRegister }) {
         setError('');
 
         try {
-            // Here you would typically make an API call to your backend
             await onRegister(formData);
-            // Redirect to home page after successful registration
             navigate('/');
         } catch (error) {
             setError('Registration failed. Please try again.');
@@ -168,6 +173,21 @@ export default function RegisterPage({ onRegister }) {
                             <option value="retailer">Business</option>
                         </select>
                     </div>
+
+                    {formData.role === 'retailer' && (
+                        <div className="form-group">
+                            <label htmlFor="location">Business Location</label>
+                            <input
+                                id="location"
+                                name="location"
+                                type="text"
+                                value={formData.location}
+                                onChange={handleInputChange}
+                                placeholder="Enter city"
+                                required
+                            />
+                        </div>
+                    )}
 
                     <div className="form-options">
                         <div className="remember-me">
