@@ -1,5 +1,7 @@
 const API_URL = 'http://localhost:8080/api/auth';
 
+let isLoggingOut = false;
+
 export const authService = {
     login: async (credentials) => {
         console.log('Login attempt with:', credentials.email);
@@ -14,7 +16,6 @@ export const authService = {
         if (!response.ok) {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            window.dispatchEvent(new Event('storage'));
             const errorText = await response.text();
             throw new Error(errorText || 'Login failed');
         }
@@ -33,7 +34,6 @@ export const authService = {
                 averageRating: data.averageRating,
                 totalRatings: data.totalRatings
             }));
-            window.dispatchEvent(new Event('storage'));
         }
         return data;
     },
@@ -57,10 +57,21 @@ export const authService = {
     },
 
     logout: () => {
-        console.log('Logging out user');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.dispatchEvent(new Event('storage'));
+        if (isLoggingOut) {
+            console.log('Logout already in progress');
+            return;
+        }
+
+        try {
+            isLoggingOut = true;
+            console.log('Logging out user');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        } finally {
+            setTimeout(() => {
+                isLoggingOut = false;
+            }, 100);
+        }
     },
 
     isAuthenticated: () => {
@@ -75,7 +86,6 @@ export const authService = {
             const user = JSON.parse(userStr);
             return !!(user && user.id && user.email && user.role);
         } catch {
-            // If there's any error parsing the user data, consider it invalid
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             return false;
