@@ -14,6 +14,7 @@ export default function RetailerInventory() {
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
+    const [showDeleted, setShowDeleted] = useState(false);
 
     const location = useLocation();
 
@@ -71,7 +72,9 @@ export default function RetailerInventory() {
     const loadInventory = useCallback(async () => {
         try {
             setIsLoading(true);
-            const data = await inventoryService.getAllItems(searchTerm, filterCategory);
+            const data = await (showDeleted ?
+                inventoryService.getDeletedItems() :
+                inventoryService.getAllItems(searchTerm, filterCategory));
             setInventory(data);
             setError(null);
         } catch (err) {
@@ -80,7 +83,17 @@ export default function RetailerInventory() {
         } finally {
             setIsLoading(false);
         }
-    }, [searchTerm, filterCategory]);
+    }, [searchTerm, filterCategory, showDeleted]);
+
+    const handleRestore = async (id) => {
+        try {
+            await inventoryService.restoreItem(id);
+            await loadInventory();
+            setError(null);
+        } catch (err) {
+            setError('Failed to restore item');
+        }
+    };
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -104,7 +117,6 @@ export default function RetailerInventory() {
     }, [loadInventory]);
 
     useEffect(() => {
-        // Check for item to edit from location state
         if (location.state?.editItemId) {
             const itemToEdit = inventory.find(item => item.id === location.state.editItemId);
             if (itemToEdit) {
@@ -126,13 +138,10 @@ export default function RetailerInventory() {
         if (window.confirm('Are you sure you want to delete this item?')) {
             try {
                 await inventoryService.deleteItem(id);
-
-                // Update local state immediately after successful deletion
                 setInventory(prevInventory =>
                     prevInventory.filter(item => item.id !== id)
                 );
                 setError(null);
-
             } catch {
                 setError('Failed to delete item');
             }
@@ -185,20 +194,31 @@ export default function RetailerInventory() {
                     )}
                 </div>
                 <div className="inventory-actions">
-                    <button
-                        className="inventory-edit-button"
-                        onClick={() => handleEditClick(item)}
-                    >
-                        <Edit2 />
-                        Edit
-                    </button>
-                    <button
-                        className="inventory-delete-button"
-                        onClick={() => handleDelete(item.id)}
-                    >
-                        <Trash2 />
-                        Delete
-                    </button>
+                    {showDeleted ? (
+                        <button
+                            className="inventory-restore-button"
+                            onClick={() => handleRestore(item.id)}
+                        >
+                            Restore
+                        </button>
+                    ) : (
+                        <>
+                            <button
+                                className="inventory-edit-button"
+                                onClick={() => handleEditClick(item)}
+                            >
+                                <Edit2 />
+                                Edit
+                            </button>
+                            <button
+                                className="inventory-delete-button"
+                                onClick={() => handleDelete(item.id)}
+                            >
+                                <Trash2 />
+                                Delete
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         );
@@ -240,13 +260,24 @@ export default function RetailerInventory() {
                         <option value="yeast">Yeast</option>
                         <option value="other">Other</option>
                     </select>
-                    <button className="inventory-add-button" onClick={() => {
-                        setEditingItem(null);
-                        setIsModalOpen(true);
-                    }}>
-                        <Plus/>
-                        Add New Item
+                    <button
+                        className="inventory-toggle-button"
+                        onClick={() => setShowDeleted(!showDeleted)}
+                    >
+                        {showDeleted ? 'Show Active Items' : 'Show Deleted Items'}
                     </button>
+                    {!showDeleted && (
+                        <button
+                            className="inventory-add-button"
+                            onClick={() => {
+                                setEditingItem(null);
+                                setIsModalOpen(true);
+                            }}
+                        >
+                            <Plus />
+                            Add New Item
+                        </button>
+                    )}
                 </div>
 
                 <div className="inventory-list">
@@ -254,7 +285,12 @@ export default function RetailerInventory() {
 
                     {inventory.length === 0 && (
                         <div className="no-results">
-                            No inventory items found
+                            {searchTerm || filterCategory !== 'all'
+                                ? 'No inventory items match your search criteria'
+                                : showDeleted
+                                    ? 'No deleted items found'
+                                    : 'No inventory items found'
+                            }
                         </div>
                     )}
                 </div>

@@ -94,5 +94,36 @@ export const inventoryService = {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
+    },
+
+    // Gets the inventory item
+    getDeletedItems: async () => {
+        const response = await fetch(`${API_URL}/deleted`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch deleted items');
+        }
+
+        return response.json();
+    },
+
+    // Restores the deleted item
+    restoreItem: async (id) => {
+        const response = await fetch(`${API_URL}/${id}/restore`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to restore item');
+        }
+
+        return response.json();
     }
 };
