@@ -126,10 +126,14 @@ export default function RetailerInventory() {
         if (window.confirm('Are you sure you want to delete this item?')) {
             try {
                 await inventoryService.deleteItem(id);
-                await loadInventory();
+
+                // Update local state immediately after successful deletion
+                setInventory(prevInventory =>
+                    prevInventory.filter(item => item.id !== id)
+                );
                 setError(null);
-            } catch (err) {
-                console.error('Error deleting item:', err);
+
+            } catch {
                 setError('Failed to delete item');
             }
         }

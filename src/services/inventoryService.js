@@ -88,15 +88,11 @@ export const inventoryService = {
 
     // Delete inventory item
     deleteItem: async (id) => {
-        const response = await fetch(`${API_URL}/${id}`, {
+        return fetch(`${API_URL}/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
-
-        if (!response.ok) {
-            throw new Error('Failed to delete inventory item');
-        }
     }
 };
