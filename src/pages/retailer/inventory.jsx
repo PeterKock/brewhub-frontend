@@ -4,6 +4,7 @@ import { SearchBar } from '../../components/shared/SearchBar';
 import { Plus, Edit2, Trash2, AlertTriangle, Package, Calendar, Box } from 'lucide-react';
 import { inventoryService } from '../../services/inventoryService';
 import AddInventoryModal from '../../components/inventory/AddInventoryModal';
+import ImportExportButtons from '../../components/inventory/ImportExportButtons';
 
 export default function RetailerInventory() {
     const [inventory, setInventory] = useState([]);
@@ -213,6 +214,8 @@ export default function RetailerInventory() {
         <div className="dashboard-container">
             <section className="dashboard-section">
                 <h2 className="section-title">Inventory Management</h2>
+
+                <ImportExportButtons onImportComplete={loadInventory} />
 
                 {error && <div className="error-message">{error}</div>}
 
