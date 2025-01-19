@@ -6,9 +6,26 @@ import { inventoryService } from '../../services/inventoryService';
 import AddInventoryModal from '../../components/inventory/AddInventoryModal';
 import ImportExportButtons from '../../components/inventory/ImportExportButtons';
 
+const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value, delay]);
+
+    return debouncedValue;
+};
+
 export default function RetailerInventory() {
     const [inventory, setInventory] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
     const [filterCategory, setFilterCategory] = useState('all');
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -36,10 +53,10 @@ export default function RetailerInventory() {
             await loadInventory();
             setIsModalOpen(false);
             setError(null);
-        } catch (err) {
-            console.error('Error creating item:', err);
-            console.error('Error details:', err.response?.data || err.message);
-            setError(err.response?.data?.message || 'Failed to create item. Please check all required fields.');
+        } catch (error) {
+            console.error('Error creating item:', error);
+            console.error('Error details:', error.response?.data || error.message);
+            setError(error.response?.data?.message || 'Failed to create item. Please check all required fields.');
         }
     };
 
@@ -58,8 +75,8 @@ export default function RetailerInventory() {
             setEditingItem(null);
             setIsModalOpen(false);
             setError(null);
-        } catch (err) {
-            console.error('Error updating item:', err);
+        } catch (error) {
+            console.error('Error updating item:', error);
             setError('Failed to update item');
         }
     };
@@ -73,24 +90,25 @@ export default function RetailerInventory() {
         try {
             setIsLoading(true);
             const data = await (showDeleted ?
-                inventoryService.getDeletedItems() :
-                inventoryService.getAllItems(searchTerm, filterCategory));
+                inventoryService.getDeletedItems(debouncedSearchTerm, filterCategory) :
+                inventoryService.getAllItems(debouncedSearchTerm, filterCategory));
             setInventory(data);
             setError(null);
-        } catch (err) {
-            console.error('Error loading inventory:', err);
+        } catch (error) {
+            console.error('Error loading inventory:', error);
             setError('Failed to load inventory items');
         } finally {
             setIsLoading(false);
         }
-    }, [searchTerm, filterCategory, showDeleted]);
+    }, [debouncedSearchTerm, filterCategory, showDeleted]);
 
     const handleRestore = async (id) => {
         try {
             await inventoryService.restoreItem(id);
             await loadInventory();
             setError(null);
-        } catch (err) {
+        } catch (error) {
+            console.error('Error restoring item:', error);
             setError('Failed to restore item');
         }
     };
@@ -138,11 +156,10 @@ export default function RetailerInventory() {
         if (window.confirm('Are you sure you want to delete this item?')) {
             try {
                 await inventoryService.deleteItem(id);
-                setInventory(prevInventory =>
-                    prevInventory.filter(item => item.id !== id)
-                );
+                await loadInventory();
                 setError(null);
-            } catch {
+            } catch (error) {
+                console.error('Delete failed:', error);
                 setError('Failed to delete item');
             }
         }
