@@ -1750,7 +1750,9 @@ a:hover {
 /* Import Export Button */
 
 .import-export-container {
-  margin-bottom: var(--spacing-md);
+  display: flex;
+  margin-bottom: var(--spacing-lg);
+  justify-content: center;
 }
 
 .import-export-buttons {
@@ -1774,16 +1776,13 @@ a:hover {
   height: 42px;
 }
 
-.export-button {
+.export-button,
+.import-button {
   background-color: var(--accent-color);
 }
 
 .export-button:hover {
   background-color: var(--accent-hover-color);
-}
-
-.import-button {
-  background-color: var(--secondary-bg-color);
 }
 
 .import-button:hover {

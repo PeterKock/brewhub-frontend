@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, Upload } from 'lucide-react';
+import {Download, Upload} from 'lucide-react';
 import PropTypes from 'prop-types';
 
 const ImportExportButtons = ({ onImportComplete }) => {
@@ -80,7 +80,7 @@ const ImportExportButtons = ({ onImportComplete }) => {
                     className="export-button"
                     onClick={handleExport}
                 >
-                    <Download size={20} />
+                    <Upload size={20} />
                     Export CSV
                 </button>
 
@@ -97,7 +97,7 @@ const ImportExportButtons = ({ onImportComplete }) => {
                         htmlFor="csv-import"
                         className={`import-button ${importing ? 'importing' : ''}`}
                     >
-                        <Upload size={20} />
+                        <Download size={20} />
                         {importing ? 'Importing...' : 'Import CSV'}
                     </label>
                 </div>
