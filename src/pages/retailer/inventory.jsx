@@ -4,15 +4,34 @@ import { SearchBar } from '../../components/shared/SearchBar';
 import { Plus, Edit2, Trash2, AlertTriangle, Package, Calendar, Box } from 'lucide-react';
 import { inventoryService } from '../../services/inventoryService';
 import AddInventoryModal from '../../components/inventory/AddInventoryModal';
+import ImportExportButtons from '../../components/inventory/ImportExportButtons';
+
+const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value, delay]);
+
+    return debouncedValue;
+};
 
 export default function RetailerInventory() {
     const [inventory, setInventory] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
     const [filterCategory, setFilterCategory] = useState('all');
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
+    const [showDeleted, setShowDeleted] = useState(false);
 
     const location = useLocation();
 
@@ -34,10 +53,10 @@ export default function RetailerInventory() {
             await loadInventory();
             setIsModalOpen(false);
             setError(null);
-        } catch (err) {
-            console.error('Error creating item:', err);
-            console.error('Error details:', err.response?.data || err.message);
-            setError(err.response?.data?.message || 'Failed to create item. Please check all required fields.');
+        } catch (error) {
+            console.error('Error creating item:', error);
+            console.error('Error details:', error.response?.data || error.message);
+            setError(error.response?.data?.message || 'Failed to create item. Please check all required fields.');
         }
     };
 
@@ -56,8 +75,8 @@ export default function RetailerInventory() {
             setEditingItem(null);
             setIsModalOpen(false);
             setError(null);
-        } catch (err) {
-            console.error('Error updating item:', err);
+        } catch (error) {
+            console.error('Error updating item:', error);
             setError('Failed to update item');
         }
     };
@@ -70,16 +89,29 @@ export default function RetailerInventory() {
     const loadInventory = useCallback(async () => {
         try {
             setIsLoading(true);
-            const data = await inventoryService.getAllItems(searchTerm, filterCategory);
+            const data = await (showDeleted ?
+                inventoryService.getDeletedItems(debouncedSearchTerm, filterCategory) :
+                inventoryService.getAllItems(debouncedSearchTerm, filterCategory));
             setInventory(data);
             setError(null);
-        } catch (err) {
-            console.error('Error loading inventory:', err);
+        } catch (error) {
+            console.error('Error loading inventory:', error);
             setError('Failed to load inventory items');
         } finally {
             setIsLoading(false);
         }
-    }, [searchTerm, filterCategory]);
+    }, [debouncedSearchTerm, filterCategory, showDeleted]);
+
+    const handleRestore = async (id) => {
+        try {
+            await inventoryService.restoreItem(id);
+            await loadInventory();
+            setError(null);
+        } catch (error) {
+            console.error('Error restoring item:', error);
+            setError('Failed to restore item');
+        }
+    };
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -103,7 +135,6 @@ export default function RetailerInventory() {
     }, [loadInventory]);
 
     useEffect(() => {
-        // Check for item to edit from location state
         if (location.state?.editItemId) {
             const itemToEdit = inventory.find(item => item.id === location.state.editItemId);
             if (itemToEdit) {
@@ -127,8 +158,8 @@ export default function RetailerInventory() {
                 await inventoryService.deleteItem(id);
                 await loadInventory();
                 setError(null);
-            } catch (err) {
-                console.error('Error deleting item:', err);
+            } catch (error) {
+                console.error('Delete failed:', error);
                 setError('Failed to delete item');
             }
         }
@@ -180,20 +211,31 @@ export default function RetailerInventory() {
                     )}
                 </div>
                 <div className="inventory-actions">
-                    <button
-                        className="inventory-edit-button"
-                        onClick={() => handleEditClick(item)}
-                    >
-                        <Edit2 />
-                        Edit
-                    </button>
-                    <button
-                        className="inventory-delete-button"
-                        onClick={() => handleDelete(item.id)}
-                    >
-                        <Trash2 />
-                        Delete
-                    </button>
+                    {showDeleted ? (
+                        <button
+                            className="inventory-restore-button"
+                            onClick={() => handleRestore(item.id)}
+                        >
+                            Restore
+                        </button>
+                    ) : (
+                        <>
+                            <button
+                                className="inventory-edit-button"
+                                onClick={() => handleEditClick(item)}
+                            >
+                                <Edit2 />
+                                Edit
+                            </button>
+                            <button
+                                className="inventory-delete-button"
+                                onClick={() => handleDelete(item.id)}
+                            >
+                                <Trash2 />
+                                Delete
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         );
@@ -214,6 +256,8 @@ export default function RetailerInventory() {
             <section className="dashboard-section">
                 <h2 className="section-title">Inventory Management</h2>
 
+                <ImportExportButtons onImportComplete={loadInventory} />
+
                 {error && <div className="error-message">{error}</div>}
 
                 <div className="inventory-filter-bar">
@@ -233,13 +277,24 @@ export default function RetailerInventory() {
                         <option value="yeast">Yeast</option>
                         <option value="other">Other</option>
                     </select>
-                    <button className="inventory-add-button" onClick={() => {
-                        setEditingItem(null);
-                        setIsModalOpen(true);
-                    }}>
-                        <Plus/>
-                        Add New Item
+                    <button
+                        className="inventory-toggle-button"
+                        onClick={() => setShowDeleted(!showDeleted)}
+                    >
+                        {showDeleted ? 'Show Active Items' : 'Show Deleted Items'}
                     </button>
+                    {!showDeleted && (
+                        <button
+                            className="inventory-add-button"
+                            onClick={() => {
+                                setEditingItem(null);
+                                setIsModalOpen(true);
+                            }}
+                        >
+                            <Plus />
+                            Add New Item
+                        </button>
+                    )}
                 </div>
 
                 <div className="inventory-list">
@@ -247,7 +302,12 @@ export default function RetailerInventory() {
 
                     {inventory.length === 0 && (
                         <div className="no-results">
-                            No inventory items found
+                            {searchTerm || filterCategory !== 'all'
+                                ? 'No inventory items match your search criteria'
+                                : showDeleted
+                                    ? 'No deleted items found'
+                                    : 'No inventory items found'
+                            }
                         </div>
                     )}
                 </div>

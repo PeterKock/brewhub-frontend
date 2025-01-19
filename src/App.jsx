@@ -156,7 +156,7 @@ function AppContent() {
         // Regular token check
         const tokenCheckInterval = setInterval(() => {
             checkAuth().catch(console.error);
-        }, 300000);
+        }, 3600000);
 
         // Cleanup
         return () => {
