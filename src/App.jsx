@@ -34,13 +34,10 @@ const ProtectedRoute = ({ children, isAuthenticated, allowedRole }) => {
         let isMounted = true;
         (async () => {
             try {
-                setIsChecking(true);
-                // Get user data from localStorage
-                const userStr = localStorage.getItem('user');
-                const user = JSON.parse(userStr);
-
                 if (isMounted) {
-                    // Check if user has the required role
+                    setIsChecking(true);
+                    const userStr = localStorage.getItem('user');
+                    const user = userStr ? JSON.parse(userStr) : null;
                     const hasRole = user && (allowedRole ? user.role === allowedRole : true);
                     setHasPermission(hasRole);
                     setIsChecking(false);
@@ -85,11 +82,13 @@ function AppContent() {
         let isMounted = true;
 
         const checkAuth = async () => {
-            if (isMounted) {
+            if (!isMounted) return;
+
+            try {
+                setIsInitializing(true);
                 const token = localStorage.getItem('token');
                 const userStr = localStorage.getItem('user');
 
-                // Clear invalid state
                 if (!token || !userStr) {
                     authService.logout();
                     setIsAuthenticated(false);
@@ -97,46 +96,72 @@ function AppContent() {
                     return;
                 }
 
-                try {
-                    // Try to parse user data
-                    const user = JSON.parse(userStr);
-                    if (!user || !user.id || !user.email || !user.role) {
-                        console.error('Invalid user data');
-                        authService.logout();
-                        setIsAuthenticated(false);
-                        return;
+                // Verify token with backend
+                const response = await fetch('http://localhost:8080/api/auth/verify', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
                     }
+                });
 
-                    setIsAuthenticated(true);
-                    console.log('Authentication check:', true);
-                    console.log('Current token:', token);
-                } catch (error) {
-                    console.error('Auth validation failed:', error);
+                if (!response.ok) {
                     authService.logout();
                     setIsAuthenticated(false);
-                } finally {
-                    if (isMounted) {
-                        setIsInitializing(false);
-                    }
+                    setIsInitializing(false);
+                    return;
+                }
+
+                // Parse and validate user data
+                const user = JSON.parse(userStr);
+                if (!user?.id || !user?.email || !user?.role) {
+                    console.error('Invalid user data');
+                    authService.logout();
+                    setIsAuthenticated(false);
+                    setIsInitializing(false);
+                    return;
+                }
+
+                setIsAuthenticated(true);
+                console.log('Authentication check successful');
+
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                authService.logout();
+                setIsAuthenticated(false);
+            } finally {
+                if (isMounted) {
+                    setIsInitializing(false);
                 }
             }
         };
 
-        // Initial check
-        checkAuth().catch(error => {
-            console.error('Error during authentication check:', error);
-        });
+        // Execute initial auth check immediately
+        (async () => {
+            try {
+                await checkAuth();
+            } catch (error) {
+                console.error('Initial auth check failed:', error);
+                if (isMounted) {
+                    setIsAuthenticated(false);
+                    setIsInitializing(false);
+                }
+            }
+        })();
 
-        // Listen for localStorage changes
-        window.addEventListener('storage', checkAuth);
+        // Storage event listener with proper async handling
+        const handleStorageChange = () => {
+            checkAuth().catch(console.error);
+        };
+        window.addEventListener('storage', handleStorageChange);
 
         // Regular token check
-        const tokenCheckInterval = setInterval(checkAuth, 1000);
+        const tokenCheckInterval = setInterval(() => {
+            checkAuth().catch(console.error);
+        }, 300000);
 
         // Cleanup
         return () => {
             isMounted = false;
-            window.removeEventListener('storage', checkAuth);
+            window.removeEventListener('storage', handleStorageChange);
             clearInterval(tokenCheckInterval);
         };
     }, [location.pathname]);
@@ -147,11 +172,9 @@ function AppContent() {
             console.log('Login successful, setting auth state to true');
             setIsAuthenticated(true);
 
-            // Get the stored user data
             const userStr = localStorage.getItem('user');
             const user = JSON.parse(userStr);
 
-            // Redirect based on role
             if (user && user.role === 'RETAILER') {
                 window.location.href = '/retailer/dashboard';
             } else {
@@ -179,11 +202,9 @@ function AppContent() {
             });
             setIsAuthenticated(true);
 
-            // Get the stored user data
             const userStr = localStorage.getItem('user');
             const user = JSON.parse(userStr);
 
-            // Redirect based on role
             if (user && user.role === 'RETAILER') {
                 window.location.href = '/retailer/dashboard';
             } else {

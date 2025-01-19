@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Header = ({ isAuthenticated, onLogout }) => {
     const [menuItems, setMenuItems] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -22,50 +21,101 @@ const Header = ({ isAuthenticated, onLogout }) => {
     }, []);
 
     useEffect(() => {
-        if (isAuthenticated) {
-            fetch('http://localhost:8080/api/public/navigation', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
+        const loadMenuItems = async () => {
+            if (isAuthenticated === null) {
+                return;
+            }
+
+            try {
+                if (isAuthenticated) {
+                    const token = localStorage.getItem('token');
+                    const userStr = localStorage.getItem('user');
+                    const user = userStr ? JSON.parse(userStr) : null;
+
+                    if (!token || !user) {
+                        console.error('Missing auth data');
+                        setDefaultMenuItems();
+                        return;
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Navigation data:', data);
-                    setMenuItems(data.items || []);
-                })
-                .catch(error => {
-                    console.error('Error fetching navigation:', error);
-                    setMenuItems([
-                        { label: 'Dashboard', path: '/user/dashboard' },
-                        { label: 'Community', path: '/user/community' },
-                        { label: 'Recipes', path: '/user/recipes' },
-                        { label: 'Guides', path: '/user/guides' }
-                    ]);
-                });
-        } else {
-            // Set default menu items for non-authenticated users
+
+                    const response = await fetch('http://localhost:8080/api/public/navigation', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        console.error('Navigation fetch failed');
+                        setFallbackMenuItems();
+                        return;
+                    }
+
+                    const data = await response.json();
+                    if (data?.items) {
+                        setMenuItems(data.items);
+                    } else {
+                        setFallbackMenuItems();
+                    }
+                } else {
+                    setDefaultMenuItems();
+                }
+            } catch (error) {
+                console.error('Error loading menu items:', error);
+                setFallbackMenuItems();
+            }
+        };
+
+        const setDefaultMenuItems = () => {
             setMenuItems([
                 { label: 'Community', path: '/user/community' },
                 { label: 'Recipes', path: '/user/recipes' },
                 { label: 'Guides', path: '/user/guides' }
             ]);
-        }
+        };
+
+        const setFallbackMenuItems = () => {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) {
+                setDefaultMenuItems();
+                return;
+            }
+
+            try {
+                const user = JSON.parse(userStr);
+                if (user.role === 'RETAILER') {
+                    setMenuItems([
+                        { label: 'Dashboard', path: '/retailer/dashboard' },
+                        { label: 'Inventory', path: '/retailer/inventory' },
+                        { label: 'Orders', path: '/retailer/orders' }
+                    ]);
+                } else {
+                    setMenuItems([
+                        { label: 'Dashboard', path: '/user/dashboard' },
+                        { label: 'Orders', path: '/user/orders' },
+                        { label: 'Community', path: '/user/community' },
+                        { label: 'Recipes', path: '/user/recipes' },
+                        { label: 'Guides', path: '/user/guides' }
+                    ]);
+                }
+            } catch (error) {
+                console.error('Error parsing cached user data:', error);
+                setDefaultMenuItems();
+            }
+        };
+
+        loadMenuItems().catch(error => {
+            console.error('Failed to load menu items:', error);
+            setDefaultMenuItems();
+        });
     }, [isAuthenticated]);
 
     const toggleMenu = () => {
-        console.log('Menu toggled, isMenuOpen before:', isMenuOpen);
-        console.log('Current menuItems:', menuItems);
         setIsMenuOpen(!isMenuOpen);
     };
 
     const handleLogout = () => {
+        setIsMenuOpen(false);
         onLogout();
-        navigate('/');
     };
 
     const handleMenuItemClick = () => {
