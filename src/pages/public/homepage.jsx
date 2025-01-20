@@ -8,21 +8,21 @@ const HomePage = () => {
             title: 'Recipes',
             description: 'Explore our collection of craft beer recipes from beginners to advanced brewers',
             buttonText: 'View Recipes',
-            to: '/user/recipes',
+            to: '/recipes',
             icon: <Coffee size={24} />
         },
         {
             title: 'Guides',
             description: 'Step-by-step instructions and tips for perfecting your brewing process',
             buttonText: 'View Guides',
-            to: '/user/guides',
+            to: '/guides',
             icon: <Book size={24} />
         },
         {
             title: 'Community',
             description: 'Connect with fellow brewers, share experiences, and get advice',
             buttonText: 'Join Now',
-            to: '/user/community',
+            to: '/community',
             icon: <Users size={24} />
         }
     ];
@@ -94,7 +94,7 @@ const HomePage = () => {
                     {recipes.map((recipe, index) => (
                         <Link
                             key={index}
-                            to={`/user/recipes`}
+                            to={`/recipes`}
                             className="recipe-card-wrapper"
                             state={{selectedRecipeId: recipe.title}}
                             aria-label={`View recipe for ${recipe.title}`}

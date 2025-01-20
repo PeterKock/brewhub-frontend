@@ -36,7 +36,8 @@
         7.7 Order Pages
         7.8 Home Page
         7.9 Inventory Page
-        7.10 Shared
+        7.10 Community Page
+        7.11 Shared
     8. Footer
         8.1 Footer Layout
         8.2 Footer Sections
@@ -1840,7 +1841,99 @@ a:hover {
 .inventory-restore-button:hover {
   background-color: #047857;
 }
-/* --------------- 7.10 Shared ------------------- */
+
+/* --------------- 7.10 Community Page ------------------- */
+/* Community Page Styles */
+.community-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.retailers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.retailer-card {
+  background-color: var(--primary-bg-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  transition: transform var(--transition-default-value);
+}
+
+.retailer-card:hover {
+  transform: translateY(-5px);
+}
+
+.retailer-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.retailer-info h3 {
+  color: var(--primary-text-color);
+  font-size: var(--h3-font-size);
+  margin-bottom: var(--spacing-sm);
+}
+
+.retailer-location {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--secondary-text-color);
+  font-size: var(--p-font-size);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.review-card {
+  background-color: var(--primary-bg-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-value);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.review-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.review-header h4 {
+  color: var(--primary-text-color);
+  font-size: var(--h4-font-size);
+}
+
+.review-comment {
+  color: var(--secondary-text-color);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.review-meta {
+  color: var(--secondary-text-color);
+  font-size: var(--p-font-size);
+  margin-top: auto;
+}
+
+.rating-count {
+  color: var(--secondary-text-color);
+  font-size: var(--p-font-size);
+}
+
+/* --------------- 7.11 Shared ------------------- */
 /* Card Grid */
 .card-grid {
   display: grid;

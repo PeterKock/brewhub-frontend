@@ -12,6 +12,7 @@ import HomePage from './pages/public/HomePage';
 import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
+import Community from './pages/private/community.jsx';
 
 // Customer Pages
 import UserDashboard from './pages/user/dashboard';
@@ -19,7 +20,6 @@ import UserOrders from './pages/user/orders';
 import UserFavorites from './pages/user/favorites';
 import UserRecipes from './pages/user/recipes';
 import UserGuides from './pages/user/guides';
-import UserCommunity from './pages/user/community.jsx';
 
 // Retailer Pages
 import RetailerDashboard from './pages/retailer/dashboard';
@@ -232,6 +232,13 @@ function AppContent() {
                     <Route path="/register" element={<RegisterPage onRegister={handleRegister} />} />
                     <Route path="/aboutus" element={<AboutUsPage />} />
 
+                    {/* Private Routes */}
+                    <Route path="/community" element={
+                        <ProtectedRoute isAuthenticated={isAuthenticated}>
+                            <Community />
+                        </ProtectedRoute>
+                    } />
+
                     {/* Protected Customer Routes */}
                     <Route path="/user/dashboard" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
@@ -248,13 +255,8 @@ function AppContent() {
                             <UserFavorites />
                         </ProtectedRoute>
                     } />
-                    <Route path="/user/community" element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
-                            <UserCommunity />
-                        </ProtectedRoute>
-                    } />
-                    <Route path="/user/recipes" element={<UserRecipes />} />
-                    <Route path="/user/guides" element={<UserGuides />} />
+                    <Route path="/recipes" element={<UserRecipes />} />
+                    <Route path="/guides" element={<UserGuides />} />
 
                     {/* Protected Retailer Routes */}
                     <Route path="/retailer/dashboard" element={
@@ -262,7 +264,7 @@ function AppContent() {
                             <RetailerDashboard />
                         </ProtectedRoute>
                     } />
-                    <Route path="/retailer/inventory" element={
+                    <Route path="/inventory" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="RETAILER">
                             <RetailerInventory />
                         </ProtectedRoute>
