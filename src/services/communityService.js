@@ -82,7 +82,8 @@ export const communityService = {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to submit report');
+            const errorText = await response.text();
+            throw new Error(errorText || 'Failed to submit report');
         }
 
         return response.json();

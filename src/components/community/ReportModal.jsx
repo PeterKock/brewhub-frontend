@@ -64,7 +64,11 @@ const ReportModal = ({ onClose, contentId, contentType }) => {
             await communityService.reportContent(reportData);
             onClose(true);
         } catch (err) {
-            setError('Failed to submit report. Please try again.');
+            if (err.message && err.message.includes('already reported')) {
+                setError(err.message);
+            } else {
+                setError('Failed to submit report. Please try again.');
+            }
             console.error('Error submitting report:', err);
         } finally {
             setIsSubmitting(false);

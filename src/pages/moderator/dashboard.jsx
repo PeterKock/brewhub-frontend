@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { communityService } from '../../services/communityService';
+import { communityService } from '../../services/communityService.js';
 import { AlertCircle, Check, X } from 'lucide-react';
 
-const ModeratorDashboard = () => {
+const Dashboard = () => {
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -144,4 +144,4 @@ const ModeratorDashboard = () => {
     );
 };
 
-export default ModeratorDashboard;
+export default Dashboard;

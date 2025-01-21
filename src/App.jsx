@@ -27,7 +27,17 @@ import RetailerInventory from './pages/retailer/inventory';
 import RetailerOrders from './pages/retailer/orders';
 
 // Moderator Page
-import ModeratorDashboard from './components/community/ModeratorDashboard';
+import Dashboard from './pages/moderator/dashboard.jsx';
+
+const navigateBasedOnRole = (user) => {
+    if (user && user.role === 'RETAILER') {
+        window.location.href = '/retailer/dashboard';
+    } else if (user && user.role === 'MODERATOR') {
+        window.location.href = '/moderator/dashboard';
+    } else {
+        window.location.href = '/user/dashboard';
+    }
+};
 
 const ProtectedRoute = ({ children, isAuthenticated, allowedRole }) => {
     const [isChecking, setIsChecking] = useState(true);
@@ -177,12 +187,8 @@ function AppContent() {
 
             const userStr = localStorage.getItem('user');
             const user = JSON.parse(userStr);
+            navigateBasedOnRole(user);
 
-            if (user && user.role === 'RETAILER') {
-                window.location.href = '/retailer/dashboard';
-            } else {
-                window.location.href = '/user/dashboard';
-            }
             return response;
         } catch (error) {
             console.error('Login failed:', error);
@@ -207,12 +213,8 @@ function AppContent() {
 
             const userStr = localStorage.getItem('user');
             const user = JSON.parse(userStr);
+            navigateBasedOnRole(user);
 
-            if (user && user.role === 'RETAILER') {
-                window.location.href = '/retailer/dashboard';
-            } else {
-                window.location.href = '/user/dashboard';
-            }
             return loginResponse;
         } catch (error) {
             console.error('Registration failed:', error);
@@ -281,7 +283,7 @@ function AppContent() {
                     {/* Protected Moderator Routes */}
                     <Route path="/moderator/dashboard" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="MODERATOR">
-                            <ModeratorDashboard />
+                            <Dashboard />
                         </ProtectedRoute>
                     } />
                 </Routes>
