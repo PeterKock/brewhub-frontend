@@ -26,6 +26,9 @@ import RetailerDashboard from './pages/retailer/dashboard';
 import RetailerInventory from './pages/retailer/inventory';
 import RetailerOrders from './pages/retailer/orders';
 
+// Moderator Page
+import ModeratorDashboard from './components/community/ModeratorDashboard';
+
 const ProtectedRoute = ({ children, isAuthenticated, allowedRole }) => {
     const [isChecking, setIsChecking] = useState(true);
     const [hasPermission, setHasPermission] = useState(false);
@@ -272,6 +275,13 @@ function AppContent() {
                     <Route path="/retailer/orders" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="RETAILER">
                             <RetailerOrders />
+                        </ProtectedRoute>
+                    } />
+
+                    {/* Protected Moderator Routes */}
+                    <Route path="/moderator/dashboard" element={
+                        <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="MODERATOR">
+                            <ModeratorDashboard />
                         </ProtectedRoute>
                     } />
                 </Routes>

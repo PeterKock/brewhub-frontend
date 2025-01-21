@@ -1,21 +1,6 @@
 const API_URL = 'http://localhost:8080/api/community';
 
 export const communityService = {
-    // Questions
-    getAllQuestions: async () => {
-        const response = await fetch(`${API_URL}/questions`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch questions');
-        }
-
-        return response.json();
-    },
-
     createQuestion: async (questionData) => {
         const response = await fetch(`${API_URL}/questions`, {
             method: 'POST',
@@ -33,7 +18,23 @@ export const communityService = {
         return response.json();
     },
 
-    // Answers
+    createAnswer: async (answerData) => {
+        const response = await fetch(`${API_URL}/answers`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(answerData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create answer');
+        }
+
+        return response.json();
+    },
+
     getAnswers: async (questionId) => {
         const response = await fetch(`${API_URL}/answers/question/${questionId}`, {
             headers: {
@@ -48,7 +49,6 @@ export const communityService = {
         return response.json();
     },
 
-    // Votes
     vote: async (voteData) => {
         const endpoint = voteData.questionId ? 'votes/question' : 'votes/answer';
         const response = await fetch(`${API_URL}/${endpoint}`, {
@@ -57,17 +57,20 @@ export const communityService = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify(voteData)
+            body: JSON.stringify({
+                type: voteData.type,
+                questionId: voteData.questionId,
+                answerId: voteData.answerId
+            })
         });
 
         if (!response.ok) {
             throw new Error('Failed to vote');
         }
 
-        return response.json();
+        return true;
     },
 
-    // Reports
     reportContent: async (reportData) => {
         const response = await fetch(`${API_URL}/reports`, {
             method: 'POST',
@@ -85,7 +88,57 @@ export const communityService = {
         return response.json();
     },
 
-    // Community page data
+    getPendingReports: async () => {
+        const response = await fetch(`${API_URL}/reports/pending`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch pending reports');
+        }
+
+        const data = await response.json();
+
+        return data.map(report => ({
+            id: report.id,
+            reason: report.reason,
+            description: report.description,
+            status: report.status,
+            reporterName: report.reporterName,
+            createdAt: report.createdAt,
+            resolvedAt: report.resolvedAt,
+            reporterId: report.reporterId
+        }));
+    },
+
+    updateReportStatus: async (reportId, status) => {
+        const response = await fetch(`${API_URL}/reports/${reportId}/status?status=${status}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update report status');
+        }
+
+        const data = await response.json();
+
+        return {
+            id: data.id,
+            reason: data.reason,
+            description: data.description,
+            status: data.status,
+            reporterName: data.reporterName,
+            createdAt: data.createdAt,
+            resolvedAt: data.resolvedAt,
+            reporterId: data.reporterId
+        };
+    },
+
     getCommunityData: async () => {
         const response = await fetch(`${API_URL}`, {
             headers: {
@@ -95,6 +148,20 @@ export const communityService = {
 
         if (!response.ok) {
             throw new Error('Failed to fetch community data');
+        }
+
+        return response.json();
+    },
+
+    searchQuestions: async (searchTerm) => {
+        const response = await fetch(`${API_URL}/questions/search?query=${encodeURIComponent(searchTerm)}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to search questions');
         }
 
         return response.json();
