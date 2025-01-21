@@ -10,10 +10,11 @@ export default function RegisterPage({ onRegister }) {
         confirmPassword: '',
         firstName: '',
         lastName: '',
-        role: 'customer',
+        role: 'USER',
         location: '',
         acceptTerms: false
     });
+
     const [error, setError] = useState('');
 
     const handleInputChange = (e) => {
@@ -169,8 +170,9 @@ export default function RegisterPage({ onRegister }) {
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="customer">User</option>
-                            <option value="retailer">Business</option>
+                            <option value="USER">User</option>
+                            <option value="RETAILER">Business</option>
+                            <option value="MODERATOR">Moderator</option>
                         </select>
                     </div>
 

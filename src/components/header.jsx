@@ -67,9 +67,8 @@ const Header = ({ isAuthenticated, onLogout }) => {
 
         const setDefaultMenuItems = () => {
             setMenuItems([
-                { label: 'Community', path: '/user/community' },
-                { label: 'Recipes', path: '/user/recipes' },
-                { label: 'Guides', path: '/user/guides' }
+                { label: 'Recipes', path: '/recipes' },
+                { label: 'Guides', path: '/guides' }
             ]);
         };
 
@@ -86,13 +85,19 @@ const Header = ({ isAuthenticated, onLogout }) => {
                     setMenuItems([
                         { label: 'Dashboard', path: '/retailer/dashboard' },
                         { label: 'Inventory', path: '/retailer/inventory' },
-                        { label: 'Orders', path: '/retailer/orders' }
+                        { label: 'Orders', path: '/retailer/orders' },
+                        { label: 'Community', path: '/community' }
+                    ]);
+                } else if (user.role === 'MODERATOR') {
+                    setMenuItems([
+                        { label: 'Dashboard', path: '/moderator/dashboard' },
+                        { label: 'Community', path: '/community' }
                     ]);
                 } else {
                     setMenuItems([
                         { label: 'Dashboard', path: '/user/dashboard' },
                         { label: 'Orders', path: '/user/orders' },
-                        { label: 'Community', path: '/user/community' },
+                        { label: 'Community', path: '/community' },
                         { label: 'Recipes', path: '/user/recipes' },
                         { label: 'Guides', path: '/user/guides' }
                     ]);

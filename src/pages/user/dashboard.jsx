@@ -132,11 +132,11 @@ const UserDashboard = () => {
             <section className="dashboard-section">
                 <h2 className="section-title">Quick Actions</h2>
                 <div className="action-buttons">
-                    <Link to="/user/recipes" className="action-button user-recipes-action">
+                    <Link to="/recipes" className="action-button user-recipes-action">
                         <Coffee size={20} />
                         <span>Browse Recipes</span>
                     </Link>
-                    <Link to="/user/guides" className="action-button user-guides-action">
+                    <Link to="/guides" className="action-button user-guides-action">
                         <Book size={20} />
                         <span>Brewing Guides</span>
                     </Link>

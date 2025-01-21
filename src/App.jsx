@@ -12,6 +12,7 @@ import HomePage from './pages/public/HomePage';
 import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
+import Community from './pages/private/community.jsx';
 
 // Customer Pages
 import UserDashboard from './pages/user/dashboard';
@@ -19,12 +20,24 @@ import UserOrders from './pages/user/orders';
 import UserFavorites from './pages/user/favorites';
 import UserRecipes from './pages/user/recipes';
 import UserGuides from './pages/user/guides';
-import UserCommunity from './pages/user/community.jsx';
 
 // Retailer Pages
 import RetailerDashboard from './pages/retailer/dashboard';
 import RetailerInventory from './pages/retailer/inventory';
 import RetailerOrders from './pages/retailer/orders';
+
+// Moderator Page
+import Dashboard from './pages/moderator/dashboard.jsx';
+
+const navigateBasedOnRole = (user) => {
+    if (user && user.role === 'RETAILER') {
+        window.location.href = '/retailer/dashboard';
+    } else if (user && user.role === 'MODERATOR') {
+        window.location.href = '/moderator/dashboard';
+    } else {
+        window.location.href = '/user/dashboard';
+    }
+};
 
 const ProtectedRoute = ({ children, isAuthenticated, allowedRole }) => {
     const [isChecking, setIsChecking] = useState(true);
@@ -174,12 +187,8 @@ function AppContent() {
 
             const userStr = localStorage.getItem('user');
             const user = JSON.parse(userStr);
+            navigateBasedOnRole(user);
 
-            if (user && user.role === 'RETAILER') {
-                window.location.href = '/retailer/dashboard';
-            } else {
-                window.location.href = '/user/dashboard';
-            }
             return response;
         } catch (error) {
             console.error('Login failed:', error);
@@ -204,12 +213,8 @@ function AppContent() {
 
             const userStr = localStorage.getItem('user');
             const user = JSON.parse(userStr);
+            navigateBasedOnRole(user);
 
-            if (user && user.role === 'RETAILER') {
-                window.location.href = '/retailer/dashboard';
-            } else {
-                window.location.href = '/user/dashboard';
-            }
             return loginResponse;
         } catch (error) {
             console.error('Registration failed:', error);
@@ -232,6 +237,13 @@ function AppContent() {
                     <Route path="/register" element={<RegisterPage onRegister={handleRegister} />} />
                     <Route path="/aboutus" element={<AboutUsPage />} />
 
+                    {/* Private Routes */}
+                    <Route path="/community" element={
+                        <ProtectedRoute isAuthenticated={isAuthenticated}>
+                            <Community />
+                        </ProtectedRoute>
+                    } />
+
                     {/* Protected Customer Routes */}
                     <Route path="/user/dashboard" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
@@ -248,13 +260,8 @@ function AppContent() {
                             <UserFavorites />
                         </ProtectedRoute>
                     } />
-                    <Route path="/user/community" element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
-                            <UserCommunity />
-                        </ProtectedRoute>
-                    } />
-                    <Route path="/user/recipes" element={<UserRecipes />} />
-                    <Route path="/user/guides" element={<UserGuides />} />
+                    <Route path="/recipes" element={<UserRecipes />} />
+                    <Route path="/guides" element={<UserGuides />} />
 
                     {/* Protected Retailer Routes */}
                     <Route path="/retailer/dashboard" element={
@@ -262,7 +269,7 @@ function AppContent() {
                             <RetailerDashboard />
                         </ProtectedRoute>
                     } />
-                    <Route path="/retailer/inventory" element={
+                    <Route path="/inventory" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="RETAILER">
                             <RetailerInventory />
                         </ProtectedRoute>
@@ -270,6 +277,13 @@ function AppContent() {
                     <Route path="/retailer/orders" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="RETAILER">
                             <RetailerOrders />
+                        </ProtectedRoute>
+                    } />
+
+                    {/* Protected Moderator Routes */}
+                    <Route path="/moderator/dashboard" element={
+                        <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="MODERATOR">
+                            <Dashboard />
                         </ProtectedRoute>
                     } />
                 </Routes>
