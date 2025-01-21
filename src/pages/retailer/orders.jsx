@@ -112,13 +112,13 @@ const RetailerOrders = () => {
                     <h2 className="section-title">Manage Orders</h2>
 
                     {error && <div className="error-message">{error}</div>}
-
+                    <SearchBar
+                        searchTerm={searchTerm}
+                        onSearchChange={setSearchTerm}
+                        placeholder="Search orders..."
+                    />
                     <div className="order-filter-bar">
-                        <SearchBar
-                            searchTerm={searchTerm}
-                            onSearchChange={setSearchTerm}
-                            placeholder="Search orders..."
-                        />
+
                         <select
                             className="filter-select"
                             value={filterStatus}
