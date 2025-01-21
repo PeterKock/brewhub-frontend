@@ -121,7 +121,7 @@ const Dashboard = () => {
                             )}
                         </div>
 
-                        <div className="action-buttons">
+                        <div className="action-buttons-moderator">
                             <button
                                 className="approve-button"
                                 onClick={() => void handleReportAction(selectedReport.id, 'APPROVED')}

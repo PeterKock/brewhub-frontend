@@ -1473,9 +1473,10 @@ a:hover {
   color: var(--primary-text-color);
 }
 
-.action-buttons {
+.action-buttons-moderator {
   display: flex;
   gap: var(--spacing-md);
+  justify-content: center;
 }
 
 .approve-button,
