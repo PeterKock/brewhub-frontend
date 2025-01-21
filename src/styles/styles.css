@@ -1045,16 +1045,6 @@ a:hover {
   color: var(--accent-hover-color);
 }
 
-.error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-value);
-  margin-bottom: var(--spacing-lg);
-  font-size: var(--p-font-size);
-  text-align: center;
-}
-
 /* --------------- 7.2 Register Page ------------------- */
 .register-page {
   min-height: 90vh;
@@ -1228,17 +1218,6 @@ a:hover {
 
 .user-favorites-action {
   background-color: #e74c3c;
-}
-
-/* Recent Orders */
-.user-status-delivered {
-  background-color: #a8e6cf;
-  color: #2d6a4f;
-}
-
-.user-status-processing {
-  background-color: #ffd3b6;
-  color: #a04000;
 }
 
 /* Profile Summary */
@@ -1556,21 +1535,6 @@ a:hover {
   box-shadow: var(--card-shadow-value);
 }
 
-.order-info {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
-}
-
-.order-detail {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  color: var(--primary-text-color);
-  padding-left: var(--spacing-xl);
-}
-
 .order-actions {
   display: flex;
   justify-content: flex-end;
@@ -1613,19 +1577,9 @@ a:hover {
   color: #4527a0;
 }
 
-.user-status-processing {
-  background-color: #ffd3b6;
-  color: #a04000;
-}
-
 .user-status-shipped {
   background-color: #74b9ff;
   color: #2058a5;
-}
-
-.user-status-delivered {
-  background-color: #a8e6cf;
-  color: #2d6a4f;
 }
 
 .user-status-cancelled {
@@ -1636,13 +1590,6 @@ a:hover {
 .retailer-status-cancelled {
   background-color: #ffaaa5;
   color: #8b0000;
-}
-
-/* No Results Message */
-.no-results {
-  text-align: center;
-  color: var(--primary-text-color);
-  padding: var(--spacing-xl);
 }
 
 /* --------------- 7.9 Home Page ------------------- */
@@ -2044,22 +1991,6 @@ a:hover {
   margin-bottom: var(--spacing-lg);
 }
 
-.search-container {
-  max-width: 400px;
-  /*margin: 0 auto var(--spacing-xl);*/
-  margin: auto;
-}
-
-.search-container input {
-  width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--primary-bg-color);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--border-radius-value);
-  color: var(--primary-text-color);
-  font-size: var(--p-font-size);
-}
-
 .search-container input:focus {
   outline: none;
   border-color: var(--accent-color);
@@ -2211,6 +2142,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
 }
 
 .answer-card {
@@ -2291,7 +2223,7 @@ a:hover {
 
 /* Create Answer Form */
 .create-answer-form {
-  background-color: var(--secondary-bg-color);
+  background-color: #2e4c56;
   border-radius: var(--border-radius-value);
   padding: var(--spacing-lg);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -2344,29 +2276,6 @@ a:hover {
   padding: var(--spacing-lg);
 }
 
-.error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-value);
-  margin-bottom: var(--spacing-lg);
-  font-size: var(--p-font-size);
-  text-align: center;
-}
-
-.close-error {
-  background: none;
-  border: none;
-  color: #c62828;
-  margin-left: var(--spacing-sm);
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-.close-error:hover {
-  opacity: 0.8;
-}
-
 /* --------------- 7.12 Shared ------------------- */
 /* Card Grid */
 .card-grid {
@@ -2381,6 +2290,21 @@ a:hover {
 .card-grid:has(> :first-child:last-child) {
   display: flex;
   justify-content: center;
+}
+
+/* Order Pages */
+.order-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.order-detail {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--primary-text-color);
+  padding-left: var(--spacing-xl);
 }
 
 /* Dashboards */
@@ -2479,19 +2403,6 @@ a:hover {
   align-items: center;
 }
 
-.order-info {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
-}
-
-.order-detail {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  color: var(--primary-text-color);
-}
-
 .status-badge {
   padding: var(--spacing-xsm) var(--spacing-sm);
   border-radius: 20px;
@@ -2513,6 +2424,41 @@ a:hover {
 .user-view-order-button:hover,
 .retailer-restock-button:hover {
   background-color: var(--accent-hover-color);
+}
+
+/* Error Messages */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-value);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--p-font-size);
+  text-align: center;
+}
+
+.close-error {
+  background: none;
+  border: none;
+  color: #c62828;
+  margin-left: var(--spacing-sm);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.close-error:hover {
+  opacity: 0.8;
+}
+
+/* Status Badge */
+.user-status-delivered {
+  background-color: #a8e6cf;
+  color: #2d6a4f;
+}
+
+.user-status-processing {
+  background-color: #ffd3b6;
+  color: #a04000;
 }
 
 /* ------------------------------- 8. Footer -------------------------------- */
@@ -2542,10 +2488,6 @@ a:hover {
 /* --------------- 8.2 Footer Sections ------------------- */
 .footer-section {
   flex: 1;
-}
-
-.footer-section + .footer-section {
-  margin-left: var(--spacing-lg);
 }
 
 .footer-section h4 {
