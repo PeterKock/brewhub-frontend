@@ -259,13 +259,12 @@ export default function RetailerInventory() {
                 <ImportExportButtons onImportComplete={loadInventory} />
 
                 {error && <div className="error-message">{error}</div>}
-
+                <SearchBar
+                    searchTerm={searchTerm}
+                    onSearchChange={handleSearch}
+                    placeholder="Search ingredients..."
+                />
                 <div className="inventory-filter-bar">
-                    <SearchBar
-                        searchTerm={searchTerm}
-                        onSearchChange={handleSearch}
-                        placeholder="Search ingredients..."
-                    />
                     <select
                         className="filter-select"
                         value={filterCategory}

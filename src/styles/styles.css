@@ -1757,6 +1757,7 @@ a:hover {
   display: flex;
   gap: var(--spacing-lg);
   margin-bottom: var(--spacing-md);
+  justify-content: end;
 }
 
 .inventory-filter-bar .search-container {
