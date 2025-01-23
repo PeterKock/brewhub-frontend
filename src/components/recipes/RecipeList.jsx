@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { SearchBar } from '../shared/SearchBar';
 import { RecipeFilterBar } from './RecipeFilterBar.jsx';
 import { RecipeCard } from './RecipeCard';
+import './styles/RecipeList.css'
 
 const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe }) => {
     const filterConfig = [

@@ -1,0 +1,21 @@
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+    height: 42px;
+}
+
+.search-container input {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-value);
+    border: 1px solid var(--primary-text-color);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}

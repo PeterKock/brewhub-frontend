@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { BaseCard } from '../shared/BaseCard';
+import './styles/RecipeCard.css'
 
 export const RecipeCard = ({ title, description, difficulty, onClick }) => {
     const getDifficultyClass = (level) => {

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './styles/DetailHeader.css'
 
 export const DetailHeader = ({ title, description, stats, onClose }) => (
     <div className="detail-header">

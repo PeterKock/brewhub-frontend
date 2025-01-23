@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './styles/cards.css'
 
 // Feature Card Component
 export const FeatureCard = ({ title, description, buttonText, to }) => {

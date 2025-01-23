@@ -1,0 +1,24 @@
+.difficulty {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.difficulty-beginner {
+    background-color: #a8e6cf;
+    color: #2d6a4f;
+}
+
+.difficulty-intermediate {
+    background-color: #ffd3b6;
+    color: #a04000;
+}
+
+.difficulty-advanced {
+    background-color: #ffaaa5;
+    color: #8b0000;
+}
+

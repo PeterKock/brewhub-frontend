@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import './styles/BaseCard.css'
+import './styles/BaseCard.css'
 
 export const BaseCard = ({ title, description, footer, onClick }) => (
     <div className="base-card" onClick={onClick}>

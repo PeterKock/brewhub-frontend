@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './styles/SearchBar.css'
 
 export const SearchBar = ({ searchTerm, onSearchChange, placeholder }) => (
     <div className="search-container">

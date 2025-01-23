@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Star } from 'lucide-react';
 import { ratingService } from '../../services/ratingService';
+import './styles/RatingComponent.css'
 
 const RatingComponent = ({ retailerId, orderId, onRatingSubmit, initialRating, readOnly }) => {
     const [rating, setRating] = useState(initialRating || 0);
