@@ -3,6 +3,7 @@ import OrderCard from '../../components/shared/OrderCard';
 import { SearchBar } from '../../components/shared/SearchBar';
 import { orderService } from '../../services/orderService';
 import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
+import './styles/orders.css'
 
 const RetailerOrders = () => {
     const [orders, setOrders] = useState([]);

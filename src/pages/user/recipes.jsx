@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import RecipeList from '../../components/recipes/RecipeList';
 import { RecipeDetailCard } from '../../components/recipes/index.js';
 import { recipeData } from '../../components/recipes/index.js';
+import './styles/recipes.css'
 
 const UserRecipes = () => {
     const location = useLocation();

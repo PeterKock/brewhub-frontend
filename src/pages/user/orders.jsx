@@ -4,6 +4,7 @@ import CreateOrderModal from '../../components/orders/CreateOrderModal';
 import RetailerSelectModal from '../../components/orders/RetailerSelectModal.jsx'
 import { orderService } from '../../services/orderService';
 import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
+import './styles/orders.css'
 import {
     Calendar,
     Store,

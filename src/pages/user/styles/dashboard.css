@@ -1,0 +1,247 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    max-width: var(--max-width-value);
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+.loading {
+    color: var(--primary-text-color);
+    text-align: center;
+    padding: var(--spacing-lg);
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--p-font-size);
+    text-align: center;
+}
+
+.close-error {
+    background: none;
+    border: none;
+    color: #c62828;
+    margin-left: var(--spacing-sm);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.close-error:hover {
+    opacity: 0.8;
+}
+
+.dashboard-section {
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: var(--spacing-lg);
+    box-shadow: var(--card-shadow-value);
+}
+
+.dashboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.welcome-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.welcome-header h1 {
+    color: var(--primary-text-color);
+    font-size: var(--h2-font-size);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+.user-dashboard-stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.stat-card {
+    background-color: var(--primary-bg-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-value);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-card p.alert {
+    color: #e74c3c;
+}
+
+.stat-icon {
+    color: var(--accent-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-content h2 {
+    color: var(--primary-text-color);
+    font-size: var(--h4-font-size);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-content p {
+    color: var(--accent-color);
+    font-size: var(--h3-font-size);
+    font-weight: bold;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    font-family: 'Spectral SC', serif;
+    font-size: var(--h2-font-size);
+    color: var(--primary-text-color);
+    letter-spacing: 1px;
+    font-weight: 500;
+    position: relative;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    color: var(--primary-text-color);
+    transition: all var(--transition-default-value);
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(110%);
+}
+
+.user-recipes-action {
+    background-color: var(--accent-color);
+}
+
+.user-guides-action {
+    background-color: var(--accent-color);
+}
+
+.user-orders-action {
+    background-color: #2ecc71;
+}
+
+.user-favorites-action {
+    background-color: #e74c3c;
+}
+
+.order-card {
+    background-color: var(--primary-bg-color);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.order-detail {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--primary-text-color);
+    padding-left: var(--spacing-xl);
+}
+
+.status-badge {
+    padding: var(--spacing-xsm) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: var(--p-font-size);
+}
+
+.user-status-delivered {
+    background-color: #a8e6cf;
+    color: #2d6a4f;
+}
+
+.user-status-processing {
+    background-color: #ffd3b6;
+    color: #a04000;
+}
+
+.user-status-pending {
+    background-color: #dcd6f7;
+    color: #4527a0;
+}
+
+.user-status-shipped {
+    background-color: #74b9ff;
+    color: #2058a5;
+}
+
+.user-status-cancelled {
+    background-color: #ffaaa5;
+    color: #8b0000;
+}
+
+.user-view-order-button {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    transition: background-color var(--transition-default-value);
+}
+
+.user-view-order-button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.user-profile-card {
+    background-color: var(--primary-bg-color);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.user-profile-detail {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--primary-text-color);
+}
+
+.user-edit-profile-button {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    transition: background-color var(--transition-default-value);
+}
+
+.user-edit-profile-button:hover {
+    background-color: var(--accent-hover-color);
+}
+

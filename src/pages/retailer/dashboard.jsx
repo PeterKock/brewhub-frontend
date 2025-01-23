@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { inventoryService } from '../../services/inventoryService';
 import { orderService } from '../../services/orderService';
 import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
+import './styles/dashboard.css'
 import {
     ShoppingBag,
     CheckSquare,
