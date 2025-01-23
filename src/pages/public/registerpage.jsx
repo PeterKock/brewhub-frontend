@@ -54,7 +54,7 @@ export default function RegisterPage({ onRegister }) {
         }
 
         // Location validation for retailers
-        if (formData.role === 'retailer' && !formData.location.trim()) {
+        if (formData.role === 'RETAILER' && !formData.location.trim()) {
             setError('Please enter your city');
             return;
         }
@@ -68,8 +68,16 @@ export default function RegisterPage({ onRegister }) {
         // Clear any existing errors
         setError('');
 
+        console.log('Registration Data:', {
+            ...formData,
+            role: formData.role.toUpperCase()
+        });
+
         try {
-            await onRegister(formData);
+            await onRegister({
+                ...formData,
+                role: formData.role.toUpperCase()
+            });
             navigate('/');
         } catch (error) {
             setError('Registration failed. Please try again.');
@@ -176,7 +184,7 @@ export default function RegisterPage({ onRegister }) {
                         </select>
                     </div>
 
-                    {formData.role === 'retailer' && (
+                    {formData.role === 'RETAILER' && (
                         <div className="form-group">
                             <label htmlFor="location">Business Location</label>
                             <input

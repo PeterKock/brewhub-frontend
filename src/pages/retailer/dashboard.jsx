@@ -171,7 +171,7 @@ const RetailerDashboard = () => {
                         <ClipboardList size={20} />
                         <span>View Orders</span>
                     </Link>
-                    <Link to="/retailer/inventory" className="action-button retailer-inventory-action">
+                    <Link to="/inventory" className="action-button retailer-inventory-action">
                         <LayoutGrid size={20} />
                         <span>Manage Inventory</span>
                     </Link>
@@ -282,7 +282,7 @@ const RetailerDashboard = () => {
                                 </div>
                                 <div className="retailer-order-actions">
                                     <Link
-                                        to="/retailer/inventory"
+                                        to="/inventory"
                                         state={{ editItemId: item.id }}
                                         className="retailer-restock-button"
                                     >
