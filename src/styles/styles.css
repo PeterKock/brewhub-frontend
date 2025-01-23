@@ -638,7 +638,7 @@
   align-items: center;
   position: relative;
   height: 80px;
-  padding: 0 var(--spacing-xl); /* Match the feature-section padding */
+  padding: 0 var(--spacing-xl);
 }
 
 /* --------------- 5.2 Logo ------------------- */
