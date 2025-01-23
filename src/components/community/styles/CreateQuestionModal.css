@@ -21,6 +21,17 @@
     overflow-y: auto;
 }
 
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .modal-header {
     background-color: var(--secondary-bg-color);
     padding: var(--spacing-lg) var(--spacing-xl);
