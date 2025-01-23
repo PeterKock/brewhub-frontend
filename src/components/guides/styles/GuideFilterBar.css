@@ -1,0 +1,15 @@
+.filter-bar {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    justify-content: center;
+}
+
+.filter-select {
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-value);
+    border: 1px solid var(--primary-text-color);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    height: 42px;
+}

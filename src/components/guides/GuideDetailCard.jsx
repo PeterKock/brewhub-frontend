@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { DetailHeader } from '../shared/DetailHeader';
+import './styles/GuideDetailCard.css'
 
 export const GuideDetailCard = ({ guide, onClose }) => {
 

@@ -1,0 +1,38 @@
+.difficulty {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.difficulty-getting-started {
+    background-color: #a8e6cf;
+    color: #2d6a4f;
+}
+
+.difficulty-equipment {
+    background-color: #ffd3b6;
+    color: #a04000;
+}
+
+.difficulty-ingredients {
+    background-color: #dcd6f7;
+    color: #4527a0;
+}
+
+.difficulty-techniques {
+    background-color: #ffaaa5;
+    color: #8b0000;
+}
+
+.difficulty-troubleshooting {
+    background-color: #ff8b94;
+    color: #721c24;
+}
+
+.time-to-read {
+    color: var(--secondary-text-color);
+    font-size: var(--p-font-size);
+}
