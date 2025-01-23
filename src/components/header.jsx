@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './styles/header.css'
 
 const Header = ({ isAuthenticated, onLogout }) => {
     const [menuItems, setMenuItems] = useState([]);

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { communityService } from '../../services/communityService';
+import './styles/CreateAnswerForm.css'
 
 const CreateAnswerForm = ({ questionId, onAnswerCreated }) => {
     const [content, setContent] = useState('');

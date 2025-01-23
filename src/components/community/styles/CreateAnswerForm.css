@@ -1,0 +1,139 @@
+.create-answer-form {
+    background-color: #2e4c56;
+    border-radius: var(--border-radius-value);
+    padding: var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.create-answer-form h4 {
+    color: var(--primary-text-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.create-answer-form textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    resize: vertical;
+    margin-bottom: var(--spacing-md);
+}
+
+.create-answer-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-group label {
+    color: var(--primary-text-color);
+}
+
+.form-group input {
+    padding: 0.8rem;
+    border: 1px solid var(--primary-text-color);
+    border-radius: 4px;
+    background-color: #34495e;
+    transition: border-color var(--transition-default-value);
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--primary-text-color);
+    border-radius: 4px;
+    background-color: #34495e;
+    color: var(--primary-text-color);
+    transition: border-color var(--transition-default-value);
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-group select option {
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+}
+
+.form-group input[type="number"] {
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    width: 100%;
+}
+
+.form-group textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    resize: vertical;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--p-font-size);
+    text-align: center;
+}
+
+.close-error {
+    background: none;
+    border: none;
+    color: #c62828;
+    margin-left: var(--spacing-sm);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.close-error:hover {
+    opacity: 0.8;
+}
+
+.submit-answer-button {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius-value);
+    cursor: pointer;
+    transition: background-color var(--transition-default-value);
+}
+
+.submit-answer-button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.submit-answer-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

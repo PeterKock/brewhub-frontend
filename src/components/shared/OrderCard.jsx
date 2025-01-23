@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import OrderDetailsModal from '../orders/OrderDetailsModal';
 import { Calendar, Package, User, Store } from 'lucide-react';
+import './styles/OrderCard.css'
 
 const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
     const canCancel = role === 'USER'

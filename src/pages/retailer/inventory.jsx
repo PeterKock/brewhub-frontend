@@ -5,6 +5,7 @@ import { Plus, Edit2, Trash2, AlertTriangle, Package, Calendar, Box } from 'luci
 import { inventoryService } from '../../services/inventoryService';
 import AddInventoryModal from '../../components/inventory/AddInventoryModal';
 import ImportExportButtons from '../../components/inventory/ImportExportButtons';
+import './styles/inventory.css'
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);

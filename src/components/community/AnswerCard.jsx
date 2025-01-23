@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { communityService } from '../../services/communityService';
 import { ArrowUp, ArrowDown, User, Check, Shield, Flag } from 'lucide-react';
 import ReportModal from './ReportModal';
+import './styles/AnswerCard.css'
 
 const AnswerCard = ({ answer, onUpdate }) => {
     const [isVoting, setIsVoting] = useState(false);

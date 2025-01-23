@@ -17,7 +17,6 @@ import Community from './pages/private/community.jsx';
 // Customer Pages
 import UserDashboard from './pages/user/dashboard';
 import UserOrders from './pages/user/orders';
-import UserFavorites from './pages/user/favorites';
 import UserRecipes from './pages/user/recipes';
 import UserGuides from './pages/user/guides';
 
@@ -253,11 +252,6 @@ function AppContent() {
                     <Route path="/user/orders" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
                             <UserOrders />
-                        </ProtectedRoute>
-                    } />
-                    <Route path="/user/favorites" element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
-                            <UserFavorites />
                         </ProtectedRoute>
                     } />
                     <Route path="/recipes" element={<UserRecipes />} />

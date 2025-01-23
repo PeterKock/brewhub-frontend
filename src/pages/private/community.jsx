@@ -4,6 +4,7 @@ import QuestionCard from '../../components/community/QuestionCard';
 import CreateQuestionModal from '../../components/community/CreateQuestionModal';
 import AnswerSection from '../../components/community/AnswerSection';
 import { SearchBar } from '../../components/shared/SearchBar';
+import './styles/community.css'
 
 const initialState = {
     pinnedQuestions: [],

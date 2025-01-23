@@ -1,0 +1,24 @@
+.main-content {
+    flex: 1 0 auto;
+    max-width: var(--max-width-value);
+    width: 100%;
+    padding: 0 var(--spacing-md);
+    text-align: center;
+    margin: 0 auto var(--spacing-md);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    font-family: 'Spectral SC', serif;
+    font-size: var(--h2-font-size);
+    color: var(--primary-text-color);
+    letter-spacing: 1px;
+    font-weight: 500;
+    position: relative;
+}
+
+.selected-guide-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}

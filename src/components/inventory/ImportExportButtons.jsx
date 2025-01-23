@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {Download, Upload} from 'lucide-react';
 import PropTypes from 'prop-types';
+import './styles/ImportExportButtons.css'
 
 const ImportExportButtons = ({ onImportComplete }) => {
     const [importing, setImporting] = useState(false);

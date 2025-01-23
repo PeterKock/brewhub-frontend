@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import './styles/AddInventoryModal.css'
 
 const AddInventoryModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     const [formData, setFormData] = useState({

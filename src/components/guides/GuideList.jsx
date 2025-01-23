@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { SearchBar } from '../shared/SearchBar';
 import { GuideFilterBar } from './GuideFilterBar';
 import { GuideCard } from './GuideCard';
+import './styles/GuideList.css'
 
 const GuideList = ({ guides, onSearch, onFilter, onSelectGuide }) => {
     return (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
+import './styles/registerpage.css'
 
 export default function RegisterPage({ onRegister }) {
     const navigate = useNavigate();
@@ -86,7 +87,7 @@ export default function RegisterPage({ onRegister }) {
     };
 
     return (
-        <div className="page register-page">
+        <div className="register-page">
             <div className="login-box">
                 <div className="login-header">
                     <h2>Create Account</h2>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
+import './styles/loginpage.css'
 
 export default function LoginPage({ onLogin }) {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function LoginPage({ onLogin }) {
     };
 
     return (
-        <div className="page login-page">
+        <div className="login-page">
             <div className="login-box">
                 <div className="login-header">
                     <h2>Welcome Back</h2>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { GuideList, GuideDetailCard, guideData } from '../../components/guides';
+import './styles/guides.css'
 
 const UserGuides = () => {
     const [selectedGuide, setSelectedGuide] = useState(null);

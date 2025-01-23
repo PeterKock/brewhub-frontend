@@ -1,0 +1,192 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--spacing-md);
+}
+
+.modal-content {
+    position: relative;
+    width: 95%;
+    max-width: 800px;
+    max-height: 90vh;
+    margin: auto;
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    box-shadow: var(--card-shadow-value);
+    overflow-y: auto;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background-color: var(--secondary-bg-color);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+    font-family: 'Spectral SC', serif;
+    color: var(--primary-text-color);
+    font-size: var(--h3-font-size);
+}
+
+.modal-form {
+    padding: var(--spacing-lg);
+}
+
+.modal-form .form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-form .form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-text-color);
+    font-size: 0.9rem;
+}
+
+.modal-form .form-group input,
+.modal-form .form-group select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    transition: border-color var(--transition-default-value);
+}
+
+.modal-form .form-group input:focus,
+.modal-form .form-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.modal-form .form-group input::placeholder {
+    color: var(--secondary-text-color);
+}
+
+.modal-form .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-group label {
+    color: var(--primary-text-color);
+}
+
+.form-group input {
+    padding: 0.8rem;
+    border: 1px solid var(--primary-text-color);
+    border-radius: 4px;
+    background-color: #34495e;
+    transition: border-color var(--transition-default-value);
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--primary-text-color);
+    border-radius: 4px;
+    background-color: #34495e;
+    color: var(--primary-text-color);
+    transition: border-color var(--transition-default-value);
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.form-group select option {
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+}
+
+.form-group input[type="number"] {
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    width: 100%;
+}
+
+.form-group textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    resize: vertical;
+}
+
+.modal-cancel-button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius-value);
+    font-size: var(--p-font-size);
+    cursor: pointer;
+    transition: all var(--transition-default-value);
+    background-color: transparent;
+    border: 1px solid var(--secondary-text-color);
+    color: var(--secondary-text-color);
+}
+
+.modal-cancel-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-text-color);
+    color: var(--primary-text-color);
+}
+
+.inventory-modal-actions .modal-cancel-button {
+    margin-right: var(--spacing-lg);
+}
+
+.modal-submit-button {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    background-color: var(--buy-color);
+    border-radius: var(--border-radius-value);
+    color: var(--primary-text-color);
+    font-size: var(--p-font-size);
+    cursor: pointer;
+    transition: all var(--transition-default-value);
+    margin-left: auto
+}
+
+.modal-submit-button:hover {
+    background-color: var(--accent-hover-color);
+}

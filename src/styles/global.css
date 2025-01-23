@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Spectral+SC:wght@500&family=Merriweather&family=Roboto:wght@300;400;700&display=swap');
+
+
+:root {
+    /* Colors */
+    --primary-text-color: #ffffff;
+    --secondary-text-color: #7f8c8d;
+    --primary-bg-color: #242424;
+    --secondary-bg-color: #2c3e50;
+    --accent-color: #3498db;
+    --accent-hover-color: #2980b9;
+    --card-color: #ffffff;
+    --buy-color: #29b92b;
+
+    /* Font Size */
+    --p-font-size: 0.8rem;
+    --h1-font-size: 3rem;
+    --h2-font-size: 2.5rem;
+    --h3-font-size: 1.5rem;
+    --h4-font-size: 1.2rem;
+
+    /* Layout */
+    --max-width-value: 1920px;
+
+    /* Spacing */
+    --spacing-xsm: 0.3rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+    --spacing-xxl: 8rem;
+
+    /* Other */
+    --border-radius-value: 8px;
+    --card-shadow-value: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --transition-default-value: 0.3s ease;
+
+    /* Global Styling */
+    background-color: var(--primary-bg-color);
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------- 1.2 Base Elements ------------------- */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ------------------------------- 2. Typography ----------------------------------- */
+h1 {
+    color: var(--primary-text-color);
+    font-size: var(--h1-font-size);
+    margin-bottom: var(--spacing-md);
+}
+
+h2 {
+    color: var(--primary-text-color);
+    font-size: var(--h2-font-size);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+p {
+    color: var(--secondary-bg-color);
+    font-size: var(--p-font-size);
+}
+
+a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: #535bf2;
+}
+
+/* ------------------------------- 3. Layout --------------------------------------- */
+/* --------------- 3.1 App Structure ------------------- */
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1 0 auto;
+    max-width: var(--max-width-value);
+    width: 100%;
+    padding: 0 var(--spacing-md);
+    text-align: center;
+    margin: 0 auto var(--spacing-md);
+}

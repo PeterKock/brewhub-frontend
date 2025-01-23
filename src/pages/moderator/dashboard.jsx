@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { communityService } from '../../services/communityService.js';
 import { AlertCircle, Check, X } from 'lucide-react';
+import './styles/dashboard.css'
 
 const Dashboard = () => {
     const [reports, setReports] = useState([]);

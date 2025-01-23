@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './styles/RecipeFilterBar.css'
 
 export const RecipeFilterBar = ({ onFilterChange }) => {
     return (

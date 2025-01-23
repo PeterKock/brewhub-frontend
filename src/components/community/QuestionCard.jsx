@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { communityService } from '../../services/communityService';
 import { ArrowUp, ArrowDown, MessageCircle, User, Flag } from 'lucide-react';
 import ReportModal from './ReportModal';
+import './styles/QuestionCard.css'
 
 const QuestionCard = ({ question, onUpdate, onClick }) => {
     const [isVoting, setIsVoting] = useState(false);

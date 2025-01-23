@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { BaseCard } from '../shared/BaseCard';
+import './styles/GuideCard.css'
 
 export const GuideCard = ({ title, description, category, timeToRead, onClick }) => {
     const getDifficultyClass = (category) => {

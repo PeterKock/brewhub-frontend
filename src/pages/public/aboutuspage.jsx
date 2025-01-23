@@ -1,3 +1,5 @@
+import './styles/aboutuspage.css'
+
 const AboutUsPage = () => {
     return (
         <main className="main-content">

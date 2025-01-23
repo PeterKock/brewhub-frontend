@@ -1,6 +1,7 @@
 import { RecipeCard } from '../../components/shared/cards.jsx';
 import { Link } from 'react-router-dom';
 import { Coffee, Book, Users, ChevronRight } from 'lucide-react';
+import './styles/homepage.css'
 
 const HomePage = () => {
     const features = [
@@ -66,9 +67,8 @@ const HomePage = () => {
     ];
 
     return (
-        <main className="main-content home-content">
-            <section className="home-section feature-section">
-                {/*<h1 className="section-title">Start Brewing</h1>*/}
+        <main className="main-content">
+            <section className="feature-section">
                 <div className="features-grid">
                     {features.map((feature, index) => (
                         <div key={index} className="feature-card-wrapper">
@@ -88,7 +88,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="home-section recipes-section feature-section">
+            <section className="feature-section">
                 {/*<h2 className="section-title">Popular Recipes</h2>*/}
                 <div className="recipes-grid">
                     {recipes.map((recipe, index) => (

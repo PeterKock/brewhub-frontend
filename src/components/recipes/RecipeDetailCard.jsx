@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { DetailHeader } from '../shared/DetailHeader';
+import './styles/RecipeDetailCard.css'
 
 export const RecipeDetailCard = ({ recipe, onClose }) => {
     const stats = (

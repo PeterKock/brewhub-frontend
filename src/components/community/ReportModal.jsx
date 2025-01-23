@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { communityService } from '../../services/communityService';
+import './styles/ReportModal.css'
 
 const ReportModal = ({ onClose, contentId, contentType }) => {
     const [formData, setFormData] = useState({

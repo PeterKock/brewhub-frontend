@@ -4,6 +4,7 @@ import { X, MapPin } from 'lucide-react';
 import RatingComponent from '../../components/ratings/RatingComponent';
 import { ratingService } from '../../services/ratingService';
 import { publicService } from '../../services/publicService.js';
+import './styles/RetailerSelectModal.css'
 
 const RetailerSelectModal = ({ isOpen, onClose, onSelect }) => {
     const [retailers, setRetailers] = useState([]);

@@ -1,0 +1,275 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--spacing-md);
+}
+
+.modal-content {
+    position: relative;
+    width: 95%;
+    max-width: 800px;
+    max-height: 90vh;
+    margin: auto;
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    box-shadow: var(--card-shadow-value);
+    overflow-y: auto;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background-color: var(--secondary-bg-color);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+    font-family: 'Spectral SC', serif;
+    color: var(--primary-text-color);
+    font-size: var(--h3-font-size);
+}
+
+.modal-close-button {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: transparent;
+    border: none;
+    color: var(--primary-text-color);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-default-value);
+}
+
+.modal-close-button:hover {
+    color: var(--accent-color);
+}
+
+.modal-form {
+    padding: var(--spacing-lg);
+}
+
+.modal-form .form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-form .form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-text-color);
+    font-size: 0.9rem;
+}
+
+.modal-form .form-group input,
+.modal-form .form-group select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    transition: border-color var(--transition-default-value);
+}
+
+.modal-form .form-group input:focus,
+.modal-form .form-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.modal-form .form-group input::placeholder {
+    color: var(--secondary-text-color);
+}
+
+.modal-form .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--p-font-size);
+    text-align: center;
+}
+
+.close-error {
+    background: none;
+    border: none;
+    color: #c62828;
+    margin-left: var(--spacing-sm);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.close-error:hover {
+    opacity: 0.8;
+}
+
+.loading {
+    color: var(--primary-text-color);
+    text-align: center;
+    padding: var(--spacing-lg);
+}
+
+.no-results {
+    text-align: center;
+    color: var(--primary-text-color);
+    padding: var(--spacing-xl);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-cancel-button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius-value);
+    font-size: var(--p-font-size);
+    cursor: pointer;
+    transition: all var(--transition-default-value);
+    background-color: transparent;
+    border: 1px solid var(--secondary-text-color);
+    color: var(--secondary-text-color);
+}
+
+.modal-cancel-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-text-color);
+    color: var(--primary-text-color);
+}
+
+.modal-submit-button {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    background-color: var(--buy-color);
+    border-radius: var(--border-radius-value);
+    color: var(--primary-text-color);
+    font-size: var(--p-font-size);
+    cursor: pointer;
+    transition: all var(--transition-default-value);
+    margin-left: auto
+}
+
+.modal-submit-button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+    height: 42px;
+}
+
+.search-container input {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-value);
+    border: 1px solid var(--primary-text-color);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    max-height: 400px;
+    overflow-y: auto;
+    margin: var(--spacing-lg) 0;
+}
+
+.ingredient-card {
+    background-color: var(--primary-bg-color);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) auto auto;
+    align-items: center;
+    gap: var(--spacing-xl);
+}
+
+.ingredient-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ingredient-name span {
+    color: var(--primary-text-color);
+    font-weight: 500;
+}
+
+.ingredient-name small {
+    color: var(--secondary-text-color);
+}
+
+.ingredient-price {
+    color: var(--accent-color);
+    white-space: nowrap;
+}
+
+.ingredient-quantity {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.ingredient-quantity input {
+    width: 80px;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-value);
+    padding: var(--spacing-sm);
+}
+
+.ingredient-quantity span {
+    color: var(--primary-text-color);
+    min-width: 30px;
+}
+
+.order-summary {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: right;
+    color: var(--primary-text-color);
+    font-weight: bold;
+    font-size: var(--h4-font-size);
+}
+
+

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './styles/GuideFilterBar.css'
 
 export const GuideFilterBar = ({ onFilterChange }) => {
     return (

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ShoppingCart, X } from 'lucide-react';
 import { publicService } from '../../services/publicService';
+import './styles/CreateOrderModal.css'
 
 const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
     const [ingredients, setIngredients] = useState([]);

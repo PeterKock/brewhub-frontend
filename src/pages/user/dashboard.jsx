@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { orderService } from '../../services/orderService';
 import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
+import './styles/dashboard.css'
 import {
     ShoppingCart,
     Book,

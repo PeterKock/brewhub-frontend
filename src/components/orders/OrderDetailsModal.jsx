@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { X, Calendar, User, Store } from 'lucide-react';
 import RatingComponent from '../ratings/RatingComponent';
 import { ratingService } from '../../services/ratingService';
+import './styles/OrderDetailsModal.css'
 
 const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
     const [orderRating, setOrderRating] = useState(null);
