@@ -1,0 +1,258 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    max-width: var(--max-width-value);
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+.loading {
+    color: var(--primary-text-color);
+    text-align: center;
+    padding: var(--spacing-lg);
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--p-font-size);
+    text-align: center;
+}
+
+.close-error {
+    background: none;
+    border: none;
+    color: #c62828;
+    margin-left: var(--spacing-sm);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.close-error:hover {
+    opacity: 0.8;
+}
+
+.dashboard-section {
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: var(--spacing-lg);
+    box-shadow: var(--card-shadow-value);
+}
+
+.welcome-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.welcome-header h1 {
+    color: var(--primary-text-color);
+    font-size: var(--h2-font-size);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+.retailer-dashboard-stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.stat-card {
+    background-color: var(--primary-bg-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-value);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-card p.alert {
+    color: #e74c3c;
+}
+
+.stat-icon {
+    color: var(--accent-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-content h2 {
+    color: var(--primary-text-color);
+    font-size: var(--h4-font-size);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-content p {
+    color: var(--accent-color);
+    font-size: var(--h3-font-size);
+    font-weight: bold;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    font-family: 'Spectral SC', serif;
+    font-size: var(--h2-font-size);
+    color: var(--primary-text-color);
+    letter-spacing: 1px;
+    font-weight: 500;
+    position: relative;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    color: var(--primary-text-color);
+    transition: all var(--transition-default-value);
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(110%);
+}
+
+.retailer-customers-action {
+    background-color: var(--accent-color);
+}
+
+.retailer-orders-action {
+    background-color: var(--accent-color);
+}
+
+.retailer-inventory-action {
+    background-color: #2ecc71;
+}
+
+.retailer-profile-action {
+    background-color: #e74c3c;
+}
+
+.dashboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.order-card {
+    background-color: var(--primary-bg-color);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.order-detail {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--primary-text-color);
+    padding-left: var(--spacing-xl);
+}
+
+status-badge {
+    padding: var(--spacing-xsm) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: var(--p-font-size);
+}
+
+.retailer-status-pending {
+    background-color: #ffeaa7;
+    color: #d35400;
+}
+
+.retailer-status-processing {
+    background-color: #a8e6cf;
+    color: #2d6a4f;
+}
+
+.retailer-status-delivered {
+    background-color: #a8e6cf;
+    color: #2d6a4f;
+}
+
+.retailer-status-shipped {
+    background-color: #74b9ff;
+    color: var(--primary-text-color);
+}
+
+.retailer-status-cancelled {
+    background-color: #ffaaa5;
+    color: #8b0000;
+}
+
+.retailer-view-details-button,
+.retailer-process-button,
+.retailer-restock-button {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    transition: background-color var(--transition-default-value);
+}
+
+.retailer-process-button:hover,
+.retailer-restock-button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.out-of-stock-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--primary-text-color);
+    background-color: #e74c3c;
+    padding: var(--spacing-xsm) var(--spacing-md);
+    border-radius: 20px;
+    font-size: var(--p-font-size);
+}
+
+.low-stock-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: #ffd3b6;
+    color: #a04000;
+    padding: var(--spacing-xsm) var(--spacing-md);
+    border-radius: 20px;
+    font-size: var(--p-font-size);
+}
+
+.low-stock-badge svg {
+    width: 16px;
+    height: 16px;
+}
+
+.retailer-order-actions {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.no-results {
+    text-align: center;
+    color: var(--primary-text-color);
+    padding: var(--spacing-xl);
+}
+
+
+
+
+
