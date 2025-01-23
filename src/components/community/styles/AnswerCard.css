@@ -1,0 +1,121 @@
+.answer-card {
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: var(--spacing-lg);
+    border-left: 3px solid transparent;
+}
+
+.answer-card p{
+    color: var(--primary-text-color);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.answer-card.accepted {
+    border-left-color: var(--accent-color);
+}
+
+.answer-content {
+    color: var(--primary-text-color);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
+.answer-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--secondary-text-color);
+    font-size: var(--p-font-size);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.answer-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.retailer-badge {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    padding: 2px var(--spacing-sm);
+    border-radius: 12px;
+    font-size: 0.7rem;
+}
+
+.verified-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #2ecc71;
+    color: var(--primary-text-color);
+    padding: 2px var(--spacing-sm);
+    border-radius: 12px;
+    font-size: 0.7rem;
+}
+
+.answer-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vote-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.vote-button {
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    padding: var(--spacing-xsm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-default-value);
+}
+
+.vote-button:hover {
+    color: var(--accent-color);
+}
+
+.vote-button.voted {
+    color: var(--accent-color);
+}
+
+.vote-count {
+    color: var(--primary-text-color);
+    min-width: 30px;
+    text-align: center;
+}
+
+.accepted-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--accent-color);
+}
+
+.report-button {
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: var(--p-font-size);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    transition: color var(--transition-default-value);
+}
+
+.report-button:hover {
+    color: #e74c3c;
+}

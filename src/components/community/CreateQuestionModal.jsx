@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { communityService } from '../../services/communityService';
+import './styles/CreateQuestionModal.css'
 
 const CreateQuestionModal = ({ onClose, onQuestionCreated }) => {
     const [formData, setFormData] = useState({

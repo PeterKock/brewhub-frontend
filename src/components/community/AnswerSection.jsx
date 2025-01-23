@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { communityService } from '../../services/communityService';
 import AnswerCard from './AnswerCard';
 import CreateAnswerForm from './CreateAnswerForm';
+import './styles/AnswerSection.css'
 
 const AnswerSection = ({ questionId }) => {
     const [answers, setAnswers] = useState([]);
