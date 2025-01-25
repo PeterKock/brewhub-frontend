@@ -1,0 +1,156 @@
+.report-management {
+    position: relative;
+}
+
+.reports-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    background-color: var(--primary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: 1.5rem;
+}
+
+.reports-list {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding-right: 1.5rem;
+}
+
+.reports-list h3,
+.report-details h3 {
+    color: var(--primary-text-color);
+    margin-bottom: 1.5rem;
+    font-family: 'Spectral SC', serif;
+    font-size: var(--h3-font-size);
+}
+
+.no-reports {
+    color: var(--secondary-text-color);
+    text-align: center;
+    padding: 2rem;
+}
+
+.report-card {
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: transform var(--transition-default-value);
+}
+
+.report-card:hover {
+    transform: translateX(5px);
+}
+
+.report-card.selected {
+    border-left: 3px solid var(--accent-color);
+}
+
+.report-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-text-color);
+    margin-bottom: 0.5rem;
+}
+
+.report-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--secondary-text-color);
+    font-size: var(--p-font-size);
+}
+
+.report-details {
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: 1.5rem;
+}
+
+.report-info {
+    background-color: var(--primary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-group {
+    margin-bottom: 1rem;
+}
+
+.info-group:last-child {
+    margin-bottom: 0;
+}
+
+.info-group label {
+    display: block;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.25rem;
+    font-size: var(--p-font-size);
+}
+
+.info-group span,
+.info-group p {
+    color: var(--primary-text-color);
+}
+
+.action-buttons-moderator {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.approve-button,
+.reject-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius-value);
+    cursor: pointer;
+    transition: background-color var(--transition-default-value);
+    font-size: var(--p-font-size);
+}
+
+.approve-button {
+    background-color: #2ecc71;
+    color: var(--primary-text-color);
+}
+
+.approve-button:hover {
+    background-color: #27ae60;
+}
+
+.reject-button {
+    background-color: #e74c3c;
+    color: var(--primary-text-color);
+}
+
+.reject-button:hover {
+    background-color: #c0392b;
+}
+
+.notification {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius-value);
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

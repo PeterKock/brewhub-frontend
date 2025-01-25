@@ -4,11 +4,11 @@ let isLoggingOut = false;
 
 const handleAuthResponse = (data) => {
     if (data && data['token']) {
-        // Clear any existing auth data first
+        // Clear any existing auth data
         localStorage.removeItem('token');
         localStorage.removeItem('user');
 
-        // Then set the new data
+        // Set new data
         localStorage.setItem('token', data['token']);
         localStorage.setItem('user', JSON.stringify({
             id: data.id,
@@ -20,10 +20,8 @@ const handleAuthResponse = (data) => {
         }));
     }
 
-    // Get fresh user data from localStorage
     const user = JSON.parse(localStorage.getItem('user'));
 
-    // Force a slight delay to ensure storage is updated
     setTimeout(() => {
         if (user && user.role === 'RETAILER') {
             window.location.href = '/retailer/dashboard';

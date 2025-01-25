@@ -2,9 +2,32 @@ import PropTypes from 'prop-types';
 import { SearchBar } from '../shared/SearchBar';
 import { GuideFilterBar } from './GuideFilterBar';
 import { GuideCard } from './GuideCard';
-import './styles/GuideList.css'
+import './styles/GuideList.css';
 
-const GuideList = ({ guides, onSearch, onFilter, onSelectGuide }) => {
+const GuideList = ({ guides, onSearch, onFilter, onSelectGuide, loading }) => {
+    if (loading) {
+        return (
+            <div className="guides-container">
+                <SearchBar
+                    searchTerm=""
+                    onSearchChange={onSearch}
+                    placeholder="Search guides..."
+                    disabled={loading}
+                />
+
+                <GuideFilterBar
+                    onFilterChange={onFilter}
+                    disabled={loading}
+                />
+
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Loading guides...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="guides-container">
             <SearchBar
@@ -51,7 +74,8 @@ GuideList.propTypes = {
     ).isRequired,
     onSearch: PropTypes.func.isRequired,
     onFilter: PropTypes.func.isRequired,
-    onSelectGuide: PropTypes.func.isRequired
+    onSelectGuide: PropTypes.func.isRequired,
+    loading: PropTypes.bool
 };
 
 export default GuideList;

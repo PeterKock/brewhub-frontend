@@ -1,9 +1,32 @@
+import { useState, useEffect } from 'react';
 import { RecipeCard } from '../../components/shared/cards.jsx';
 import { Link } from 'react-router-dom';
 import { Coffee, Book, Users, ChevronRight } from 'lucide-react';
-import './styles/homepage.css'
+import { recipeService } from '../../services/recipeService';
+import './styles/homepage.css';
 
 const HomePage = () => {
+    const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        void loadRecipes();
+    }, []);
+
+    const loadRecipes = async () => {
+        try {
+            setLoading(true);
+            const data = await recipeService.getAllRecipes();
+            setRecipes(data);
+        } catch (err) {
+            console.error('Error loading recipes:', err);
+            setError('Failed to load recipes');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const features = [
         {
             title: 'Recipes',
@@ -26,44 +49,6 @@ const HomePage = () => {
             to: '/community',
             icon: <Users size={24} />
         }
-    ];
-
-    const recipes = [
-        {
-            title: 'Bock',
-            description: 'A strong, dark German beer',
-            difficulty: 'Intermediate'
-        },
-        {
-            title: 'Pilsener',
-            description: 'Fresh malt, fresh hops, correct population of yeast',
-            difficulty: 'Beginner'
-        },
-        {
-            title: 'Weizen',
-            description: 'A wheat beer of South German or Bavarian origin',
-            difficulty: 'Beginner'
-        },
-        {
-            title: 'Triple',
-            description: 'A strong malty, hop bitter taste heavy top-fermented beer',
-            difficulty: 'Advanced'
-        },
-        {
-            title: 'IPA',
-            description: 'A perfectly balanced India Pale Ale with citrus notes',
-            difficulty: 'Intermediate'
-        },
-        {
-            title: 'Summer Wheat',
-            description: 'Light and refreshing wheat beer perfect for warm days',
-            difficulty: 'Beginner'
-        },
-        {
-            title: 'Dark Stout',
-            description: 'Rich and creamy with coffee and chocolate notes',
-            difficulty: 'Advanced'
-        },
     ];
 
     return (
@@ -89,20 +74,37 @@ const HomePage = () => {
             </section>
 
             <section className="feature-section">
-                {/*<h2 className="section-title">Popular Recipes</h2>*/}
-                <div className="recipes-grid">
-                    {recipes.map((recipe, index) => (
-                        <Link
-                            key={index}
-                            to={`/recipes`}
-                            className="recipe-card-wrapper"
-                            state={{selectedRecipeId: recipe.title}}
-                            aria-label={`View recipe for ${recipe.title}`}
-                        >
-                            <RecipeCard {...recipe} />
-                        </Link>
-                    ))}
-                </div>
+                {loading ? (
+                    <div className="loading-container">
+                        <div className="loading-spinner"></div>
+                        <p>Loading recipes...</p>
+                    </div>
+                ) : error ? (
+                    <div className="error-container">
+                        <p className="error-message">{error}</p>
+                        <button onClick={loadRecipes} className="retry-button">
+                            Try Again
+                        </button>
+                    </div>
+                ) : (
+                    <div className="recipes-grid">
+                        {recipes.map((recipe) => (
+                            <Link
+                                key={recipe.id}
+                                to="/recipes"
+                                className="recipe-card-wrapper"
+                                state={{ selectedRecipeId: recipe.id }}
+                                aria-label={`View recipe for ${recipe.title}`}
+                            >
+                                <RecipeCard
+                                    title={recipe.title}
+                                    description={recipe.description}
+                                    difficulty={recipe.difficulty}
+                                />
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </section>
         </main>
     );

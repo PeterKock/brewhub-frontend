@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { SearchBar } from '../shared/SearchBar';
 import { RecipeFilterBar } from './RecipeFilterBar.jsx';
 import { RecipeCard } from './RecipeCard';
-import './styles/RecipeList.css'
+import './styles/RecipeList.css';
 
-const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe }) => {
+const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe, loading }) => {
     const filterConfig = [
         {
             type: 'difficulty',
@@ -21,6 +21,28 @@ const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe }) => {
             }
         }
     ];
+
+    if (loading) {
+        return (
+            <div className="recipes-container">
+                <SearchBar
+                    searchTerm=""
+                    onSearchChange={onSearch}
+                    placeholder="Search recipes..."
+                    disabled={loading}
+                />
+                <RecipeFilterBar
+                    filters={filterConfig}
+                    onFilterChange={onFilter}
+                    disabled={loading}
+                />
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Loading recipes...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="recipes-container">
@@ -67,7 +89,8 @@ RecipeList.propTypes = {
     ).isRequired,
     onSearch: PropTypes.func.isRequired,
     onFilter: PropTypes.func.isRequired,
-    onSelectRecipe: PropTypes.func.isRequired
+    onSelectRecipe: PropTypes.func.isRequired,
+    loading: PropTypes.bool
 };
 
 export default RecipeList;

@@ -7,14 +7,14 @@ import { authService } from './services/authService';
 import Header from './components/header';
 import Footer from './components/footer';
 
-// Public Pages
+// Private & Public Pages
 import HomePage from './pages/public/HomePage';
 import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
 import Community from './pages/private/community.jsx';
 
-// Customer Pages
+// User Pages
 import UserDashboard from './pages/user/dashboard';
 import UserOrders from './pages/user/orders';
 import UserRecipes from './pages/user/recipes';
@@ -243,7 +243,7 @@ function AppContent() {
                         </ProtectedRoute>
                     } />
 
-                    {/* Protected Customer Routes */}
+                    {/* Protected User Routes */}
                     <Route path="/user/dashboard" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
                             <UserDashboard />
