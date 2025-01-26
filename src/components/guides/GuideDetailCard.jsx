@@ -3,7 +3,6 @@ import { DetailHeader } from '../shared/DetailHeader';
 import './styles/GuideDetailCard.css'
 
 export const GuideDetailCard = ({ guide, onClose }) => {
-
     const stats = (
         <div className="guide-stats">
             <span className="guide-stat">{guide.timeToRead} min read</span>
@@ -22,22 +21,30 @@ export const GuideDetailCard = ({ guide, onClose }) => {
                 {/* Left Column: Overview */}
                 <div className="guide-section">
                     <h4>Overview</h4>
-                    {guide.content.sections.map((section, index) => (
-                        <div key={index} className="guide-subsection">
-                            <h5>{section.title}</h5>
-                            <p>{section.content}</p>
-                        </div>
-                    ))}
+                    {guide.sections && guide.sections.length > 0 ? (
+                        guide.sections.map((section, index) => (
+                            <div key={index} className="guide-subsection">
+                                <h5>{section.title}</h5>
+                                <p>{section.content}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No sections available</p>
+                    )}
                 </div>
 
                 {/* Right Column: Tips & Recommendations */}
                 <div className="guide-section">
                     <h4>Tips & Recommendations</h4>
-                    <ul className="guide-list">
-                        {guide.content.tips.map((tip, index) => (
-                            <li key={index}>{tip}</li>
-                        ))}
-                    </ul>
+                    {guide.tips && guide.tips.length > 0 ? (
+                        <ul className="guide-list">
+                            {guide.tips.map((tip, index) => (
+                                <li key={index}>{tip}</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No tips available</p>
+                    )}
                 </div>
             </div>
         </div>
@@ -50,13 +57,11 @@ GuideDetailCard.propTypes = {
         description: PropTypes.string.isRequired,
         category: PropTypes.string.isRequired,
         timeToRead: PropTypes.number.isRequired,
-        content: PropTypes.shape({
-            sections: PropTypes.arrayOf(PropTypes.shape({
-                title: PropTypes.string.isRequired,
-                content: PropTypes.string.isRequired
-            })).isRequired,
-            tips: PropTypes.arrayOf(PropTypes.string).isRequired
-        }).isRequired
+        sections: PropTypes.arrayOf(PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired
+        })),
+        tips: PropTypes.arrayOf(PropTypes.string)
     }).isRequired,
     onClose: PropTypes.func.isRequired
 };

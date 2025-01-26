@@ -24,9 +24,9 @@ const UserRecipes = () => {
             setError(null);
             const data = await recipeService.getAllRecipes();
             setRecipes(data);
-            // Check for selected recipe from homepage
-            if (location.state?.selectedRecipeId) {
-                const recipe = recipes.find(r => r.id === location.state.selectedRecipeId);
+
+            if (location && location.state && location.state.selectedRecipeId) {
+                const recipe = data.find(r => r.id === location.state.selectedRecipeId);
                 if (recipe) {
                     setSelectedRecipe(recipe);
                 }
@@ -37,7 +37,7 @@ const UserRecipes = () => {
         } finally {
             setLoading(false);
         }
-    }, [location.state.selectedRecipeId, recipes]);
+    }, [location]);
 
     useEffect(() => {
         void loadRecipes();
@@ -150,7 +150,7 @@ const UserRecipes = () => {
                     onSelectRecipe={handleSelectRecipe}
                     loading={loading}
                     searchTerm={searchTerm}
-                    selectedFilters={filters}
+                    filters={filters}
                 />
             )}
         </main>

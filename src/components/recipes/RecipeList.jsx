@@ -1,40 +1,23 @@
 import PropTypes from 'prop-types';
 import { SearchBar } from '../shared/SearchBar';
-import { RecipeFilterBar } from './RecipeFilterBar.jsx';
+import { RecipeFilterBar } from './RecipeFilterBar';
 import { RecipeCard } from './RecipeCard';
 import './styles/RecipeList.css';
 
-const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe, loading }) => {
-    const filterConfig = [
-        {
-            type: 'difficulty',
-            options: {
-                label: 'Difficulties',
-                values: ['Beginner', 'Intermediate', 'Advanced']
-            }
-        },
-        {
-            type: 'type',
-            options: {
-                label: 'Types',
-                values: ['Lager', 'Ale', 'Stout']
-            }
-        }
-    ];
-
+const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe, loading, searchTerm, filters }) => {
     if (loading) {
         return (
             <div className="recipes-container">
                 <SearchBar
-                    searchTerm=""
+                    searchTerm={searchTerm}
                     onSearchChange={onSearch}
                     placeholder="Search recipes..."
                     disabled={loading}
                 />
                 <RecipeFilterBar
-                    filters={filterConfig}
                     onFilterChange={onFilter}
                     disabled={loading}
+                    selectedFilters={filters}
                 />
                 <div className="loading-container">
                     <div className="loading-spinner"></div>
@@ -47,14 +30,14 @@ const RecipeList = ({ recipes, onSearch, onFilter, onSelectRecipe, loading }) =>
     return (
         <div className="recipes-container">
             <SearchBar
-                searchTerm=""
+                searchTerm={searchTerm}
                 onSearchChange={onSearch}
                 placeholder="Search recipes..."
             />
 
             <RecipeFilterBar
-                filters={filterConfig}
                 onFilterChange={onFilter}
+                selectedFilters={filters}
             />
 
             {recipes.length === 0 ? (
@@ -90,7 +73,12 @@ RecipeList.propTypes = {
     onSearch: PropTypes.func.isRequired,
     onFilter: PropTypes.func.isRequired,
     onSelectRecipe: PropTypes.func.isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    searchTerm: PropTypes.string.isRequired,
+    filters: PropTypes.shape({
+        difficulty: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired
+    }).isRequired
 };
 
 export default RecipeList;

@@ -4,12 +4,12 @@ import { GuideFilterBar } from './GuideFilterBar';
 import { GuideCard } from './GuideCard';
 import './styles/GuideList.css';
 
-const GuideList = ({ guides, onSearch, onFilter, onSelectGuide, loading }) => {
+const GuideList = ({ guides, onSearch, onFilter, onSelectGuide, loading, searchTerm }) => {
     if (loading) {
         return (
             <div className="guides-container">
                 <SearchBar
-                    searchTerm=""
+                    searchTerm={searchTerm}
                     onSearchChange={onSearch}
                     placeholder="Search guides..."
                     disabled={loading}
@@ -31,7 +31,7 @@ const GuideList = ({ guides, onSearch, onFilter, onSelectGuide, loading }) => {
     return (
         <div className="guides-container">
             <SearchBar
-                searchTerm=""
+                searchTerm={searchTerm}
                 onSearchChange={onSearch}
                 placeholder="Search guides..."
             />
@@ -75,7 +75,8 @@ GuideList.propTypes = {
     onSearch: PropTypes.func.isRequired,
     onFilter: PropTypes.func.isRequired,
     onSelectGuide: PropTypes.func.isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    searchTerm: PropTypes.string.isRequired
 };
 
 export default GuideList;
