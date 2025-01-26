@@ -16,7 +16,6 @@ const OrderDetailsModal = ({ isOpen, onClose, order, role }) => {
                 try {
                     const rating = await ratingService.getOrderRating(order.id);
                     if (isMounted) {
-                        console.log('Setting order rating:', rating);
                         setOrderRating(rating);
                     }
                 } catch (error) {

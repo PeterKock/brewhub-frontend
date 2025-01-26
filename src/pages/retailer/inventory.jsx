@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchBar } from '../../components/shared/SearchBar';
 import { Plus, Edit2, Trash2, AlertTriangle, Package, Calendar, Box } from 'lucide-react';
 import { inventoryService } from '../../services/inventoryService';
 import AddInventoryModal from '../../components/inventory/AddInventoryModal';
 import ImportExportButtons from '../../components/inventory/ImportExportButtons';
-import './styles/inventory.css'
+import './styles/inventory.css';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -35,6 +35,7 @@ export default function RetailerInventory() {
     const [showDeleted, setShowDeleted] = useState(false);
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     const handleAddItem = async (itemData) => {
         try {
@@ -47,16 +48,12 @@ export default function RetailerInventory() {
                 expiryDate: itemData.expiryDate
             };
 
-            const token = localStorage.getItem('token');
-            console.log('Current auth token:', token);
-            console.log('Sending data to backend:', formattedData);
             await inventoryService.createItem(formattedData);
             await loadInventory();
             setIsModalOpen(false);
             setError(null);
         } catch (error) {
             console.error('Error creating item:', error);
-            console.error('Error details:', error.response?.data || error.message);
             setError(error.response?.data?.message || 'Failed to create item. Please check all required fields.');
         }
     };
@@ -318,6 +315,7 @@ export default function RetailerInventory() {
                 onClose={() => {
                     setIsModalOpen(false);
                     setEditingItem(null);
+                    navigate('/inventory', { replace: true }); // Clear the editItemId from state
                 }}
                 onSubmit={editingItem ?
                     (data) => handleEditItem(editingItem.id, data) :

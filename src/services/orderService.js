@@ -35,21 +35,6 @@ export const orderService = {
         return response.json();
     },
 
-    // Get retailer's orders
-    getRetailerOrders: async () => {
-        const response = await fetch(`${API_URL}/retailer/orders`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch orders');
-        }
-
-        return response.json();
-    },
-
     // Get specific order details (user)
     getUserOrder: async (orderId) => {
         const response = await fetch(`${API_URL}/user/orders/${orderId}`, {
@@ -60,6 +45,21 @@ export const orderService = {
 
         if (!response.ok) {
             throw new Error('Failed to fetch order details');
+        }
+
+        return response.json();
+    },
+
+    // Get retailer's orders
+    getRetailerOrders: async () => {
+        const response = await fetch(`${API_URL}/retailer/orders`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch orders');
         }
 
         return response.json();
@@ -112,7 +112,7 @@ export const orderService = {
         }
     },
 
-    // Retailer Dashboard
+    // Retailer Dashboard Stats
     getRetailerDashboardStats: async () => {
         const response = await fetch(`${API_URL}/retailer/dashboard/stats`, {
             headers: {
@@ -127,6 +127,7 @@ export const orderService = {
         return response.json();
     },
 
+    // Retailer Dashboard Recent Orders
     getRetailerRecentOrders: async () => {
         const response = await fetch(`${API_URL}/retailer/dashboard/recent-orders`, {
             headers: {
@@ -141,7 +142,7 @@ export const orderService = {
         return response.json();
     },
 
-    // User Dashboard
+    // User Dashboard Stats
     getUserDashboardStats: async () => {
         const response = await fetch(`${API_URL}/user/dashboard/stats`, {
             headers: {
@@ -156,6 +157,7 @@ export const orderService = {
         return response.json();
     },
 
+    // User Dashboard Recent Orders
     getUserRecentOrders: async () => {
         const response = await fetch(`${API_URL}/user/dashboard/recent-orders`, {
             headers: {

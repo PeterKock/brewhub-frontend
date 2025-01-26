@@ -1,6 +1,6 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './styles/AddInventoryModal.css'
+import './styles/AddInventoryModal.css';
 
 const AddInventoryModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     const [formData, setFormData] = useState({
@@ -39,7 +39,7 @@ const AddInventoryModal = ({ isOpen, onClose, onSubmit, initialData }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
             [name]: value
         }));
@@ -48,6 +48,7 @@ const AddInventoryModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(formData);
+        onClose();
     };
 
     if (!isOpen) return null;

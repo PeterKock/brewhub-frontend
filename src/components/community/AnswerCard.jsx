@@ -5,19 +5,30 @@ import { ArrowUp, ArrowDown, User, Check, Shield, Flag } from 'lucide-react';
 import ReportModal from './ReportModal';
 import './styles/AnswerCard.css'
 
-const AnswerCard = ({ answer, onUpdate }) => {
+const AnswerCard = ({
+                        answer: {
+                            id,
+                            content,
+                            authorName,
+                            isRetailerResponse = false,
+                            isVerified = false,
+                            isAccepted = false,
+                            voteCount,
+                            createdAt,
+                            userVote
+                        } = {},
+                        onUpdate
+                    }) => {
     const [isVoting, setIsVoting] = useState(false);
-    const userVote = answer.userVote;
     const [showReportModal, setShowReportModal] = useState(false);
 
-    // Rest of the component remains the same
     const handleVote = async (voteType) => {
         if (isVoting) return;
 
         try {
             setIsVoting(true);
             await communityService.vote({
-                answerId: answer.id,
+                answerId: id,
                 type: voteType
             });
             if (onUpdate) {
@@ -40,19 +51,19 @@ const AnswerCard = ({ answer, onUpdate }) => {
     };
 
     return (
-        <div className={`answer-card ${answer.isAccepted ? 'accepted' : ''}`}>
+        <div className={`answer-card ${isAccepted ? 'accepted' : ''}`}>
             <div className="answer-content">
-                <p>{answer.content}</p>
+                <p>{content}</p>
             </div>
 
             <div className="answer-meta">
                 <div className="answer-author">
                     <User size={16} />
-                    <span>{answer.authorName}</span>
-                    {answer.isRetailerResponse && (
+                    <span>{authorName}</span>
+                    {isRetailerResponse && (
                         <span className="retailer-badge">Retailer</span>
                     )}
-                    {answer.isVerified && (
+                    {isVerified && (
                         <span className="verified-badge">
                             <Shield size={14} />
                             Verified
@@ -60,7 +71,7 @@ const AnswerCard = ({ answer, onUpdate }) => {
                     )}
                 </div>
                 <span className="answer-date">
-                    {formatDate(answer.createdAt)}
+                    {formatDate(createdAt)}
                 </span>
             </div>
 
@@ -73,7 +84,7 @@ const AnswerCard = ({ answer, onUpdate }) => {
                     >
                         <ArrowUp size={20} />
                     </button>
-                    <span className="vote-count">{answer.voteCount}</span>
+                    <span className="vote-count">{voteCount}</span>
                     <button
                         className={`vote-button ${userVote?.type === 'DOWNVOTE' ? 'voted' : ''}`}
                         onClick={() => handleVote('DOWNVOTE')}
@@ -83,7 +94,7 @@ const AnswerCard = ({ answer, onUpdate }) => {
                     </button>
                 </div>
 
-                {answer.isAccepted && (
+                {isAccepted && (
                     <div className="accepted-indicator">
                         <Check size={20} />
                         <span>Accepted Answer</span>
@@ -100,12 +111,11 @@ const AnswerCard = ({ answer, onUpdate }) => {
                 </button>
                 {showReportModal && (
                     <ReportModal
-                        contentId={answer.id}
+                        contentId={id}
                         contentType="answer"
                         onClose={(success) => {
                             setShowReportModal(false);
                             if (success) {
-                                // Optionally show a success message
                             }
                         }}
                     />
@@ -120,9 +130,9 @@ AnswerCard.propTypes = {
         id: PropTypes.number.isRequired,
         content: PropTypes.string.isRequired,
         authorName: PropTypes.string.isRequired,
-        isRetailerResponse: PropTypes.bool.isRequired,
-        isVerified: PropTypes.bool.isRequired,
-        isAccepted: PropTypes.bool.isRequired,
+        isRetailerResponse: PropTypes.bool,
+        isVerified: PropTypes.bool,
+        isAccepted: PropTypes.bool,
         voteCount: PropTypes.number.isRequired,
         createdAt: PropTypes.string.isRequired,
         userVote: PropTypes.shape({

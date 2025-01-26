@@ -4,7 +4,13 @@ import { Star } from 'lucide-react';
 import { ratingService } from '../../services/ratingService';
 import './styles/RatingComponent.css'
 
-const RatingComponent = ({ retailerId, orderId, onRatingSubmit, initialRating, readOnly }) => {
+const RatingComponent = ({
+                             retailerId,
+                             orderId,
+                             onRatingSubmit,
+                             initialRating = 0,
+                             readOnly = false
+                         }) => {
     const [rating, setRating] = useState(initialRating || 0);
     const [hover, setHover] = useState(0);
     const [comment, setComment] = useState('');
@@ -133,11 +139,6 @@ RatingComponent.propTypes = {
     onRatingSubmit: PropTypes.func,
     initialRating: PropTypes.number,
     readOnly: PropTypes.bool
-};
-
-RatingComponent.defaultProps = {
-    readOnly: false,
-    initialRating: 0
 };
 
 export default RatingComponent;

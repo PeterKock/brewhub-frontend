@@ -6,11 +6,25 @@ import { ArrowUp, ArrowDown, MessageCircle, User, Flag } from 'lucide-react';
 import ReportModal from './ReportModal';
 import './styles/QuestionCard.css'
 
-const QuestionCard = ({ question, onUpdate, onClick }) => {
+const QuestionCard = ({
+                          question: {
+                              id,
+                              title,
+                              content,
+                              authorName,
+                              isRetailerResponse = false,
+                              isPinned = false,
+                              voteCount,
+                              answerCount,
+                              createdAt,
+                              userVote
+                          } = {},
+                          onUpdate,
+                          onClick
+                      }) => {
     const [isVoting, setIsVoting] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [showReportModal, setShowReportModal] = useState(false);
-    const userVote = question.userVote;
 
     const handleVote = async (e, voteType) => {
         e.stopPropagation();
@@ -19,7 +33,7 @@ const QuestionCard = ({ question, onUpdate, onClick }) => {
         try {
             setIsVoting(true);
             await communityService.vote({
-                questionId: question.id,
+                questionId: id,
                 type: voteType,
                 answerId: null
             });
@@ -52,27 +66,27 @@ const QuestionCard = ({ question, onUpdate, onClick }) => {
                     </div>
                 )}
 
-                {question.isPinned && (
+                {isPinned && (
                     <div className="pinned-indicator">
                         Pinned
                     </div>
                 )}
 
                 <div className="question-content">
-                    <h3>{question.title}</h3>
-                    <p>{question.content}</p>
+                    <h3>{title}</h3>
+                    <p>{content}</p>
                 </div>
 
                 <div className="question-meta">
                     <div className="question-author">
                         <User size={16} />
-                        <span>{question.authorName}</span>
-                        {question.isRetailerResponse && (
+                        <span>{authorName}</span>
+                        {isRetailerResponse && (
                             <span className="retailer-badge">Retailer</span>
                         )}
                     </div>
                     <span className="question-date">
-                        {new Date(question.createdAt).toLocaleDateString('en-US', {
+                        {new Date(createdAt).toLocaleDateString('en-US', {
                             year: 'numeric',
                             month: 'short',
                             day: 'numeric'
@@ -89,7 +103,7 @@ const QuestionCard = ({ question, onUpdate, onClick }) => {
                         >
                             <ArrowUp size={20} />
                         </button>
-                        <span className="vote-count">{question.voteCount}</span>
+                        <span className="vote-count">{voteCount}</span>
                         <button
                             className={`vote-button ${userVote?.type === 'DOWNVOTE' ? 'voted' : ''}`}
                             onClick={(e) => handleVote(e, 'DOWNVOTE')}
@@ -101,7 +115,7 @@ const QuestionCard = ({ question, onUpdate, onClick }) => {
 
                     <div className="answer-count">
                         <MessageCircle size={20} />
-                        <span>{question.answerCount} answers</span>
+                        <span>{answerCount} answers</span>
                     </div>
 
                     <button
@@ -117,7 +131,7 @@ const QuestionCard = ({ question, onUpdate, onClick }) => {
 
             {showReportModal && createPortal(
                 <ReportModal
-                    contentId={question.id}
+                    contentId={id}
                     contentType="question"
                     onClose={(success) => {
                         setShowReportModal(false);
@@ -139,11 +153,11 @@ QuestionCard.propTypes = {
         title: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
         authorName: PropTypes.string.isRequired,
-        isRetailerResponse: PropTypes.bool.isRequired,
+        isRetailerResponse: PropTypes.bool,
+        isPinned: PropTypes.bool,
         voteCount: PropTypes.number.isRequired,
         answerCount: PropTypes.number.isRequired,
         createdAt: PropTypes.string.isRequired,
-        isPinned: PropTypes.bool.isRequired,
         userVote: PropTypes.shape({
             type: PropTypes.string
         })
