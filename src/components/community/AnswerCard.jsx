@@ -116,6 +116,16 @@ const AnswerCard = ({
                         onClose={(success) => {
                             setShowReportModal(false);
                             if (success) {
+                                const successMessage = document.createElement('div');
+                                successMessage.className = 'success-message';
+                                successMessage.textContent = 'Report submitted successfully';
+
+                                const answerCard = document.querySelector('.answer-card');
+                                answerCard.appendChild(successMessage);
+
+                                setTimeout(() => {
+                                    successMessage.remove();
+                                }, 3000);
                             }
                         }}
                     />
