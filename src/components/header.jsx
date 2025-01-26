@@ -96,20 +96,22 @@ const Header = ({ isAuthenticated, onLogout }) => {
     };
 
     if (menuItems.length === 0) {
-        return null; // Avoid rendering until menu items are fully initialized
+        return null;
     }
 
     return (
         <header className="header">
             <div className="header-content">
-                <div className="logo-container">
+                <div className="center-container">
                     <Link to="/">
-                        <img src="/src/assets/logo.png" alt="Logo" className="logo" />
+                        <h1 className="brand-name">Brew Hub</h1>
                     </Link>
+                    <div className="logo-container">
+                        <Link to="/">
+                            <img src="/src/assets/logo.png" alt="Logo" className="logo" />
+                        </Link>
+                    </div>
                 </div>
-                <Link to="/">
-                    <h1 className="brand-name">Brew Hub</h1>
-                </Link>
                 <nav className="menu-container" ref={menuRef} role="navigation">
                     {isAuthenticated !== null && (
                         isAuthenticated ? (
