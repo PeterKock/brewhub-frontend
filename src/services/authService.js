@@ -1,14 +1,15 @@
 const API_URL = 'http://localhost:8080/api/auth';
 
 let isLoggingOut = false;
+let hasCleanedUp = false;
 
 const handleAuthResponse = (data) => {
     if (data && data['token']) {
-        // Clear any existing auth data first
+        // Clear any existing auth data
         localStorage.removeItem('token');
         localStorage.removeItem('user');
 
-        // Then set the new data
+        // Set new data
         localStorage.setItem('token', data['token']);
         localStorage.setItem('user', JSON.stringify({
             id: data.id,
@@ -20,10 +21,8 @@ const handleAuthResponse = (data) => {
         }));
     }
 
-    // Get fresh user data from localStorage
     const user = JSON.parse(localStorage.getItem('user'));
 
-    // Force a slight delay to ensure storage is updated
     setTimeout(() => {
         if (user && user.role === 'RETAILER') {
             window.location.href = '/retailer/dashboard';
@@ -39,6 +38,7 @@ const handleAuthResponse = (data) => {
 
 export const authService = {
     login: async (credentials) => {
+        hasCleanedUp = false;
         console.log('Login attempt with:', credentials.email);
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
@@ -61,6 +61,7 @@ export const authService = {
     },
 
     register: async (userData) => {
+        hasCleanedUp = false;
         console.log('Registration attempt for:', userData.email);
         const response = await fetch(`${API_URL}/signup`, {
             method: 'POST',
@@ -85,11 +86,18 @@ export const authService = {
             return;
         }
 
+        if (hasCleanedUp) {
+            return;
+        }
+
         try {
             isLoggingOut = true;
-            console.log('Logging out user');
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
+            if (localStorage.getItem('token') || localStorage.getItem('user')) {
+                console.log('Logging out user');
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+            }
+            hasCleanedUp = true;
         } finally {
             setTimeout(() => {
                 isLoggingOut = false;
@@ -102,15 +110,23 @@ export const authService = {
         const userStr = localStorage.getItem('user');
 
         if (!token || !userStr) {
+            if (!hasCleanedUp) {
+                authService.logout();
+            }
             return false;
         }
 
         try {
             const user = JSON.parse(userStr);
-            return !!(user && user.id && user.email && user.role);
+            const isValid = !!(user && user.id && user.email && user.role);
+            if (!isValid && !hasCleanedUp) {
+                authService.logout();
+            }
+            return isValid;
         } catch {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
+            if (!hasCleanedUp) {
+                authService.logout();
+            }
             return false;
         }
     }

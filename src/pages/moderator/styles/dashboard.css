@@ -160,3 +160,79 @@
 .reject-button:hover {
     background-color: #c0392b;
 }
+
+.moderator-dashboard {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.tab-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    transition: all var(--transition-default-value);
+    border-radius: var(--border-radius-value);
+    font-size: var(--p-font-size);
+}
+
+.tab-button:hover {
+    color: var(--primary-text-color);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-button.active {
+    color: var(--primary-text-color);
+    background-color: var(--accent-color);
+}
+
+.dashboard-content {
+    background-color: var(--secondary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: 2rem;
+}
+
+/* Move existing report management styles here */
+.reports-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    background-color: var(--primary-bg-color);
+    border-radius: var(--border-radius-value);
+    padding: 1.5rem;
+}
+
+.reports-list {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding-right: 1.5rem;
+}
+
+.report-card {
+    background-color: var(--secondary-bg-color);
+    padding: 1rem;
+    border-radius: var(--border-radius-value);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: transform var(--transition-default-value);
+}
+
+.report-card:hover {
+    transform: translateX(5px);
+}
+
+.report-card.selected {
+    border-left: 3px solid var(--accent-color);
+}

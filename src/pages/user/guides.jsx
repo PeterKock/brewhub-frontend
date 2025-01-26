@@ -1,14 +1,34 @@
 import { useState, useEffect, useRef } from 'react';
-import { GuideList, GuideDetailCard, guideData } from '../../components/guides';
-import './styles/guides.css'
+import { GuideList, GuideDetailCard } from '../../components/guides';
+import { guideService } from '../../services/guideService';
+import './styles/guides.css';
 
 const UserGuides = () => {
     const [selectedGuide, setSelectedGuide] = useState(null);
+    const [guides, setGuides] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filters, setFilters] = useState({
-        category: 'all'
-    });
+    const [filterCategory, setFilterCategory] = useState('all');
     const guideDetailRef = useRef(null);
+
+    const loadGuides = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const data = await guideService.getAllGuides();
+            setGuides(data);
+        } catch (err) {
+            console.error('Error loading guides:', err);
+            setError('Failed to load guides. Please try again later.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        void loadGuides();
+    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -26,27 +46,75 @@ const UserGuides = () => {
         };
     }, [selectedGuide]);
 
-    const handleSearch = (value) => {
+    const handleSearch = async (value) => {
         setSearchTerm(value);
+        try {
+            setLoading(true);
+            setError(null);
+            let data;
+            if (value.trim()) {
+                data = await guideService.searchGuides(value);
+            } else {
+                data = await guideService.getAllGuides();
+            }
+            setGuides(data);
+        } catch (err) {
+            console.error('Error searching guides:', err);
+            setError('Failed to search guides. Please try again later.');
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleFilter = (filterType, value) => {
-        setFilters(prevFilters => ({
-            ...prevFilters,
-            [filterType]: value
-        }));
+    const handleFilter = async (filterType, value) => {
+        setFilterCategory(value);
+        try {
+            setLoading(true);
+            setError(null);
+            let data;
+
+            if (value === 'all') {
+                data = await guideService.getAllGuides();
+            } else {
+                data = await guideService.getGuidesByCategory(value);
+            }
+
+            setGuides(data);
+        } catch (err) {
+            console.error('Error filtering guides:', err);
+            setError('Failed to filter guides. Please try again later.');
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const filteredGuides = guideData.filter(guide => {
-        const categoryMatch = filters.category === 'all' || guide.category === filters.category;
-        const searchMatch = guide.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            guide.description.toLowerCase().includes(searchTerm.toLowerCase());
-        return categoryMatch && searchMatch;
-    });
+    const handleSelectGuide = async (guide) => {
+        try {
+            setLoading(true);
+            const fetchedGuide = await guideService.getGuideById(guide.id);
+            setSelectedGuide(fetchedGuide);
+        } catch (err) {
+            setError('Failed to load guide details');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (error) {
+        return (
+            <div className="error-container">
+                <p className="error-message">{error}</p>
+                <button onClick={() => void loadGuides()} className="retry-button">
+                    Try Again
+                </button>
+            </div>
+        );
+    }
 
     return (
         <main className="main-content">
-            <h2 className="section-title"></h2>
+            <h2 className="section-title">Brewing Guides</h2>
 
             {selectedGuide ? (
                 <div className="selected-guide-container" ref={guideDetailRef}>
@@ -57,10 +125,13 @@ const UserGuides = () => {
                 </div>
             ) : (
                 <GuideList
-                    guides={filteredGuides}
+                    guides={guides}
                     onSearch={handleSearch}
                     onFilter={handleFilter}
-                    onSelectGuide={setSelectedGuide}
+                    onSelectGuide={handleSelectGuide}
+                    loading={loading}
+                    searchTerm={searchTerm}
+                    selectedCategory={filterCategory}
                 />
             )}
         </main>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { authService } from './services/authService';
 
@@ -7,14 +7,14 @@ import { authService } from './services/authService';
 import Header from './components/header';
 import Footer from './components/footer';
 
-// Public Pages
+// Private & Public Pages
 import HomePage from './pages/public/HomePage';
 import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
 import Community from './pages/private/community.jsx';
 
-// Customer Pages
+// User Pages
 import UserDashboard from './pages/user/dashboard';
 import UserOrders from './pages/user/orders';
 import UserRecipes from './pages/user/recipes';
@@ -39,40 +39,31 @@ const navigateBasedOnRole = (user) => {
 };
 
 const ProtectedRoute = ({ children, isAuthenticated, allowedRole }) => {
-    const [isChecking, setIsChecking] = useState(true);
     const [hasPermission, setHasPermission] = useState(false);
 
     useEffect(() => {
-        let isMounted = true;
-        (async () => {
-            try {
-                if (isMounted) {
-                    setIsChecking(true);
-                    const userStr = localStorage.getItem('user');
-                    const user = userStr ? JSON.parse(userStr) : null;
-                    const hasRole = user && (allowedRole ? user.role === allowedRole : true);
-                    setHasPermission(hasRole);
-                    setIsChecking(false);
-                }
-            } catch (error) {
-                console.error('Auth check failed:', error);
-                if (isMounted) {
-                    setHasPermission(false);
-                    setIsChecking(false);
-                }
-            }
-        })();
+        const userStr = localStorage.getItem('user');
+        const user = userStr ? JSON.parse(userStr) : null;
+        const hasRole = !allowedRole || (user && user.role === allowedRole);
+        setHasPermission(hasRole);
+    }, [allowedRole, isAuthenticated]);
 
-        return () => {
-            isMounted = false;
-        };
-    }, [allowedRole]);
-
-    if (isChecking) {
-        return <div>Loading...</div>;
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
     }
 
-    if (!isAuthenticated || !hasPermission) {
+    if (!hasPermission) {
+        const userStr = localStorage.getItem('user');
+        const user = userStr ? JSON.parse(userStr) : null;
+        if (user) {
+            if (user.role === 'RETAILER') {
+                return <Navigate to="/retailer/dashboard" replace />;
+            } else if (user.role === 'MODERATOR') {
+                return <Navigate to="/moderator/dashboard" replace />;
+            } else {
+                return <Navigate to="/user/dashboard" replace />;
+            }
+        }
         return <Navigate to="/login" replace />;
     }
 
@@ -88,7 +79,6 @@ ProtectedRoute.propTypes = {
 function AppContent() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isInitializing, setIsInitializing] = useState(true);
-    const location = useLocation();
 
     useEffect(() => {
         let isMounted = true;
@@ -102,13 +92,11 @@ function AppContent() {
                 const userStr = localStorage.getItem('user');
 
                 if (!token || !userStr) {
-                    authService.logout();
                     setIsAuthenticated(false);
                     setIsInitializing(false);
                     return;
                 }
 
-                // Verify token with backend
                 const response = await fetch('http://localhost:8080/api/auth/verify', {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -116,28 +104,21 @@ function AppContent() {
                 });
 
                 if (!response.ok) {
-                    authService.logout();
                     setIsAuthenticated(false);
                     setIsInitializing(false);
                     return;
                 }
 
-                // Parse and validate user data
                 const user = JSON.parse(userStr);
                 if (!user?.id || !user?.email || !user?.role) {
-                    console.error('Invalid user data');
-                    authService.logout();
                     setIsAuthenticated(false);
                     setIsInitializing(false);
                     return;
                 }
 
                 setIsAuthenticated(true);
-                console.log('Authentication check successful');
-
             } catch (error) {
-                console.error('Auth check failed:', error);
-                authService.logout();
+                console.error(error); // Log the error to avoid the unused variable warning
                 setIsAuthenticated(false);
             } finally {
                 if (isMounted) {
@@ -146,53 +127,35 @@ function AppContent() {
             }
         };
 
-        // Execute initial auth check immediately
-        (async () => {
+        const initAuth = async () => {
             try {
                 await checkAuth();
             } catch (error) {
                 console.error('Initial auth check failed:', error);
-                if (isMounted) {
-                    setIsAuthenticated(false);
-                    setIsInitializing(false);
-                }
             }
-        })();
+        };
+        void initAuth();
 
-        // Storage event listener with proper async handling
         const handleStorageChange = () => {
-            checkAuth().catch(console.error);
+            void checkAuth();
         };
         window.addEventListener('storage', handleStorageChange);
 
-        // Regular token check
-        const tokenCheckInterval = setInterval(() => {
-            checkAuth().catch(console.error);
-        }, 3600000);
-
-        // Cleanup
         return () => {
             isMounted = false;
             window.removeEventListener('storage', handleStorageChange);
-            clearInterval(tokenCheckInterval);
         };
-    }, [location.pathname]);
+    }, []);
 
     const handleLogin = async (credentials) => {
-        try {
-            const response = await authService.login(credentials);
-            console.log('Login successful, setting auth state to true');
-            setIsAuthenticated(true);
+        const response = await authService.login(credentials);
+        setIsAuthenticated(true);
 
-            const userStr = localStorage.getItem('user');
-            const user = JSON.parse(userStr);
-            navigateBasedOnRole(user);
+        const userStr = localStorage.getItem('user');
+        const user = JSON.parse(userStr);
+        navigateBasedOnRole(user);
 
-            return response;
-        } catch (error) {
-            console.error('Login failed:', error);
-            throw error;
-        }
+        return response;
     };
 
     const handleLogout = () => {
@@ -202,23 +165,18 @@ function AppContent() {
     };
 
     const handleRegister = async (registrationData) => {
-        try {
-            await authService.register(registrationData);
-            const loginResponse = await authService.login({
-                email: registrationData.email,
-                password: registrationData.password
-            });
-            setIsAuthenticated(true);
+        await authService.register(registrationData);
+        const loginResponse = await authService.login({
+            email: registrationData.email,
+            password: registrationData.password
+        });
+        setIsAuthenticated(true);
 
-            const userStr = localStorage.getItem('user');
-            const user = JSON.parse(userStr);
-            navigateBasedOnRole(user);
+        const userStr = localStorage.getItem('user');
+        const user = JSON.parse(userStr);
+        navigateBasedOnRole(user);
 
-            return loginResponse;
-        } catch (error) {
-            console.error('Registration failed:', error);
-            throw error;
-        }
+        return loginResponse;
     };
 
     if (isInitializing) {
@@ -243,7 +201,7 @@ function AppContent() {
                         </ProtectedRoute>
                     } />
 
-                    {/* Protected Customer Routes */}
+                    {/* Protected User Routes */}
                     <Route path="/user/dashboard" element={
                         <ProtectedRoute isAuthenticated={isAuthenticated} allowedRole="USER">
                             <UserDashboard />
