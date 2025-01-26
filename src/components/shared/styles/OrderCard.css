@@ -5,12 +5,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 64px;
 }
 
 .order-info {
     display: flex;
     align-items: center;
     gap: var(--spacing-lg);
+    flex: 1;
 }
 
 .order-detail {
@@ -25,6 +27,7 @@
     display: flex;
     justify-content: flex-end;
     gap: var(--spacing-md);
+    align-items: center;
 }
 
 .status-select {
@@ -36,6 +39,7 @@
     cursor: pointer;
     min-width: 150px;
     font-size: var(--p-font-size);
+    height: 36px;
 }
 
 .status-select:focus {
@@ -51,15 +55,20 @@
     cursor: pointer;
     transition: background-color var(--transition-default-value);
     font-size: var(--p-font-size);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cancel-button {
-    background-color: #e74c3c;
-    color: var(--primary-text-color);
+    background-color: var(--error-color);
+    color: white;
 }
 
 .cancel-button:hover {
-    background-color: #c0392b;
+    background-color: var(--error-hover-color);
+    opacity: 0.9;
 }
 
 .view-details-button {
@@ -69,4 +78,5 @@
 
 .view-details-button:hover {
     background-color: var(--accent-hover-color);
+    opacity: 0.9;
 }

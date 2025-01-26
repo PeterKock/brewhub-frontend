@@ -13,6 +13,8 @@
     --accent-hover-color: #2980b9;
     --card-color: #ffffff;
     --buy-color: #29b92b;
+    --error-color: #e74c3c;
+    --error-hover-color: #c0392b;
 
     /* Font Size */
     --p-font-size: 0.8rem;

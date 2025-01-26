@@ -13,12 +13,13 @@ import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
 import Community from './pages/private/community.jsx';
+import UserRecipes from './pages/public/recipes.jsx';
+import UserGuides from './pages/public/guides.jsx';
 
 // User Pages
 import UserDashboard from './pages/user/dashboard';
 import UserOrders from './pages/user/orders';
-import UserRecipes from './pages/user/recipes';
-import UserGuides from './pages/user/guides';
+
 
 // Retailer Pages
 import RetailerDashboard from './pages/retailer/dashboard';
@@ -212,6 +213,8 @@ function AppContent() {
                             <UserOrders />
                         </ProtectedRoute>
                     } />
+
+                    {/* Public Routes */}
                     <Route path="/recipes" element={<UserRecipes />} />
                     <Route path="/guides" element={<UserGuides />} />
 

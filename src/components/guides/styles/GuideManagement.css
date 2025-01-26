@@ -39,6 +39,18 @@
     resize: vertical;
 }
 
+.guides-list {
+    margin-top: 3rem;
+}
+
+.guides-list h3 {
+    color: var(--primary-text-color);
+    font-family: 'Spectral SC', serif;
+    font-size: var(--h3-font-size);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
 .guides-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -167,17 +179,17 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.submit-button,
-.cancel-button {
-    padding: 0.8rem 1.5rem;
-    border: none;
+.submit-button {
+    padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-value);
+    border: none;
     cursor: pointer;
     transition: background-color var(--transition-default-value);
     font-size: var(--p-font-size);
-}
-
-.submit-button {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--accent-color);
     color: var(--primary-text-color);
 }
@@ -190,18 +202,6 @@
     background-color: var(--secondary-bg-color);
     cursor: not-allowed;
     opacity: 0.7;
-}
-
-.cancel-button {
-    background-color: transparent;
-    color: var(--secondary-text-color);
-    border: 1px solid var(--secondary-text-color);
-}
-
-.cancel-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: var(--primary-text-color);
-    color: var(--primary-text-color);
 }
 
 .guide-actions {

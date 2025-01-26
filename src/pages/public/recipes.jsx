@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import RecipeList from '../../components/recipes/RecipeList';
-import { RecipeDetailCard } from '../../components/recipes';
-import { recipeService } from '../../services/recipeService';
+import RecipeList from '../../components/recipes/RecipeList.jsx';
+import { RecipeDetailCard } from '../../components/recipes/index.js';
+import { recipeService } from '../../services/recipeService.js';
 import './styles/recipes.css';
 
 const UserRecipes = () => {

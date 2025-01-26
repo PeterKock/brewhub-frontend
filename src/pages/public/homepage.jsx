@@ -74,6 +74,7 @@ const HomePage = () => {
             </section>
 
             <section className="feature-section">
+                <h2 className="section-title">Popular Recipes</h2>
                 {loading ? (
                     <div className="loading-container">
                         <div className="loading-spinner"></div>
@@ -93,7 +94,7 @@ const HomePage = () => {
                                 key={recipe.id}
                                 to="/recipes"
                                 className="recipe-card-wrapper"
-                                state={{ selectedRecipeId: recipe.id }}
+                                state={{selectedRecipeId: recipe.id}}
                                 aria-label={`View recipe for ${recipe.title}`}
                             >
                                 <RecipeCard

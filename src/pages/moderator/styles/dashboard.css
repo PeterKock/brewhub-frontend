@@ -200,7 +200,7 @@
 }
 
 .dashboard-content {
-    background-color: var(--secondary-bg-color);
+    /*background-color: var(--secondary-bg-color);*/
     border-radius: var(--border-radius-value);
     padding: 2rem;
 }
