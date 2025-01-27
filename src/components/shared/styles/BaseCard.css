@@ -14,3 +14,7 @@
     grid-column: 3;
     justify-self: end;
 }
+
+.base-card h3 {
+    color: var(--primary-bg-color);
+}
