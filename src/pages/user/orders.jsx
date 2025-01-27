@@ -120,6 +120,7 @@ const UserOrders = () => {
                     />
                     <div className="order-filter-bar">
                         <select
+                            id="order-status-filter"
                             className="filter-select"
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}

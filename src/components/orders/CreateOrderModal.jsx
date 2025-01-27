@@ -125,6 +125,7 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
                                     placeholder="Search ingredients..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
+                                    id="ingredient-search"
                                 />
                             </div>
 

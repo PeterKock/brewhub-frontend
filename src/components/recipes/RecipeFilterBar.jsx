@@ -5,6 +5,7 @@ export const RecipeFilterBar = ({ onFilterChange }) => {
     return (
         <div className="filter-bar">
             <select
+                id="recipe-difficulty-filter"
                 onChange={(e) => onFilterChange('difficulty', e.target.value)}
                 className="filter-select"
             >
@@ -15,6 +16,7 @@ export const RecipeFilterBar = ({ onFilterChange }) => {
             </select>
 
             <select
+                id="recipe-type-filter"
                 onChange={(e) => onFilterChange('type', e.target.value)}
                 className="filter-select"
             >
