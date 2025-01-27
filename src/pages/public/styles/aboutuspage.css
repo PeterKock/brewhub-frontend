@@ -36,31 +36,3 @@
     justify-content: center;
 }
 
-.base-card {
-    background: var(--card-color);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-value);
-    box-shadow: var(--card-shadow-value);
-    text-align: center;
-    transition: transform var(--transition-default-value);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    cursor: pointer;
-}
-
-.base-card:hover {
-    transform: translateY(-5px);
-}
-
-.base-card h3 {
-    color: var(--secondary-bg-color);
-    margin-bottom: var(--spacing-md);
-    font-size: var(--h3-font-size);
-}
-
-.base-card p {
-    margin: 0 0 var(--spacing-md) 0;
-    flex-grow: 1;
-}
-

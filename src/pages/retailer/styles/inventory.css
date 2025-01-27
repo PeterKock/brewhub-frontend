@@ -203,29 +203,6 @@
     background-color: #4b5563;
 }
 
-.inventory-add-button {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    background-color: var(--accent-color);
-    color: var(--primary-text-color);
-    border: none;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-value);
-    cursor: pointer;
-    transition: background-color var(--transition-default-value);
-    height: 42px;
-}
-
-.inventory-add-button:hover {
-    background-color: var(--accent-hover-color);
-}
-
-.inventory-add-button svg {
-    width: 20px;
-    height: 20px;
-}
-
 .inventory-list {
     display: flex;
     flex-direction: column;

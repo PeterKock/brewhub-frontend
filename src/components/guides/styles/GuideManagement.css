@@ -179,31 +179,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.submit-button {
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-value);
-    border: none;
-    cursor: pointer;
-    transition: background-color var(--transition-default-value);
-    font-size: var(--p-font-size);
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--accent-color);
-    color: var(--primary-text-color);
-}
-
-.submit-button:hover {
-    background-color: var(--accent-hover-color);
-}
-
-.submit-button:disabled {
-    background-color: var(--secondary-bg-color);
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
 .guide-actions {
     display: flex;
     gap: 1rem;

@@ -103,23 +103,6 @@
     color: var(--accent-color);
 }
 
-.report-button {
-    background: none;
-    border: none;
-    color: var(--secondary-text-color);
-    font-size: var(--p-font-size);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    cursor: pointer;
-    padding: var(--spacing-sm);
-    transition: color var(--transition-default-value);
-}
-
-.report-button:hover {
-    color: #e74c3c;
-}
-
 .success-message {
     background-color: #4CAF50;
     color: white;
