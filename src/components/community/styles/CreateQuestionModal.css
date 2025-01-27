@@ -44,25 +44,6 @@
     font-size: var(--h3-font-size);
 }
 
-.modal-close-button {
-    position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-    background: transparent;
-    border: none;
-    color: var(--primary-text-color);
-    cursor: pointer;
-    padding: var(--spacing-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color var(--transition-default-value);
-}
-
-.modal-close-button:hover {
-    color: var(--accent-color);
-}
-
 .modal-form {
     padding: var(--spacing-lg);
 }

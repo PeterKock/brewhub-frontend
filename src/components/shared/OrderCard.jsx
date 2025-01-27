@@ -96,9 +96,9 @@ const OrderCard = ({ order, role, onStatusChange, onCancel }) => {
 OrderCard.propTypes = {
     order: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        orderDate: PropTypes.string.isRequired,  // Changed from date
+        orderDate: PropTypes.string.isRequired,
         status: PropTypes.oneOf(['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED']).isRequired,
-        items: PropTypes.arrayOf(PropTypes.shape({  // Added items array
+        items: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.number.isRequired,
             quantity: PropTypes.number.isRequired,
             ingredientId: PropTypes.number.isRequired,

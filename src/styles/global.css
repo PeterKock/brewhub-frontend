@@ -13,6 +13,8 @@
     --accent-hover-color: #2980b9;
     --card-color: #ffffff;
     --buy-color: #29b92b;
+    --error-color: #e74c3c;
+    --error-hover-color: #c0392b;
 
     /* Font Size */
     --p-font-size: 0.8rem;
@@ -46,7 +48,8 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* --------------- 1.2 Base Elements ------------------- */
+/* ------------------------------- 1. Base Elements ----------------------------------- */
+
 body {
     display: flex;
     flex-direction: column;
@@ -82,7 +85,6 @@ a:hover {
 }
 
 /* ------------------------------- 3. Layout --------------------------------------- */
-/* --------------- 3.1 App Structure ------------------- */
 .app {
     display: flex;
     flex-direction: column;
@@ -96,4 +98,142 @@ a:hover {
     padding: 0 var(--spacing-md);
     text-align: center;
     margin: 0 auto var(--spacing-md);
+}
+
+/* ------------------------------- 4. Shared Styles --------------------------------- */
+/* Base Card */
+.base-card {
+    background: var(--card-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-value);
+    box-shadow: var(--card-shadow-value);
+    text-align: center;
+    transition: transform var(--transition-default-value);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+}
+
+.base-card:hover {
+    transform: translateY(-5px);
+}
+
+.base-card h3 {
+    color: var(--secondary-bg-color);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--h3-font-size);
+}
+
+.base-card p {
+    margin: 0 0 var(--spacing-md) 0;
+    flex-grow: 1;
+}
+
+/* Report Button */
+.report-button {
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: var(--p-font-size);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    transition: color var(--transition-default-value);
+}
+
+.report-button:hover {
+    color: #e74c3c;
+}
+
+/* Submit & Cancel Button */
+.submit-button .cancel-button .view-details-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    border: none;
+    cursor: pointer;
+    transition: background-color var(--transition-default-value);
+    font-size: var(--p-font-size);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-button {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+}
+
+.submit-button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.submit-button:disabled {
+    background-color: var(--secondary-bg-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Modal Close Button */
+.modal-close-button {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: transparent;
+    border: none;
+    color: var(--primary-text-color);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-default-value);
+}
+
+.modal-close-button:hover {
+    color: var(--accent-color);
+}
+
+/* Filter Bar & Select */
+.filter-bar {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    justify-content: center;
+}
+
+.filter-select {
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-value);
+    border: 1px solid var(--primary-text-color);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    height: 42px;
+}
+
+/* Inventory Buttons */
+.inventory-add-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-value);
+    cursor: pointer;
+    transition: background-color var(--transition-default-value);
+    height: 42px;
+}
+
+.inventory-add-button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.inventory-add-button svg {
+    width: 20px;
+    height: 20px;
 }

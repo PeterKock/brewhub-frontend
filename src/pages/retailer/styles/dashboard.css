@@ -168,12 +168,6 @@
     padding-left: var(--spacing-xl);
 }
 
-status-badge {
-    padding: var(--spacing-xsm) var(--spacing-sm);
-    border-radius: 20px;
-    font-size: var(--p-font-size);
-}
-
 .retailer-status-pending {
     background-color: #ffeaa7;
     color: #d35400;

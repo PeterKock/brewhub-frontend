@@ -8,8 +8,7 @@
 }
 
 .feature-section {
-    background-color: var(--secondary-bg-color);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-sm);
     border-radius: var(--border-radius-value);
     margin-top: var(--spacing-lg);
 }
@@ -25,7 +24,7 @@
 }
 
 .feature-card {
-    background-color: var(--primary-bg-color);
+    background-color: var(--secondary-bg-color);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-value);
     box-shadow: var(--card-shadow-value);
@@ -107,4 +106,57 @@
     flex-grow: 1;
     text-align: center;
     line-height: 1.6;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--primary-text-color);
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.retry-button {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius-value);
+    cursor: pointer;
+    transition: background-color var(--transition-default-value);
+}
+
+.retry-button:hover {
+    background-color: var(--accent-hover-color);
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-bottom: 1.5rem;
 }

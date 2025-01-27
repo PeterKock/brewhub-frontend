@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { SearchBar } from '../../components/shared/SearchBar';
 import CreateOrderModal from '../../components/orders/CreateOrderModal';
-import RetailerSelectModal from '../../components/orders/RetailerSelectModal.jsx'
+import RetailerSelectModal from '../../components/orders/RetailerSelectModal.jsx';
 import { orderService } from '../../services/orderService';
 import OrderDetailsModal from '../../components/orders/OrderDetailsModal';
-import './styles/orders.css'
+import './styles/orders.css';
 import {
     Calendar,
     Store,
@@ -19,6 +19,7 @@ const UserOrders = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isRetailerModalOpen, setIsRetailerModalOpen] = useState(false);
     const [selectedRetailerId, setSelectedRetailerId] = useState(null);
     const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -38,43 +39,15 @@ const UserOrders = () => {
     };
 
     useEffect(() => {
-        let isMounted = true;
-
-        const fetchOrders = async () => {
-            if (!isMounted) return;
-
-            try {
-                setIsLoading(true);
-                const data = await orderService.getUserOrders();
-                if (isMounted) {
-                    setOrders(data);
-                    setError('');
-                }
-            } catch (err) {
-                if (isMounted) {
-                    setError('Failed to load orders');
-                    console.error('Error loading orders:', err);
-                }
-            } finally {
-                if (isMounted) {
-                    setIsLoading(false);
-                }
-            }
-        };
-
-        void fetchOrders();  // Use void operator to explicitly ignore the promise
-
-        return () => {
-            isMounted = false;
-        };
+        void loadOrders();
     }, []);
 
     const handleCreateOrder = async (orderData) => {
         try {
             await orderService.createOrder(orderData);
-            await loadOrders(); // Refresh orders list
+            await loadOrders();
             setIsModalOpen(false);
-            // You might want to add a success message here
+            setSelectedRetailerId(null);
         } catch (err) {
             setError('Failed to create order');
             console.error('Error creating order:', err);
@@ -85,8 +58,7 @@ const UserOrders = () => {
         if (window.confirm('Are you sure you want to cancel this order?')) {
             try {
                 await orderService.cancelOrder(orderId);
-                await loadOrders(); // Refresh orders list
-                // You might want to add a success message here
+                await loadOrders();
             } catch (err) {
                 setError('Failed to cancel order');
                 console.error('Error cancelling order:', err);
@@ -94,18 +66,14 @@ const UserOrders = () => {
         }
     };
 
-    const filteredOrders = orders.filter(order => {
-        const matchesSearch = order.retailerName.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesStatus = filterStatus === 'ALL' || order.status === filterStatus;
-        return matchesSearch && matchesStatus;
-    });
-
-    const [isRetailerModalOpen, setIsRetailerModalOpen] = useState(false);
-
     const handleRetailerSelect = (retailer) => {
-        setSelectedRetailerId(retailer.id);
-        setIsRetailerModalOpen(false);
-        setIsModalOpen(true);
+        if (retailer?.id) {
+            setSelectedRetailerId(retailer.id);
+            setIsRetailerModalOpen(false);
+            setIsModalOpen(true);
+        } else {
+            console.error('Invalid retailer selected:', retailer);
+        }
     };
 
     const handleViewDetails = async (orderId) => {
@@ -114,7 +82,6 @@ const UserOrders = () => {
             const orderDetails = await orderService.getUserOrder(orderId);
             setSelectedOrderDetails(orderDetails);
             setIsDetailsModalOpen(true);
-            setError('');
         } catch (err) {
             setError('Failed to load order details');
             console.error('Error loading order details:', err);
@@ -122,6 +89,12 @@ const UserOrders = () => {
             setIsLoading(false);
         }
     };
+
+    const filteredOrders = orders.filter(order => {
+        const matchesSearch = order.retailerName.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesStatus = filterStatus === 'ALL' || order.status === filterStatus;
+        return matchesSearch && matchesStatus;
+    });
 
     if (isLoading) {
         return (
@@ -147,6 +120,7 @@ const UserOrders = () => {
                     />
                     <div className="order-filter-bar">
                         <select
+                            id="order-status-filter"
                             className="filter-select"
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}
@@ -162,7 +136,7 @@ const UserOrders = () => {
                             className="filter-select inventory-add-button"
                             onClick={() => setIsRetailerModalOpen(true)}
                         >
-                            <Plus size={20}/>
+                            <Plus size={20} />
                             New Order
                         </button>
                     </div>
@@ -188,8 +162,8 @@ const UserOrders = () => {
                                             <span>€{order.totalPrice}</span>
                                         </div>
                                         <span className={`status-badge user-status-${order.status.toLowerCase()}`}>
-                                        {order.status}
-                                    </span>
+                                            {order.status}
+                                        </span>
                                     </div>
                                     <div className="order-actions">
                                         <button
@@ -213,8 +187,7 @@ const UserOrders = () => {
                             <div className="no-results">
                                 {searchTerm || filterStatus !== 'ALL'
                                     ? 'No orders match your search criteria'
-                                    : 'You haven\'t placed any orders yet'
-                                }
+                                    : "You haven't placed any orders yet"}
                             </div>
                         )}
                     </div>
@@ -233,12 +206,17 @@ const UserOrders = () => {
                     onSelect={handleRetailerSelect}
                 />
 
-                <CreateOrderModal
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    onSubmit={handleCreateOrder}
-                    retailerId={selectedRetailerId}
-                />
+                {selectedRetailerId !== null && (
+                    <CreateOrderModal
+                        isOpen={isModalOpen}
+                        onClose={() => {
+                            setIsModalOpen(false);
+                            setSelectedRetailerId(null);
+                        }}
+                        onSubmit={handleCreateOrder}
+                        retailerId={selectedRetailerId}
+                    />
+                )}
             </main>
         </div>
     );

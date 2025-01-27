@@ -16,13 +16,17 @@ const ReportManagement = () => {
             setError(null);
             const data = await communityService.getPendingReports();
             setReports(data || []);
+            // Automatically select the first report if one exists
+            if (data && data.length > 0 && !selectedReport) {
+                setSelectedReport(data[0]);
+            }
         } catch (err) {
             console.error('Error loading reports:', err);
             setError('Failed to load reports');
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [selectedReport]);
 
     useEffect(() => {
         void loadReports();

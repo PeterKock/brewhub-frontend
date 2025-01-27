@@ -13,12 +13,13 @@ import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
 import Community from './pages/private/community.jsx';
+import UserRecipes from './pages/public/recipes.jsx';
+import UserGuides from './pages/public/guides.jsx';
 
 // User Pages
 import UserDashboard from './pages/user/dashboard';
 import UserOrders from './pages/user/orders';
-import UserRecipes from './pages/user/recipes';
-import UserGuides from './pages/user/guides';
+
 
 // Retailer Pages
 import RetailerDashboard from './pages/retailer/dashboard';
@@ -40,13 +41,19 @@ const navigateBasedOnRole = (user) => {
 
 const ProtectedRoute = ({ children, isAuthenticated, allowedRole }) => {
     const [hasPermission, setHasPermission] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const userStr = localStorage.getItem('user');
         const user = userStr ? JSON.parse(userStr) : null;
         const hasRole = !allowedRole || (user && user.role === allowedRole);
         setHasPermission(hasRole);
+        setIsLoading(false);
     }, [allowedRole, isAuthenticated]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
@@ -56,13 +63,7 @@ const ProtectedRoute = ({ children, isAuthenticated, allowedRole }) => {
         const userStr = localStorage.getItem('user');
         const user = userStr ? JSON.parse(userStr) : null;
         if (user) {
-            if (user.role === 'RETAILER') {
-                return <Navigate to="/retailer/dashboard" replace />;
-            } else if (user.role === 'MODERATOR') {
-                return <Navigate to="/moderator/dashboard" replace />;
-            } else {
-                return <Navigate to="/user/dashboard" replace />;
-            }
+            return <Navigate to={`/${user.role.toLowerCase()}/dashboard`} replace />;
         }
         return <Navigate to="/login" replace />;
     }
@@ -118,7 +119,7 @@ function AppContent() {
 
                 setIsAuthenticated(true);
             } catch (error) {
-                console.error(error); // Log the error to avoid the unused variable warning
+                console.error(error);
                 setIsAuthenticated(false);
             } finally {
                 if (isMounted) {
@@ -212,6 +213,8 @@ function AppContent() {
                             <UserOrders />
                         </ProtectedRoute>
                     } />
+
+                    {/* Public Routes */}
                     <Route path="/recipes" element={<UserRecipes />} />
                     <Route path="/guides" element={<UserGuides />} />
 

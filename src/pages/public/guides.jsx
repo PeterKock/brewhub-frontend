@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { GuideList, GuideDetailCard } from '../../components/guides';
-import { guideService } from '../../services/guideService';
+import { GuideList, GuideDetailCard } from '../../components/guides/index.js';
+import { guideService } from '../../services/guideService.js';
 import './styles/guides.css';
 
 const UserGuides = () => {

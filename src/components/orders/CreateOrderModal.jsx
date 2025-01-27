@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ShoppingCart, X } from 'lucide-react';
 import { publicService } from '../../services/publicService';
-import './styles/CreateOrderModal.css'
+import './styles/CreateOrderModal.css';
 
 const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
     const [ingredients, setIngredients] = useState([]);
@@ -11,14 +11,12 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [notes, setNotes] = useState('');
     const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
 
         const fetchIngredients = async () => {
-            if (!isOpen || !retailerId) return;
-
             try {
                 setIsLoading(true);
                 const data = await publicService.getRetailerIngredients(retailerId);
@@ -39,18 +37,17 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
             }
         };
 
-        fetchIngredients().catch(err => {
-            if (isMounted) {
-                console.error('Failed to fetch ingredients:', err);
-                setError('Failed to load ingredients. Please try again later.');
-                setIsLoading(false);
-            }
-        });
+        if (isOpen && retailerId) {
+            (async () => {
+                await fetchIngredients();
+            })();
+        }
 
         return () => {
             isMounted = false;
         };
     }, [isOpen, retailerId]);
+
 
     useEffect(() => {
         const filtered = ingredients.filter(ingredient =>
@@ -97,7 +94,9 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
         onSubmit(orderData);
     };
 
-    if (!isOpen) return null;
+    if (!isOpen) {
+        return null;
+    }
 
     return (
         <div className="modal-overlay">
@@ -126,6 +125,7 @@ const CreateOrderModal = ({ isOpen, onClose, onSubmit, retailerId }) => {
                                     placeholder="Search ingredients..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
+                                    id="ingredient-search"
                                 />
                             </div>
 

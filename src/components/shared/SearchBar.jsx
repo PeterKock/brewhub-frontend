@@ -9,6 +9,7 @@ export const SearchBar = ({ searchTerm, onSearchChange, placeholder }) => (
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             className="search-input"
+            id="general-search"
         />
     </div>
 );

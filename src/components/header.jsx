@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './styles/header.css'
+import './styles/header.css';
 
 const Header = ({ isAuthenticated, onLogout }) => {
     const [menuItems, setMenuItems] = useState([]);
@@ -22,97 +22,64 @@ const Header = ({ isAuthenticated, onLogout }) => {
     }, []);
 
     useEffect(() => {
-        const loadMenuItems = async () => {
-            if (isAuthenticated === null) {
-                return;
-            }
+        const loadMenuItems = () => {
+            const setDefaultMenuItems = () => {
+                setMenuItems([
+                    { label: 'Recipes', path: '/recipes' },
+                    { label: 'Guides', path: '/guides' }
+                ]);
+            };
 
-            try {
-                if (isAuthenticated) {
-                    const token = localStorage.getItem('token');
-                    const userStr = localStorage.getItem('user');
-                    const user = userStr ? JSON.parse(userStr) : null;
+            const setFallbackMenuItems = () => {
+                const userStr = localStorage.getItem('user');
+                if (!userStr) {
+                    setDefaultMenuItems();
+                    return;
+                }
 
-                    if (!token || !user) {
-                        console.error('Missing auth data');
-                        setDefaultMenuItems();
-                        return;
-                    }
-
-                    const response = await fetch('http://localhost:8080/api/public/navigation', {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-
-                    if (!response.ok) {
-                        console.error('Navigation fetch failed');
-                        setFallbackMenuItems();
-                        return;
-                    }
-
-                    const data = await response.json();
-                    if (data?.items) {
-                        setMenuItems(data.items);
+                try {
+                    const user = JSON.parse(userStr);
+                    if (user.role === 'USER') {
+                        setMenuItems([
+                            { label: 'Dashboard', path: '/user/dashboard' },
+                            { label: 'Orders', path: '/user/orders' },
+                            { label: 'Community', path: '/community' },
+                            { label: 'Recipes', path: '/recipes' },
+                            { label: 'Guides', path: '/guides' }
+                        ]);
+                    } else if (user.role === 'RETAILER') {
+                        setMenuItems([
+                            { label: 'Dashboard', path: '/retailer/dashboard' },
+                            { label: 'Inventory', path: '/inventory' },
+                            { label: 'Orders', path: '/retailer/orders' },
+                            { label: 'Community', path: '/community' },
+                            { label: 'Recipes', path: '/recipes' },
+                            { label: 'Guides', path: '/guides' }
+                        ]);
+                    } else if (user.role === 'MODERATOR') {
+                        setMenuItems([
+                            { label: 'Dashboard', path: '/moderator/dashboard' },
+                            { label: 'Community', path: '/community' },
+                            { label: 'Recipes', path: '/recipes' },
+                            { label: 'Guides', path: '/guides' }
+                        ]);
                     } else {
-                        setFallbackMenuItems();
+                        setDefaultMenuItems();
                     }
-                } else {
+                } catch (error) {
+                    console.error('Error parsing user data:', error);
                     setDefaultMenuItems();
                 }
-            } catch (error) {
-                console.error('Error loading menu items:', error);
+            };
+
+            if (!isAuthenticated) {
+                setDefaultMenuItems();
+            } else {
                 setFallbackMenuItems();
             }
         };
 
-        const setDefaultMenuItems = () => {
-            setMenuItems([
-                { label: 'Recipes', path: '/recipes' },
-                { label: 'Guides', path: '/guides' }
-            ]);
-        };
-
-        const setFallbackMenuItems = () => {
-            const userStr = localStorage.getItem('user');
-            if (!userStr) {
-                setDefaultMenuItems();
-                return;
-            }
-
-            try {
-                const user = JSON.parse(userStr);
-                if (user.role === 'RETAILER') {
-                    setMenuItems([
-                        { label: 'Dashboard', path: '/retailer/dashboard' },
-                        { label: 'Inventory', path: '/retailer/inventory' },
-                        { label: 'Orders', path: '/retailer/orders' },
-                        { label: 'Community', path: '/community' }
-                    ]);
-                } else if (user.role === 'MODERATOR') {
-                    setMenuItems([
-                        { label: 'Dashboard', path: '/moderator/dashboard' },
-                        { label: 'Community', path: '/community' }
-                    ]);
-                } else {
-                    setMenuItems([
-                        { label: 'Dashboard', path: '/user/dashboard' },
-                        { label: 'Orders', path: '/user/orders' },
-                        { label: 'Community', path: '/community' },
-                        { label: 'Recipes', path: '/user/recipes' },
-                        { label: 'Guides', path: '/user/guides' }
-                    ]);
-                }
-            } catch (error) {
-                console.error('Error parsing cached user data:', error);
-                setDefaultMenuItems();
-            }
-        };
-
-        loadMenuItems().catch(error => {
-            console.error('Failed to load menu items:', error);
-            setDefaultMenuItems();
-        });
+        loadMenuItems();
     }, [isAuthenticated]);
 
     const toggleMenu = () => {
@@ -128,17 +95,23 @@ const Header = ({ isAuthenticated, onLogout }) => {
         setIsMenuOpen(false);
     };
 
+    if (menuItems.length === 0) {
+        return null;
+    }
+
     return (
         <header className="header">
             <div className="header-content">
-                <div className="logo-container">
+                <div className="center-container">
                     <Link to="/">
-                        <img src="/src/assets/logo.png" alt="Logo" className="logo" />
+                        <h1 className="brand-name">Brew Hub</h1>
                     </Link>
+                    <div className="logo-container">
+                        <Link to="/">
+                            <img src="/src/assets/logo.png" alt="Logo" className="logo" />
+                        </Link>
+                    </div>
                 </div>
-                <Link to="/">
-                    <h1 className="brand-name">Brew Hub</h1>
-                </Link>
                 <nav className="menu-container" ref={menuRef} role="navigation">
                     {isAuthenticated !== null && (
                         isAuthenticated ? (
@@ -147,10 +120,10 @@ const Header = ({ isAuthenticated, onLogout }) => {
                                 className="login-link"
                                 style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                             >
-                                Sign out
+                                Logout
                             </button>
                         ) : (
-                            <Link to="/login" className="login-link">Sign in</Link>
+                            <Link to="/login" className="login-link">Login</Link>
                         )
                     )}
                     <button

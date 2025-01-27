@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import './styles/GuideFilterBar.css'
 
 export const GuideFilterBar = ({ onFilterChange }) => {
     return (
         <div className="filter-bar">
             <select
+                id="guide-category-filter"
                 onChange={(e) => onFilterChange('category', e.target.value)}
                 className="filter-select"
             >
