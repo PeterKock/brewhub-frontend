@@ -120,10 +120,10 @@ const Header = ({ isAuthenticated, onLogout }) => {
                                 className="login-link"
                                 style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                             >
-                                Sign out
+                                Logout
                             </button>
                         ) : (
-                            <Link to="/login" className="login-link">Sign in</Link>
+                            <Link to="/login" className="login-link">Login</Link>
                         )
                     )}
                     <button
