@@ -8,7 +8,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 
 // Private & Public Pages
-import HomePage from './pages/public/HomePage';
+import HomePage from './pages/public/homepage';
 import LoginPage from './pages/public/loginpage';
 import RegisterPage from './pages/public/registerpage';
 import AboutUsPage from './pages/public/aboutuspage';
