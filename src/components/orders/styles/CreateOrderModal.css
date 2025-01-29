@@ -148,14 +148,15 @@
 }
 
 .modal-submit-button {
-    padding: var(--spacing-sm) var(--spacing-sm);
+    display: flex;
+    gap: 8px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     background-color: var(--buy-color);
     border-radius: var(--border-radius-value);
     color: var(--primary-text-color);
     font-size: var(--p-font-size);
     cursor: pointer;
     transition: all var(--transition-default-value);
-    margin-left: auto
 }
 
 .modal-submit-button:hover {
