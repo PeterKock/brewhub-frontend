@@ -135,3 +135,66 @@
     gap: var(--spacing-sm);
     color: var(--secondary-text-color);
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .question-card {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .question-stats {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .vote-controls {
+        margin: 0 auto;
+    }
+
+    .question-content h3 {
+        font-size: calc(var(--h4-font-size) * 0.9);
+        text-align: center;
+    }
+}
+
+@media (max-width: 568px) {
+    .question-card {
+        padding: var(--spacing-sm);
+    }
+
+    .pinned-indicator {
+        font-size: 0.7rem;
+    }
+
+    .question-content p {
+        font-size: calc(var(--p-font-size) * 0.95);
+    }
+
+    .question-author {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .question-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    .retailer-badge {
+        padding: 2px var(--spacing-xsm);
+        font-size: 0.65rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .question-content p {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+}

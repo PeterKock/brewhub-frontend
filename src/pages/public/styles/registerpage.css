@@ -187,3 +187,106 @@
     color: var(--accent-hover-color);
 }
 
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .register-page {
+        min-height: 85vh;
+    }
+
+    .login-box {
+        max-width: 380px;
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .register-page {
+        min-height: 80vh;
+    }
+
+    .login-box {
+        max-width: 340px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 0.6rem;
+    }
+
+    .form-group textarea {
+        min-height: 80px;
+    }
+
+    .form-options {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 568px) {
+    .register-page {
+        padding: var(--spacing-sm);
+        min-height: 75vh;
+    }
+
+    .login-box {
+        max-width: 300px;
+        padding: var(--spacing-sm);
+    }
+
+    .login-header h2 {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .error-message {
+        padding: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .login-form {
+        gap: 1rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 0.5rem;
+    }
+
+    .form-group textarea {
+        min-height: 60px;
+    }
+
+    .login-button {
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .register-page {
+        min-height: 70vh;
+    }
+
+    .login-box {
+        max-width: 280px;
+    }
+
+    .login-header p {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .form-group {
+        gap: var(--spacing-xsm);
+    }
+
+    .form-options {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .signup-link {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+}
+

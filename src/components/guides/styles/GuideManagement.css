@@ -153,7 +153,6 @@
     background-color: var(--accent-color);
     color: var(--primary-text-color);
     margin-top: 0.5rem;
-    width: 100%;
 }
 
 .add-button:hover {
@@ -231,4 +230,85 @@
     margin-bottom: 1.5rem;
     text-align: center;
     font-size: var(--p-font-size);
+}
+
+/* ------------------------------- Media Queries --------------------------------- */
+@media (max-width: 1280px) {
+    .guide-management {
+        padding: 1.5rem;
+    }
+
+    .guide-form {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .guides-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .section-input,
+    .tip-input {
+        padding: 1rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions button {
+        width: 100%;
+    }
+
+    .guide-meta {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 568px) {
+    .guide-management {
+        padding: 1rem;
+    }
+
+    .guide-management-title {
+        font-size: calc(var(--h2-font-size) * 0.8);
+    }
+
+    .guide-form {
+        padding: 1rem;
+    }
+
+    .guide-item {
+        padding: 1rem;
+    }
+
+    .guide-actions {
+        flex-direction: column;
+    }
+
+    .guide-actions button {
+        width: 100%;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .guide-management-title {
+        font-size: calc(var(--h2-font-size) * 0.7);
+    }
+
+    .form-group label {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .guide-item h4 {
+        font-size: calc(var(--h4-font-size) * 0.9);
+    }
 }

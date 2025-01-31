@@ -137,3 +137,46 @@
     opacity: 0.7;
     cursor: not-allowed;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 768px) {
+    .create-answer-form {
+        padding: var(--spacing-md);
+    }
+
+    .create-answer-form textarea {
+        min-height: 120px;
+    }
+
+    .submit-answer-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 568px) {
+    .create-answer-form {
+        padding: var(--spacing-sm);
+    }
+
+    .create-answer-form textarea {
+        min-height: 100px;
+    }
+
+    .create-answer-form h4 {
+        font-size: calc(var(--h4-font-size) * 0.9);
+        text-align: center;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .create-answer-form textarea {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .submit-answer-button {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+}

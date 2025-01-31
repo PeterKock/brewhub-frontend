@@ -111,3 +111,59 @@
     border-radius: 4px;
     text-align: center;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .answer-card {
+        padding: var(--spacing-md);
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .answer-stats {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .vote-controls {
+        margin: 0 auto;
+    }
+
+    .retailer-badge,
+    .verified-badge {
+        padding: 2px var(--spacing-xsm);
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 568px) {
+    .answer-card {
+        padding: var(--spacing-sm);
+    }
+
+    .answer-content {
+        font-size: calc(var(--p-font-size) * 0.95);
+    }
+
+    .answer-author {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .answer-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .answer-content {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+}

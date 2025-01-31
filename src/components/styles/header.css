@@ -137,3 +137,138 @@
 .menu-dropdown.open {
     display: flex;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .header-content {
+        padding: 0 var(--spacing-lg);
+    }
+
+    .brand-name {
+        font-size: 2.5rem;
+    }
+
+    .logo {
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 var(--spacing-md);
+        height: 70px;
+    }
+
+    .brand-name {
+        font-size: 2rem;
+    }
+
+    .logo {
+        height: 40px;
+    }
+
+    .center-container {
+        width: 70%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-sm);
+    }
+
+    .login-link {
+        font-size: var(--h4-font-size);
+    }
+
+    .menu-container {
+        gap: var(--spacing-xsm);
+    }
+}
+
+@media (max-width: 568px) {
+    .header-content {
+        height: 60px;
+        padding: 0 var(--spacing-sm);
+        position: relative;
+    }
+
+    .center-container {
+        width: 60%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        gap: var(--spacing-xsm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center-container:hover {
+        transform: translate(-50%, -50%);
+    }
+
+    .brand-name {
+        font-size: 1.5rem;
+        white-space: nowrap;
+    }
+
+    .logo {
+        height: 30px;
+        width: auto;
+        min-width: 0;
+    }
+
+    .menu-container {
+        position: relative;
+        margin-left: auto;
+        gap: 0;
+    }
+
+    .login-link {
+        font-size: 0.9rem;
+        padding: 0 var(--spacing-xsm);
+    }
+
+    .hamburger-button {
+        padding: var(--spacing-xsm);
+        height: 32px;
+        width: 32px;
+        min-width: 32px;
+    }
+
+    .hamburger-line {
+        width: 20px;
+        height: 2px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .center-container {
+        width: 50%;
+    }
+
+    .brand-name {
+        font-size: 1.2rem;
+    }
+
+    .logo {
+        height: 25px;
+    }
+
+    .center-container {
+        width: 60%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        gap: var(--spacing-xsm);
+        display: flex;
+        justify-content: start;
+    }
+}
