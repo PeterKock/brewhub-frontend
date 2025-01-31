@@ -36,3 +36,26 @@
     color: var(--secondary-text-color);
     font-size: var(--p-font-size);
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+@media (max-width: 768px) {
+    .difficulty {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .time-to-read {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+}
+
+@media (max-width: 360px) {
+    .difficulty {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .time-to-read {
+        font-size: calc(var(--p-font-size) * 0.8);
+    }
+}

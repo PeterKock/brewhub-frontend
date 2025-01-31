@@ -21,3 +21,18 @@
     background-color: #ffaaa5;
     color: #8b0000;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+@media (max-width: 768px) {
+    .difficulty {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .difficulty {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+}
