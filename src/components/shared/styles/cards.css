@@ -35,3 +35,86 @@
     display: flex;
     justify-content: center;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+        padding: 0 var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Force equal columns */
+        gap: var(--spacing-sm);
+        padding: 0 var(--spacing-sm);
+    }
+
+    .difficulty {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        margin-top: var(--spacing-sm);
+    }
+
+    /* Ensure cards don't grow too tall */
+    .base-card {
+        min-height: 0;
+        height: auto;
+        padding: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 568px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        padding: 0 var(--spacing-sm);
+    }
+
+    /* Give more breathing room to card content */
+    .base-card {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .base-card h3 {
+        font-size: calc(var(--h3-font-size) * 0.9);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .base-card p {
+        margin-bottom: var(--spacing-sm);
+        font-size: calc(var(--p-font-size) * 0.95);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .card-grid {
+        gap: var(--spacing-xsm);
+    }
+
+    .base-card {
+        padding: var(--spacing-sm);
+    }
+
+    .difficulty {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+        margin-top: var(--spacing-xsm);
+    }
+
+    .base-card h3 {
+        font-size: calc(var(--h3-font-size) * 0.8);
+        margin-bottom: var(--spacing-xsm);
+    }
+
+    .base-card p {
+        font-size: calc(var(--p-font-size) * 0.9);
+        margin-bottom: var(--spacing-xsm);
+        line-height: 1.4;
+    }
+}

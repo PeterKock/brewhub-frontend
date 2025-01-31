@@ -44,3 +44,39 @@
     margin-top: var(--spacing-sm);
     text-align: center;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 768px) {
+    .detail-header {
+        margin-bottom: var(--spacing-sm);
+        padding-bottom: var(--spacing-sm);
+    }
+
+    .title-container h3 {
+        font-size: calc(var(--h2-font-size) * 0.8);
+    }
+}
+
+@media (max-width: 568px) {
+    .close-button {
+        padding: 0.4rem 0.8rem;
+        top: var(--spacing-xsm);
+        right: var(--spacing-xsm);
+    }
+
+    .title-container h3 {
+        font-size: calc(var(--h2-font-size) * 0.7);
+    }
+
+    .content-description {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .title-container h3 {
+        font-size: calc(var(--h2-font-size) * 0.6);
+    }
+}

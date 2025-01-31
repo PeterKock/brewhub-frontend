@@ -51,3 +51,110 @@
     color: #e74c3c;
     margin-bottom: 1.5rem;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .selected-guide-container {
+        max-width: 1000px;
+    }
+
+    .section-title {
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+        font-size: calc(var(--h2-font-size) * 0.9);
+    }
+
+    .card-grid {
+        gap: var(--spacing-md);
+        padding: 0 var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .selected-guide-container {
+        max-width: 800px;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 var(--spacing-sm);
+    }
+
+    .section-title {
+        font-size: calc(var(--h2-font-size) * 0.8);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .main-section {
+        padding: var(--spacing-md) 0;
+    }
+
+    .error-container {
+        padding: 2rem;
+    }
+
+    .retry-button {
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+@media (max-width: 568px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .section-title {
+        font-size: calc(var(--h2-font-size) * 0.7);
+        letter-spacing: 1px;
+    }
+
+    .selected-guide-container {
+        max-width: 100%;
+        padding: 0 var(--spacing-sm);
+    }
+
+    .error-container {
+        padding: 1.5rem;
+    }
+
+    .error-message {
+        margin-bottom: 1rem;
+    }
+
+    .retry-button {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .card-grid {
+        gap: var(--spacing-xsm);
+        padding: 0;
+    }
+
+    .section-title {
+        font-size: calc(var(--h2-font-size) * 0.6);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .main-section {
+        padding: var(--spacing-sm) 0;
+    }
+
+    .error-container {
+        padding: 1rem;
+    }
+
+    .retry-button {
+        padding: 0.4rem 0.8rem;
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .error-message {
+        font-size: calc(var(--p-font-size) * 0.9);
+        margin-bottom: 0.8rem;
+    }
+}

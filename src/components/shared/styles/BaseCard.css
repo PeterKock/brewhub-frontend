@@ -18,3 +18,28 @@
 .base-card h3 {
     color: var(--primary-bg-color);
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 768px) {
+    .card-footer {
+        padding-top: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 568px) {
+    .card-footer {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        text-align: center;
+    }
+
+    .card-footer span:first-child {
+        grid-column: 1;
+    }
+
+    .card-footer .time-to-read {
+        grid-column: 1;
+        justify-self: center;
+    }
+}

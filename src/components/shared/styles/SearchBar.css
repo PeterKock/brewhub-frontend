@@ -19,3 +19,30 @@
     outline: none;
     border-color: var(--accent-color);
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 768px) {
+    .search-container {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .search-container input {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 568px) {
+    .search-container input {
+        max-width: 100%;
+        padding: var(--spacing-xsm);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .search-container {
+        height: 36px;
+        margin-bottom: var(--spacing-sm);
+    }
+}
