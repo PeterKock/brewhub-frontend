@@ -170,7 +170,9 @@ a:hover {
 }
 
 /* 4.3b Submit & Cancel Button */
-.submit-button .cancel-button .view-details-button {
+.submit-button,
+.cancel-button,
+.view-details-button {
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-value);
     border: none;
@@ -186,6 +188,7 @@ a:hover {
 .submit-button {
     background-color: var(--accent-color);
     color: var(--primary-text-color);
+    width: auto;
 }
 
 .submit-button:hover {
@@ -196,6 +199,33 @@ a:hover {
     background-color: var(--secondary-bg-color);
     cursor: not-allowed;
     opacity: 0.7;
+}
+
+.cancel-button {
+    background-color: var(--error-color);
+    color: var(--primary-text-color);
+}
+
+.cancel-button:hover {
+    background-color: var(--error-hover-color);
+}
+
+.modal-submit-button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--buy-color);
+    border-radius: var(--border-radius-value);
+    color: var(--primary-text-color);
+    font-size: var(--p-font-size);
+    cursor: pointer;
+    transition: all var(--transition-default-value);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-submit-button:hover {
+    background-color: var(--accent-hover-color);
 }
 
 /* 4.3c Modal Close Button */

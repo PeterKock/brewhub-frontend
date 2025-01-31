@@ -61,7 +61,6 @@
 @media (max-width: 768px) {
     .import-export-buttons {
         flex-direction: column;
-        width: 100%;
         gap: var(--spacing-sm);
     }
 
