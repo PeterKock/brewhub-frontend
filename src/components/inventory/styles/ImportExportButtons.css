@@ -49,3 +49,55 @@
     text-align: center;
     width: 100%;
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .import-export-container {
+        margin-bottom: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .import-export-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: var(--spacing-sm);
+    }
+
+    .export-button,
+    .import-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 568px) {
+    .import-export-container {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .export-button,
+    .import-button {
+        padding: var(--spacing-sm);
+        font-size: calc(var(--p-font-size) * 0.95);
+    }
+
+    .import-error {
+        font-size: calc(var(--p-font-size) * 0.95);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .export-button,
+    .import-button {
+        height: 36px;
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .import-error {
+        font-size: calc(var(--p-font-size) * 0.9);
+        padding: var(--spacing-xsm);
+    }
+}

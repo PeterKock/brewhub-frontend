@@ -215,4 +215,120 @@
     padding: var(--spacing-xl);
 }
 
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .dashboard-container {
+        padding: var(--spacing-md);
+    }
+
+    .dashboard-section {
+        padding: var(--spacing-md);
+    }
+
+    .order-info {
+        gap: var(--spacing-md);
+    }
+
+    .order-detail {
+        padding-left: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .order-card {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        align-items: flex-start;
+    }
+
+    .order-info {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        width: 100%;
+        align-items: center;
+    }
+
+    .order-detail {
+        padding-left: 0;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .inventory-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .inventory-filter-bar {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .inventory-filter-bar .search-container {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .inventory-toggle-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 568px) {
+    .dashboard-container {
+        padding: var(--spacing-sm);
+        gap: var(--spacing-sm);
+    }
+
+    .dashboard-section {
+        padding: var(--spacing-sm);
+    }
+
+    .order-card {
+        padding: var(--spacing-sm);
+    }
+
+    .out-of-stock-badge,
+    .low-stock-badge {
+        margin: 0 auto;
+        font-size: calc(var(--p-font-size) * 0.95);
+        padding: var(--spacing-xsm) var(--spacing-sm);
+    }
+
+    .inventory-actions {
+        gap: var(--spacing-sm);
+    }
+
+    .inventory-edit-button,
+    .inventory-delete-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .order-info {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .out-of-stock-badge,
+    .low-stock-badge {
+        font-size: calc(var(--p-font-size) * 0.9);
+        padding: var(--spacing-xsm) var(--spacing-sm);
+    }
+
+    .inventory-edit-button,
+    .inventory-delete-button {
+        font-size: calc(var(--p-font-size) * 0.9);
+        padding: var(--spacing-xsm) var(--spacing-sm);
+    }
+}
 
