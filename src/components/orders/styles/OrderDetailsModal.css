@@ -206,3 +206,140 @@
     align-items: center;
     gap: var(--spacing-sm);
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .modal-content {
+        width: 90%;
+        max-width: 700px;
+    }
+
+    .modal-header {
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .order-details-header {
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .modal-header {
+        text-align: center;
+    }
+
+    .modal-header h3 {
+        font-size: calc(var(--h3-font-size) * 0.9);
+    }
+
+    .order-details-header {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        align-items: center;
+        padding-bottom: var(--spacing-sm);
+    }
+
+    .order-detail {
+        padding-left: 0;
+        justify-content: center;
+    }
+
+    .status-badge {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        width: fit-content;
+        padding: var(--spacing-xsm) var(--spacing-md);
+        border-radius: 20px;
+    }
+
+    .order-items-table {
+        font-size: calc(var(--p-font-size) * 0.95);
+        margin: var(--spacing-md) 0;
+    }
+
+    .order-items-table th,
+    .order-items-table td {
+        padding: var(--spacing-sm) var(--spacing-md);
+        text-align: center;
+    }
+
+    .order-items-table th:first-child,
+    .order-items-table td:first-child {
+        text-align: left;
+    }
+
+    .order-items-table th:last-child,
+    .order-items-table td:last-child {
+        text-align: right;
+    }
+}
+
+@media (max-width: 568px) {
+    .modal-overlay {
+        padding: var(--spacing-sm);
+    }
+
+    .modal-header {
+        padding: var(--spacing-sm);
+    }
+
+    .modal-form {
+        padding: var(--spacing-sm);
+    }
+
+    .order-items-table {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .order-items-table th,
+    .order-items-table td {
+        padding: var(--spacing-xsm) var(--spacing-sm);
+    }
+
+    .status-badge {
+        padding: var(--spacing-xsm) var(--spacing-sm);
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .user-status-pending,
+    .user-status-processing,
+    .user-status-delivered,
+    .user-status-shipped,
+    .user-status-cancelled {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        width: fit-content;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .modal-header h3 {
+        font-size: calc(var(--h3-font-size) * 0.8);
+    }
+
+    .order-items-table {
+        font-size: calc(var(--p-font-size) * 0.85);
+    }
+
+    .order-items-table th,
+    .order-items-table td {
+        padding: var(--spacing-xsm) var(--spacing-sm);
+    }
+
+    .order-detail {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .status-badge {
+        font-size: calc(var(--p-font-size) * 0.85);
+    }
+}
