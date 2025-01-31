@@ -236,3 +236,110 @@
 .report-card.selected {
     border-left: 3px solid var(--accent-color);
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 1280px) {
+    .moderator-dashboard {
+        padding: var(--spacing-md);
+    }
+
+    .reports-container {
+        gap: var(--spacing-lg);
+        padding: var(--spacing-md);
+    }
+
+    .dashboard-tabs {
+        gap: var(--spacing-sm);
+        padding-bottom: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 768px) {
+    .reports-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .reports-list {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-right: 0;
+        padding-bottom: var(--spacing-md);
+    }
+
+    .report-details {
+        padding-left: 0;
+    }
+
+    .dashboard-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tab-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        flex: 1 1 calc(50% - var(--spacing-sm));
+        justify-content: center;
+    }
+
+    .action-buttons-moderator {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .approve-button,
+    .reject-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 568px) {
+    .moderator-dashboard {
+        padding: var(--spacing-sm);
+    }
+
+    .reports-container {
+        padding: var(--spacing-sm);
+    }
+
+    .report-card {
+        padding: var(--spacing-sm);
+    }
+
+    .report-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .report-meta {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-xsm);
+    }
+
+    .report-info {
+        padding: var(--spacing-sm);
+    }
+
+    .dashboard-content {
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .tab-button {
+        font-size: calc(var(--p-font-size) * 0.9);
+        padding: var(--spacing-xsm) var(--spacing-sm);
+    }
+
+    .report-info {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+
+    .info-group label {
+        font-size: calc(var(--p-font-size) * 0.9);
+    }
+}

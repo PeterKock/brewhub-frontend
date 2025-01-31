@@ -43,3 +43,26 @@
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-md);
 }
+
+/* ------------------------------- Media Queries --------------------------------- */
+
+@media (max-width: 768px) {
+    .answer-section {
+        margin-top: var(--spacing-md);
+    }
+
+    .answers-title {
+        font-size: calc(var(--h4-font-size) * 0.9);
+        text-align: center;
+    }
+
+    .answers-list {
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 568px) {
+    .answers-list {
+        gap: var(--spacing-sm);
+    }
+}
